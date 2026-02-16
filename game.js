@@ -941,6 +941,128 @@ function updateTimer() {
     }
 }
 
+// ===== ANSWER BUILDER =====
+let builtAnswer = '';
+
+function renderSymbolPad() {
+    const symbolPad = document.getElementById('symbol-pad');
+    symbolPad.innerHTML = '';
+    
+    const civ = gameState.currentCivilization;
+    let symbols = [];
+    
+    if (civ === 'roman') {
+        symbols = [
+            { symbol: 'I', label: '1' },
+            { symbol: 'V', label: '5' },
+            { symbol: 'X', label: '10' },
+            { symbol: 'L', label: '50' },
+            { symbol: 'C', label: '100' },
+            { symbol: 'D', label: '500' },
+            { symbol: 'M', label: '1000' }
+        ];
+    } else if (civ === 'egyptian') {
+        symbols = [
+            { symbol: '𓏺', label: '1' },
+            { symbol: '𓎆', label: '10' },
+            { symbol: '𓍢', label: '100' },
+            { symbol: '𓆼', label: '1000' },
+            { symbol: '𓂭', label: '10K' },
+            { symbol: '𓆏', label: '100K' }
+        ];
+    } else if (civ === 'greek') {
+        symbols = [
+            { symbol: 'α', label: '1' },
+            { symbol: 'β', label: '2' },
+            { symbol: 'γ', label: '3' },
+            { symbol: 'δ', label: '4' },
+            { symbol: 'ε', label: '5' },
+            { symbol: 'ϛ', label: '6' },
+            { symbol: 'ζ', label: '7' },
+            { symbol: 'η', label: '8' },
+            { symbol: 'θ', label: '9' },
+            { symbol: 'ι', label: '10' },
+            { symbol: 'κ', label: '20' },
+            { symbol: 'λ', label: '30' },
+            { symbol: 'μ', label: '40' },
+            { symbol: 'ν', label: '50' },
+            { symbol: 'ξ', label: '60' },
+            { symbol: 'ο', label: '70' },
+            { symbol: 'π', label: '80' },
+            { symbol: 'ϙ', label: '90' },
+            { symbol: 'ρ', label: '100' },
+            { symbol: 'σ', label: '200' },
+            { symbol: 'τ', label: '300' },
+            { symbol: 'υ', label: '400' },
+            { symbol: 'φ', label: '500' },
+            { symbol: 'χ', label: '600' },
+            { symbol: 'ψ', label: '700' },
+            { symbol: 'ω', label: '800' },
+            { symbol: 'ϡ', label: '900' }
+        ];
+    } else if (civ === 'babylonian') {
+        symbols = [
+            { symbol: '𒐕', label: '1' },
+            { symbol: '𒌋', label: '10' },
+            { symbol: '⊙', label: '0/space' }
+        ];
+    } else if (civ === 'chinese') {
+        symbols = [
+            { symbol: '〇', label: '0' },
+            { symbol: '一', label: '1' },
+            { symbol: '二', label: '2' },
+            { symbol: '三', label: '3' },
+            { symbol: '四', label: '4' },
+            { symbol: '五', label: '5' },
+            { symbol: '六', label: '6' },
+            { symbol: '七', label: '7' },
+            { symbol: '八', label: '8' },
+            { symbol: '九', label: '9' },
+            { symbol: '十', label: '10' },
+            { symbol: '百', label: '100' },
+            { symbol: '千', label: '1K' },
+            { symbol: '萬', label: '10K' }
+        ];
+    }
+    
+    symbols.forEach(s => {
+        const button = document.createElement('div');
+        button.className = 'symbol-button';
+        button.onclick = () => addSymbol(s.symbol);
+        button.innerHTML = `
+            ${s.symbol}
+            <span class="symbol-label">${s.label}</span>
+        `;
+        symbolPad.appendChild(button);
+    });
+}
+
+function addSymbol(symbol) {
+    builtAnswer += symbol;
+    updateBuiltAnswer();
+}
+
+function clearAnswer() {
+    builtAnswer = '';
+    updateBuiltAnswer();
+}
+
+function backspaceAnswer() {
+    builtAnswer = builtAnswer.slice(0, -1);
+    updateBuiltAnswer();
+}
+
+function updateBuiltAnswer() {
+    const display = document.getElementById('built-answer');
+    if (builtAnswer) {
+        display.textContent = builtAnswer;
+        display.classList.remove('empty');
+    } else {
+        display.textContent = '';
+        display.classList.add('empty');
+    }
+}
+
 // ===== LOAD CHALLENGE =====
 function loadNextChallenge() {
     gameState.currentChallenge++;
@@ -977,7 +1099,10 @@ function loadNextChallenge() {
     document.getElementById('feedback').classList.remove('show');
     document.getElementById('hint-display').classList.remove('show');
     document.getElementById('answer-input').value = '';
-    document.getElementById('answer-input').focus();
+    clearAnswer(); // Clear built answer
+    
+    // Render symbol pad for this civilization
+    renderSymbolPad();
     
     // Update oracle pieces display
     updateOraclePiecesDisplay();
@@ -1154,10 +1279,12 @@ function displayChineseChallenge() {
 
 // ===== SUBMIT ANSWER =====
 function submitAnswer() {
-    const input = document.getElementById('answer-input').value.trim().toUpperCase();
+    // Check both built answer and typed input
+    const typedInput = document.getElementById('answer-input').value.trim().toUpperCase();
+    const input = builtAnswer || typedInput;
     
     if (!input) {
-        showFeedback('Please enter an answer!', 'incorrect');
+        showFeedback('Please build an answer or type a number!', 'incorrect');
         return;
     }
     
@@ -1471,6 +1598,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+    
+    // Global keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+        // Only in gameplay screen
+        if (!document.getElementById('game-play').classList.contains('active')) return;
+        
+        if (e.key === 'Backspace' && e.target.tagName !== 'INPUT') {
+            e.preventDefault();
+            backspaceAnswer();
+        } else if (e.key === 'Escape') {
+            clearAnswer();
+        }
+    });
 });
 
 // ===== ACHIEVEMENTS =====

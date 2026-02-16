@@ -310,18 +310,142 @@ h1, h2, h3, h4 {
 
 /* Answer Section */
 .answer-section {
+    margin: 20px 0;
+}
+
+/* Answer Builder */
+.answer-builder {
+    background: white;
+    border: 3px solid var(--secondary-color);
+    border-radius: 10px;
+    padding: 20px;
+    min-height: 80px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.built-answer {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    min-height: 40px;
+    letter-spacing: 2px;
+    word-break: break-all;
+}
+
+.built-answer.empty::before {
+    content: 'Click symbols below to build your answer';
+    font-size: 1rem;
+    color: #999;
+    font-weight: normal;
+}
+
+/* Symbol Pad */
+.symbol-pad {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+    gap: 10px;
+    margin: 15px 0;
+    padding: 15px;
+    background: var(--bg-color);
+    border-radius: 10px;
+}
+
+.symbol-button {
+    background: white;
+    border: 2px solid var(--accent-color);
+    border-radius: 8px;
+    padding: 15px 10px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    user-select: none;
+}
+
+.symbol-button:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.symbol-button:active {
+    transform: translateY(0);
+}
+
+.symbol-button .symbol-label {
+    display: block;
+    font-size: 0.7rem;
+    color: #666;
+    margin-top: 5px;
+}
+
+/* Answer Controls */
+.answer-controls {
     display: flex;
     gap: 10px;
-    margin: 20px 0;
+    margin-bottom: 15px;
     flex-wrap: wrap;
 }
 
-#answer-input {
+.answer-controls .btn {
     flex: 1;
-    min-width: 200px;
-    padding: 15px;
-    font-size: 1.2rem;
-    border: 2px solid var(--accent-color);
+    min-width: 100px;
+}
+
+.btn-clear {
+    background: #999;
+    color: white;
+}
+
+.btn-clear:hover {
+    background: #777;
+}
+
+.btn-backspace {
+    background: #e67e22;
+    color: white;
+}
+
+.btn-backspace:hover {
+    background: #d35400;
+}
+
+/* OR Divider */
+.or-divider {
+    text-align: center;
+    margin: 20px 0 10px 0;
+    position: relative;
+}
+
+.or-divider::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 1px;
+    background: #ddd;
+    z-index: 0;
+}
+
+.or-divider span {
+    background: white;
+    padding: 0 15px;
+    position: relative;
+    z-index: 1;
+    color: #999;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+#answer-input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 2px solid #ddd;
     border-radius: 8px;
     font-family: inherit;
 }
@@ -330,10 +454,6 @@ h1, h2, h3, h4 {
     outline: none;
     border-color: var(--secondary-color);
     box-shadow: 0 0 0 3px rgba(218, 165, 32, 0.2);
-}
-
-.answer-section .btn {
-    margin: 0;
 }
 
 /* Feedback */
