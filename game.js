@@ -815,6 +815,9 @@ function renderCivilizationSelect() {
         const card = document.createElement('div');
         card.className = `civilization-card ${!civ.unlocked ? 'locked' : ''}`;
         
+        const isCompleted = localStorage.getItem(`mathematikos_${civ.id}_completed`) === 'true';
+        const stats = getCivilizationStats(civ.id);
+        
         if (civ.unlocked) {
             card.onclick = () => selectCivilization(civ.id);
         }
@@ -823,7 +826,9 @@ function renderCivilizationSelect() {
             <div class="icon">${civ.icon}</div>
             <div class="name">${civ.name}</div>
             <div class="difficulty">${civ.difficulty}</div>
+            ${isCompleted ? '<div class="completion-badge">✓ Completed</div>' : ''}
             ${!civ.unlocked ? '<p style="margin-top: 10px; font-size: 0.9rem;">🔒 Complete previous civilization first</p>' : ''}
+            ${stats && civ.unlocked ? `<p style="margin-top: 8px; font-size: 0.85rem; color: #666;">Best Score: ${stats.score}</p>` : ''}
         `;
         
         container.appendChild(card);
@@ -1239,6 +1244,17 @@ function handleCorrectAnswer() {
     
     showFeedback(`🎉 Correct! +${points} points`, 'correct');
     
+    // Play success sound
+    try {
+        playSound('correct');
+    } catch (e) {
+        // Sound failed, that's ok
+    }
+    
+    // Celebrate animation
+    const scoreElement = document.getElementById('score');
+    celebrateSuccess(scoreElement);
+    
     // Collect oracle piece
     gameState.oraclePieces.push({
         civilization: gameState.currentCivilization,
@@ -1247,6 +1263,13 @@ function handleCorrectAnswer() {
     
     // Update display
     document.getElementById('score').textContent = gameState.score;
+    
+    // Show milestone achievements
+    if (gameState.correctAnswers === 3) {
+        showAchievement('On a Roll!', 'Three correct answers in a row!');
+    } else if (gameState.correctAnswers === 5) {
+        showAchievement('Master Calculator!', 'All challenges completed!');
+    }
     
     // Move to next challenge after delay
     setTimeout(() => {
@@ -1257,9 +1280,21 @@ function handleCorrectAnswer() {
 function handleIncorrectAnswer() {
     showFeedback('❌ Incorrect. Try again!', 'incorrect');
     
+    // Play error sound
+    try {
+        playSound('incorrect');
+    } catch (e) {
+        // Sound failed, that's ok
+    }
+    
+    // Shake animation
+    const problemDisplay = document.querySelector('.problem-display');
+    shakeElement(problemDisplay);
+    
     // Penalty in temporal mode
     if (gameState.mode === 'temporal') {
         gameState.timeLimit -= 10; // Lose 10 seconds
+        showAchievement('Time Penalty!', '-10 seconds');
     }
 }
 
@@ -1317,11 +1352,35 @@ function endChallenge(completed) {
     if (completed) {
         resultsTitle.textContent = '🎊 Challenge Complete!';
         
+        // Play completion sound
+        try {
+            playSound('complete');
+        } catch (e) {
+            // Sound failed, that's ok
+        }
+        
+        // Save stats
+        const stats = {
+            score: gameState.score,
+            time: elapsed,
+            correctAnswers: gameState.correctAnswers,
+            hintsUsed: gameState.hintsUsed,
+            mode: gameState.mode,
+            completedAt: new Date().toISOString()
+        };
+        saveCivilizationStats(gameState.currentCivilization, stats);
+        markCivilizationComplete(gameState.currentCivilization);
+        
         // Unlock next civilization
         const civs = Object.keys(civilizations);
         const currentIndex = civs.indexOf(gameState.currentCivilization);
         if (currentIndex < civs.length - 1) {
             civilizations[civs[currentIndex + 1]].unlocked = true;
+            showAchievement('New Civilization Unlocked!', 
+                `You can now explore ${civilizations[civs[currentIndex + 1]].name}!`);
+        } else {
+            showAchievement('🏆 Master of Numbers!', 
+                'You have completed all civilizations! You are a true Guardian of Numbers!');
         }
         
         resultsContent.innerHTML = `
@@ -1411,6 +1470,112 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// ===== ACHIEVEMENTS =====
+function showAchievement(title, message) {
+    const popup = document.createElement('div');
+    popup.className = 'achievement-popup';
+    popup.innerHTML = `
+        <h4 style="margin: 0 0 10px 0;">🏆 ${title}</h4>
+        <p style="margin: 0; font-size: 0.9rem;">${message}</p>
+    `;
+    
+    document.body.appendChild(popup);
+    
+    setTimeout(() => {
+        popup.style.animation = 'slideOutRight 0.5s ease';
+        setTimeout(() => popup.remove(), 500);
+    }, 3000);
+}
+
+// ===== VISUAL FEEDBACK HELPERS =====
+function celebrateSuccess(element) {
+    element.classList.add('celebrating');
+    setTimeout(() => element.classList.remove('celebrating'), 500);
+}
+
+function shakeElement(element) {
+    element.classList.add('shake');
+    setTimeout(() => element.classList.remove('shake'), 300);
+}
+
+// ===== PROGRESS TRACKING =====
+function updateProgress() {
+    const civilizations = Object.keys(civilizations);
+    const completed = civilizations.filter(civ => 
+        localStorage.getItem(`mathematikos_${civ}_completed`) === 'true'
+    ).length;
+    
+    return {
+        completed,
+        total: civilizations.length,
+        percentage: (completed / civilizations.length) * 100
+    };
+}
+
+function markCivilizationComplete(civId) {
+    localStorage.setItem(`mathematikos_${civId}_completed`, 'true');
+}
+
+function getCivilizationStats(civId) {
+    const stats = localStorage.getItem(`mathematikos_${civId}_stats`);
+    return stats ? JSON.parse(stats) : null;
+}
+
+function saveCivilizationStats(civId, stats) {
+    localStorage.setItem(`mathematikos_${civId}_stats`, JSON.stringify(stats));
+}
+
+// ===== SOUND EFFECTS (Optional) =====
+function playSound(type) {
+    // Web Audio API simple sounds
+    if (!window.AudioContext && !window.webkitAudioContext) return;
+    
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    switch(type) {
+        case 'correct':
+            oscillator.frequency.value = 523.25; // C5
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.3);
+            break;
+        case 'incorrect':
+            oscillator.frequency.value = 200;
+            oscillator.type = 'sawtooth';
+            gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.2);
+            break;
+        case 'complete':
+            // Play a little melody
+            [523.25, 587.33, 659.25].forEach((freq, i) => {
+                const osc = audioContext.createOscillator();
+                const gain = audioContext.createGain();
+                osc.connect(gain);
+                gain.connect(audioContext.destination);
+                osc.frequency.value = freq;
+                gain.gain.setValueAtTime(0.2, audioContext.currentTime + i * 0.15);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + i * 0.15 + 0.3);
+                osc.start(audioContext.currentTime + i * 0.15);
+                osc.stop(audioContext.currentTime + i * 0.15 + 0.3);
+            });
+            break;
+    }
+}
+
 // Initialize game
 console.log('🎮 Mathematikos Game Loaded!');
 console.log('Travel through time and explore ancient number systems!');
+
+// Check for saved progress
+const progress = updateProgress();
+if (progress.completed > 0) {
+    console.log(`📊 Progress: ${progress.completed}/${progress.total} civilizations completed!`);
+}
