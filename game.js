@@ -81,6 +81,13 @@ const stories = {
             setting: 'You arrive at the bustling Roman Forum, surrounded by marble columns, statues of emperors, and market stalls filled with goods. A merchant calls out to you for help.',
             objective: 'Assist Marcus, a cloth merchant, in calculating prices and performing transactions using Roman numerals.',
             character: '<strong>Marcus the Merchant:</strong> "Welcome, traveler! The Forum is busy today, and I need help with my calculations. Can you assist me with these transactions?"'
+        },
+        
+        egyptian: {
+            title: '🔺 Ancient Egypt - Deciphering the Pyramids',
+            setting: 'You materialize inside the Great Pyramid of Giza. Torches flicker on ancient walls covered in mysterious hieroglyphs. The air is thick with the scent of incense. A royal scribe greets you with urgency.',
+            objective: 'Help the royal scribe prepare for the pharaoh\'s grand banquet by calculating quantities using Egyptian hieroglyphic numerals.',
+            character: '<strong>Imhotep the Scribe:</strong> "Great mathematician! The pharaoh\'s banquet approaches, and I must ensure our calculations are perfect. The hieroglyphs hold the answers - can you decipher them?"'
         }
     },
     
@@ -95,6 +102,13 @@ const stories = {
             setting: 'The Roman Forum is engulfed in flames! Citizens are fleeing in panic. You must help organize the evacuation by quickly calculating necessary supplies.',
             objective: 'Solve addition and subtraction problems to save valuable records and supplies before they are lost to the fire.',
             character: '<strong>Time Remaining:</strong> You have 3 minutes to complete all challenges!'
+        },
+        
+        egyptian: {
+            title: '📚 Ancient Egypt - Destruction of the Library',
+            setting: 'The great Library of Alexandria is crumbling! Ancient papyrus scrolls containing mathematical knowledge are about to be lost forever. You must work quickly to save them.',
+            objective: 'Decipher hieroglyphic calculations and save the precious mathematical records before they turn to dust!',
+            character: '<strong>Time Remaining:</strong> You have 2.5 minutes to save the ancient knowledge!'
         }
     }
 };
@@ -152,6 +166,46 @@ function romanToNumber(roman) {
     }
     
     return result;
+}
+
+// ===== EGYPTIAN NUMERAL SYSTEM =====
+const egyptianSymbols = {
+    1: '𓏺',        // Staff/Stroke
+    10: '𓎆',       // Heel Bone/Hobble
+    100: '𓍢',      // Coil of rope
+    1000: '𓆼',     // Lotus flower
+    10000: '𓂭',    // Finger
+    100000: '𓆏',   // Tadpole
+    1000000: '𓁏'   // Astonished man
+};
+
+function numberToEgyptian(num) {
+    if (num <= 0 || num > 999999) return "Invalid";
+    
+    const powers = [1000000, 100000, 10000, 1000, 100, 10, 1];
+    let result = '';
+    let remaining = num;
+    
+    for (const power of powers) {
+        const count = Math.floor(remaining / power);
+        if (count > 0) {
+            result += egyptianSymbols[power].repeat(count);
+            remaining %= power;
+        }
+    }
+    
+    return result || '𓏺'; // Return at least one stroke for zero
+}
+
+function egyptianToNumber(egyptian) {
+    let total = 0;
+    
+    for (const [value, symbol] of Object.entries(egyptianSymbols)) {
+        const count = (egyptian.match(new RegExp(symbol, 'g')) || []).length;
+        total += parseInt(value) * count;
+    }
+    
+    return total;
 }
 
 // ===== PROBLEM GENERATION =====
@@ -219,6 +273,70 @@ function generateRomanProblem(difficulty) {
         romanAnswer,
         context: contexts[contextIndex] || contexts[0],
         hint: `Break down the numerals: ${roman1} = ${num1}, ${roman2} = ${num2}. Then calculate: ${num1} ${operation} ${num2} = ${answer}`
+    };
+}
+
+function generateEgyptianProblem(difficulty) {
+    let num1, num2, operation, answer;
+    
+    switch(difficulty) {
+        case 1:
+            num1 = Math.floor(Math.random() * 15) + 5;
+            num2 = Math.floor(Math.random() * 15) + 5;
+            break;
+        case 2:
+            num1 = Math.floor(Math.random() * 40) + 10;
+            num2 = Math.floor(Math.random() * 30) + 10;
+            break;
+        case 3:
+            num1 = Math.floor(Math.random() * 100) + 30;
+            num2 = Math.floor(Math.random() * 60) + 20;
+            break;
+        case 4:
+            num1 = Math.floor(Math.random() * 300) + 100;
+            num2 = Math.floor(Math.random() * 150) + 50;
+            break;
+        case 5:
+            num1 = Math.floor(Math.random() * 1000) + 200;
+            num2 = Math.floor(Math.random() * 500) + 100;
+            break;
+        default:
+            num1 = Math.floor(Math.random() * 50) + 10;
+            num2 = Math.floor(Math.random() * 30) + 10;
+    }
+    
+    operation = Math.random() > 0.5 ? '+' : '-';
+    
+    if (operation === '-' && num1 < num2) {
+        [num1, num2] = [num2, num1];
+    }
+    
+    answer = operation === '+' ? num1 + num2 : num1 - num2;
+    
+    const egyptian1 = numberToEgyptian(num1);
+    const egyptian2 = numberToEgyptian(num2);
+    const egyptianAnswer = numberToEgyptian(answer);
+    
+    const contexts = [
+        `The royal scribe needs to count offerings: ${num1} loaves of bread and ${num2} jars of honey for the temple.`,
+        `Calculate the number of stone blocks: ${num1} blocks ${operation === '+' ? 'plus' : 'minus'} ${num2} blocks for the pyramid construction.`,
+        `The pharaoh's treasury has ${num1} gold pieces. ${operation === '+' ? 'Add' : 'Remove'} ${num2} pieces. What remains?`,
+        `Count the papyrus scrolls in the library: ${num1} scrolls on one shelf, ${operation === '+' ? 'add' : 'subtract'} ${num2} from another.`,
+        `Calculate provisions for the banquet: ${num1} portions ${operation === '+' ? 'combined with' : 'reduced by'} ${num2} portions.`
+    ];
+    
+    const contextIndex = Math.floor(Math.random() * contexts.length);
+    
+    return {
+        num1,
+        num2,
+        operation,
+        answer,
+        egyptian1,
+        egyptian2,
+        egyptianAnswer,
+        context: contexts[contextIndex],
+        hint: `Count the symbols: ${egyptian1} = ${num1}, ${egyptian2} = ${num2}. Calculate: ${num1} ${operation} ${num2} = ${answer}. Each symbol represents a power of 10!`
     };
 }
 
@@ -312,7 +430,15 @@ function startChallenge() {
     
     // Set time limit for temporal mode
     if (gameState.mode === 'temporal') {
-        gameState.timeLimit = 180; // 3 minutes in seconds
+        // Different time limits per civilization
+        const timeLimits = {
+            roman: 180,      // 3 minutes
+            egyptian: 150,   // 2.5 minutes
+            greek: 150,      // 2.5 minutes
+            babylonian: 120, // 2 minutes
+            chinese: 120     // 2 minutes
+        };
+        gameState.timeLimit = timeLimits[gameState.currentCivilization] || 180;
     }
     
     // Start timer
@@ -380,6 +506,9 @@ function loadNextChallenge() {
     if (gameState.currentCivilization === 'roman') {
         gameState.currentProblem = generateRomanProblem(gameState.currentChallenge);
         displayRomanChallenge();
+    } else if (gameState.currentCivilization === 'egyptian') {
+        gameState.currentProblem = generateEgyptianProblem(gameState.currentChallenge);
+        displayEgyptianChallenge();
     }
     // Add other civilizations here later
     
@@ -417,6 +546,41 @@ function displayRomanChallenge() {
     `;
 }
 
+function displayEgyptianChallenge() {
+    const problem = gameState.currentProblem;
+    const civ = civilizations[gameState.currentCivilization];
+    
+    // Scene description
+    document.getElementById('scene-description').innerHTML = `
+        <strong>Challenge ${gameState.currentChallenge} of ${gameState.totalChallenges}</strong>
+        <p>${problem.context}</p>
+    `;
+    
+    // Number system info
+    document.getElementById('number-system-info').innerHTML = `
+        <h4>Egyptian Hieroglyphic Numerals</h4>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-top: 10px;">
+            <div><strong>𓏺</strong> = 1</div>
+            <div><strong>𓎆</strong> = 10</div>
+            <div><strong>𓍢</strong> = 100</div>
+            <div><strong>𓆼</strong> = 1,000</div>
+            <div><strong>𓂭</strong> = 10,000</div>
+            <div><strong>𓆏</strong> = 100,000</div>
+        </div>
+        <p style="font-size: 0.9rem; margin-top: 8px;">💡 Tip: Count each symbol and multiply by its value, then add them all together!</p>
+    `;
+    
+    // Display problem with larger font for hieroglyphs
+    document.getElementById('problem').innerHTML = `
+        <div style="font-size: 2.5rem; line-height: 1.4;">
+            ${problem.egyptian1}<br>
+            ${problem.operation}<br>
+            ${problem.egyptian2}<br>
+            = <span style="color: #CD853F;">?</span>
+        </div>
+    `;
+}
+
 // ===== SUBMIT ANSWER =====
 function submitAnswer() {
     const input = document.getElementById('answer-input').value.trim().toUpperCase();
@@ -427,18 +591,29 @@ function submitAnswer() {
     }
     
     const problem = gameState.currentProblem;
-    const correctRoman = problem.romanAnswer;
     const correctNumber = problem.answer;
     
-    // Accept both Roman numeral and Arabic number
+    // Accept civilization-specific numeral or Arabic number
     let isCorrect = false;
     
-    if (input === correctRoman) {
-        isCorrect = true;
-    } else if (!isNaN(input) && parseInt(input) === correctNumber) {
-        isCorrect = true;
-    } else if (romanToNumber(input) === correctNumber) {
-        isCorrect = true;
+    if (gameState.currentCivilization === 'roman') {
+        const correctRoman = problem.romanAnswer;
+        if (input === correctRoman) {
+            isCorrect = true;
+        } else if (!isNaN(input) && parseInt(input) === correctNumber) {
+            isCorrect = true;
+        } else if (romanToNumber(input) === correctNumber) {
+            isCorrect = true;
+        }
+    } else if (gameState.currentCivilization === 'egyptian') {
+        const correctEgyptian = problem.egyptianAnswer;
+        if (input === correctEgyptian) {
+            isCorrect = true;
+        } else if (!isNaN(input) && parseInt(input) === correctNumber) {
+            isCorrect = true;
+        } else if (egyptianToNumber(input) === correctNumber) {
+            isCorrect = true;
+        }
     }
     
     if (isCorrect) {
