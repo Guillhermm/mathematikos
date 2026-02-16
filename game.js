@@ -1375,9 +1375,12 @@ function endChallenge(completed) {
         const civs = Object.keys(civilizations);
         const currentIndex = civs.indexOf(gameState.currentCivilization);
         if (currentIndex < civs.length - 1) {
-            civilizations[civs[currentIndex + 1]].unlocked = true;
+            const nextCivId = civs[currentIndex + 1];
+            civilizations[nextCivId].unlocked = true;
+            // Persist the unlock to localStorage
+            localStorage.setItem(`mathematikos_${nextCivId}_unlocked`, 'true');
             showAchievement('New Civilization Unlocked!', 
-                `You can now explore ${civilizations[civs[currentIndex + 1]].name}!`);
+                `You can now explore ${civilizations[nextCivId].name}!`);
         } else {
             showAchievement('🏆 Master of Numbers!', 
                 'You have completed all civilizations! You are a true Guardian of Numbers!');
@@ -1573,6 +1576,13 @@ function playSound(type) {
 // Initialize game
 console.log('🎮 Mathematikos Game Loaded!');
 console.log('Travel through time and explore ancient number systems!');
+
+// Load unlocked civilizations from localStorage
+Object.keys(civilizations).forEach(civId => {
+    if (localStorage.getItem(`mathematikos_${civId}_unlocked`) === 'true') {
+        civilizations[civId].unlocked = true;
+    }
+});
 
 // Check for saved progress
 const progress = updateProgress();
