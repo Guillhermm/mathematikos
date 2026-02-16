@@ -88,6 +88,13 @@ const stories = {
             setting: 'You materialize inside the Great Pyramid of Giza. Torches flicker on ancient walls covered in mysterious hieroglyphs. The air is thick with the scent of incense. A royal scribe greets you with urgency.',
             objective: 'Help the royal scribe prepare for the pharaoh\'s grand banquet by calculating quantities using Egyptian hieroglyphic numerals.',
             character: '<strong>Imhotep the Scribe:</strong> "Great mathematician! The pharaoh\'s banquet approaches, and I must ensure our calculations are perfect. The hieroglyphs hold the answers - can you decipher them?"'
+        },
+        
+        greek: {
+            title: '⚱️ Ancient Greece - Building with Proportions',
+            setting: 'You arrive at the construction site of the magnificent Parthenon in Athens. Philosophers and architects surround you, discussing the divine proportions and mathematical harmonies that will make this temple eternal.',
+            objective: 'Help the master architect calculate proportions and measurements using Greek alphabetic numerals to ensure perfect geometric harmony.',
+            character: '<strong>Archimedes:</strong> "Ah, a fellow lover of mathematics! The golden ratio must guide our construction. These calculations require precision - will you help me solve them using our sacred numerals?"'
         }
     },
     
@@ -109,6 +116,13 @@ const stories = {
             setting: 'The great Library of Alexandria is crumbling! Ancient papyrus scrolls containing mathematical knowledge are about to be lost forever. You must work quickly to save them.',
             objective: 'Decipher hieroglyphic calculations and save the precious mathematical records before they turn to dust!',
             character: '<strong>Time Remaining:</strong> You have 2.5 minutes to save the ancient knowledge!'
+        },
+        
+        greek: {
+            title: '🔥 Ancient Greece - Threat to Knowledge',
+            setting: 'Plato\'s Academy is under attack! A fire threatens to destroy centuries of mathematical philosophy and knowledge. Scrolls containing the wisdom of Pythagoras, Euclid, and Archimedes are turning to ash!',
+            objective: 'Solve mathematical problems to save the most precious texts before they are lost to history forever!',
+            character: '<strong>Time Remaining:</strong> You have 2.5 minutes before the knowledge is lost!'
         }
     }
 };
@@ -203,6 +217,51 @@ function egyptianToNumber(egyptian) {
     for (const [value, symbol] of Object.entries(egyptianSymbols)) {
         const count = (egyptian.match(new RegExp(symbol, 'g')) || []).length;
         total += parseInt(value) * count;
+    }
+    
+    return total;
+}
+
+// ===== GREEK NUMERAL SYSTEM =====
+const greekNumerals = {
+    // Units (1-9)
+    1: 'α', 2: 'β', 3: 'γ', 4: 'δ', 5: 'ε',
+    6: 'ϛ', 7: 'ζ', 8: 'η', 9: 'θ',
+    // Tens (10-90)
+    10: 'ι', 20: 'κ', 30: 'λ', 40: 'μ', 50: 'ν',
+    60: 'ξ', 70: 'ο', 80: 'π', 90: 'ϙ',
+    // Hundreds (100-900)
+    100: 'ρ', 200: 'σ', 300: 'τ', 400: 'υ', 500: 'φ',
+    600: 'χ', 700: 'ψ', 800: 'ω', 900: 'ϡ'
+};
+
+const greekValues = {};
+Object.entries(greekNumerals).forEach(([num, letter]) => {
+    greekValues[letter] = parseInt(num);
+});
+
+function numberToGreek(num) {
+    if (num <= 0 || num > 999) return "Invalid";
+    
+    let result = '';
+    const hundreds = Math.floor(num / 100) * 100;
+    const tens = Math.floor((num % 100) / 10) * 10;
+    const units = num % 10;
+    
+    if (hundreds > 0) result += greekNumerals[hundreds];
+    if (tens > 0) result += greekNumerals[tens];
+    if (units > 0) result += greekNumerals[units];
+    
+    return result || 'α'; // Return at least alpha for very small numbers
+}
+
+function greekToNumber(greek) {
+    let total = 0;
+    
+    for (const char of greek) {
+        if (greekValues[char]) {
+            total += greekValues[char];
+        }
     }
     
     return total;
@@ -337,6 +396,70 @@ function generateEgyptianProblem(difficulty) {
         egyptianAnswer,
         context: contexts[contextIndex],
         hint: `Count the symbols: ${egyptian1} = ${num1}, ${egyptian2} = ${num2}. Calculate: ${num1} ${operation} ${num2} = ${answer}. Each symbol represents a power of 10!`
+    };
+}
+
+function generateGreekProblem(difficulty) {
+    let num1, num2, operation, answer;
+    
+    switch(difficulty) {
+        case 1:
+            num1 = Math.floor(Math.random() * 20) + 5;
+            num2 = Math.floor(Math.random() * 20) + 5;
+            break;
+        case 2:
+            num1 = Math.floor(Math.random() * 50) + 20;
+            num2 = Math.floor(Math.random() * 40) + 10;
+            break;
+        case 3:
+            num1 = Math.floor(Math.random() * 100) + 50;
+            num2 = Math.floor(Math.random() * 80) + 20;
+            break;
+        case 4:
+            num1 = Math.floor(Math.random() * 300) + 100;
+            num2 = Math.floor(Math.random() * 200) + 50;
+            break;
+        case 5:
+            num1 = Math.floor(Math.random() * 600) + 200;
+            num2 = Math.floor(Math.random() * 400) + 100;
+            break;
+        default:
+            num1 = Math.floor(Math.random() * 50) + 10;
+            num2 = Math.floor(Math.random() * 30) + 10;
+    }
+    
+    operation = Math.random() > 0.5 ? '+' : '-';
+    
+    if (operation === '-' && num1 < num2) {
+        [num1, num2] = [num2, num1];
+    }
+    
+    answer = operation === '+' ? num1 + num2 : num1 - num2;
+    
+    const greek1 = numberToGreek(num1);
+    const greek2 = numberToGreek(num2);
+    const greekAnswer = numberToGreek(answer);
+    
+    const contexts = [
+        `The architect needs to calculate the golden ratio for ${num1} columns ${operation === '+' ? 'plus' : 'minus'} ${num2} columns for the Parthenon.`,
+        `Pythagoras asks you to solve: if one side measures ${num1} units, ${operation === '+' ? 'and we add' : 'and we subtract'} ${num2} units, what is the result?`,
+        `Calculate the proportion: ${num1} marble blocks ${operation === '+' ? 'combined with' : 'reduced by'} ${num2} blocks for the temple construction.`,
+        `The philosopher's scroll shows: ${num1} students ${operation === '+' ? 'join' : 'leave'} the academy, ${operation === '+' ? 'and' : 'leaving'} ${num2} ${operation === '+' ? 'more arrive' : 'remaining'}. Calculate the ${operation === '+' ? 'total' : 'difference'}.`,
+        `Mathematical harmony: balance the equation of ${num1} lyres ${operation === '+' ? 'and' : 'minus'} ${num2} flutes in the amphitheater.`
+    ];
+    
+    const contextIndex = Math.floor(Math.random() * contexts.length);
+    
+    return {
+        num1,
+        num2,
+        operation,
+        answer,
+        greek1,
+        greek2,
+        greekAnswer,
+        context: contexts[contextIndex],
+        hint: `Decode the letters: ${greek1} = ${num1}, ${greek2} = ${num2}. Then: ${num1} ${operation} ${num2} = ${answer}. Remember: each Greek letter represents a specific number!`
     };
 }
 
@@ -509,6 +632,9 @@ function loadNextChallenge() {
     } else if (gameState.currentCivilization === 'egyptian') {
         gameState.currentProblem = generateEgyptianProblem(gameState.currentChallenge);
         displayEgyptianChallenge();
+    } else if (gameState.currentCivilization === 'greek') {
+        gameState.currentProblem = generateGreekProblem(gameState.currentChallenge);
+        displayGreekChallenge();
     }
     // Add other civilizations here later
     
@@ -581,6 +707,41 @@ function displayEgyptianChallenge() {
     `;
 }
 
+function displayGreekChallenge() {
+    const problem = gameState.currentProblem;
+    const civ = civilizations[gameState.currentCivilization];
+    
+    // Scene description
+    document.getElementById('scene-description').innerHTML = `
+        <strong>Challenge ${gameState.currentChallenge} of ${gameState.totalChallenges}</strong>
+        <p>${problem.context}</p>
+    `;
+    
+    // Number system info
+    document.getElementById('number-system-info').innerHTML = `
+        <h4>Greek Alphabetic Numerals</h4>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; font-size: 0.9rem;">
+            <div><strong>α</strong>=1 <strong>β</strong>=2 <strong>γ</strong>=3</div>
+            <div><strong>δ</strong>=4 <strong>ε</strong>=5 <strong>ϛ</strong>=6</div>
+            <div><strong>ζ</strong>=7 <strong>η</strong>=8 <strong>θ</strong>=9</div>
+            <div><strong>ι</strong>=10 <strong>κ</strong>=20 <strong>λ</strong>=30</div>
+            <div><strong>μ</strong>=40 <strong>ν</strong>=50 <strong>ξ</strong>=60</div>
+            <div><strong>ο</strong>=70 <strong>π</strong>=80 <strong>ϙ</strong>=90</div>
+            <div><strong>ρ</strong>=100 <strong>σ</strong>=200 <strong>τ</strong>=300</div>
+            <div><strong>υ</strong>=400 <strong>φ</strong>=500 <strong>χ</strong>=600</div>
+            <div><strong>ψ</strong>=700 <strong>ω</strong>=800 <strong>ϡ</strong>=900</div>
+        </div>
+        <p style="font-size: 0.9rem; margin-top: 8px;">💡 Tip: Letters are combined to form numbers. ρκγ = 100 + 20 + 3 = 123</p>
+    `;
+    
+    // Display problem
+    document.getElementById('problem').innerHTML = `
+        <div style="font-size: 2.2rem;">
+            ${problem.greek1} ${problem.operation} ${problem.greek2} = <span style="color: #CD853F;">?</span>
+        </div>
+    `;
+}
+
 // ===== SUBMIT ANSWER =====
 function submitAnswer() {
     const input = document.getElementById('answer-input').value.trim().toUpperCase();
@@ -612,6 +773,15 @@ function submitAnswer() {
         } else if (!isNaN(input) && parseInt(input) === correctNumber) {
             isCorrect = true;
         } else if (egyptianToNumber(input) === correctNumber) {
+            isCorrect = true;
+        }
+    } else if (gameState.currentCivilization === 'greek') {
+        const correctGreek = problem.greekAnswer;
+        if (input === correctGreek) {
+            isCorrect = true;
+        } else if (!isNaN(input) && parseInt(input) === correctNumber) {
+            isCorrect = true;
+        } else if (greekToNumber(input) === correctNumber) {
             isCorrect = true;
         }
     }
