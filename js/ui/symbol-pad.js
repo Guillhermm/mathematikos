@@ -55,6 +55,12 @@ const CIVILIZATION_SYMBOLS = {
         { symbol: '⊙', label: '0' },
         { symbol: ' ', label: 'sep' }  // group separator for positional notation
     ],
+    mayan: [
+        { symbol: '●', label: '1' },
+        { symbol: '━', label: '5' },
+        { symbol: '○', label: '0' },
+        { symbol: '|', label: 'pos' }
+    ],
     chinese: [
         { symbol: '〇', label: '0' },
         { symbol: '一', label: '1' },
@@ -86,8 +92,9 @@ function renderSymbolPad() {
         button.setAttribute('aria-label', label);
         button.onclick = () => addSymbol(symbol);
 
-        // Space is used as a Babylonian positional group separator — show a visual dash.
-        const iconHtml = symbol === ' '
+        // Space (Babylonian) and '|' (Maya) are positional group separators — show a visual dash.
+        const isSeparator = symbol === ' ' || symbol === '|';
+        const iconHtml = isSeparator
             ? '<span class="sep-icon">╌</span>'
             : symbolButtonHtml(civ, symbol);
         button.innerHTML = `${iconHtml}<span class="symbol-label">${label}</span>`;
@@ -129,6 +136,7 @@ function updateBuiltAnswer() {
         case 'babylonian': html = babylonianToSVGHtml(builtAnswer); break;
         case 'greek':      html = greekToSVGHtml(builtAnswer);      break;
         case 'chinese':    html = chineseToHtml(builtAnswer);       break;
+        case 'mayan':      html = mayanToSVGHtml(builtAnswer);      break;
         default:           html = builtAnswer; // roman: plain ASCII renders everywhere
     }
 

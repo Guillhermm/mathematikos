@@ -54,6 +54,9 @@ global.assertTrue = function assertTrue(value, msg) {
     if (!value) throw new Error(msg || `Expected truthy, got ${JSON.stringify(value)}`);
 };
 
+// Alias: assert(value, msg) behaves like assertTrue
+global.assert = global.assertTrue;
+
 // ── Load source files (pure logic only, no DOM) ───────────────────────────────
 loadScript('js/state.js');                    // gameState, civilizations, rand()
 loadScript('js/civilizations/roman.js');
@@ -61,6 +64,7 @@ loadScript('js/civilizations/egyptian.js');
 loadScript('js/civilizations/greek.js');
 loadScript('js/civilizations/babylonian.js');
 loadScript('js/civilizations/chinese.js');
+loadScript('js/civilizations/mayan.js');
 
 // ── Test suites ───────────────────────────────────────────────────────────────
 require('./roman.test.js');
@@ -68,6 +72,7 @@ require('./egyptian.test.js');
 require('./greek.test.js');
 require('./babylonian.test.js');
 require('./chinese.test.js');
+require('./mayan.test.js');
 
 // ── Summary ───────────────────────────────────────────────────────────────────
 const total = _passed + _failed;

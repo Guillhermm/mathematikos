@@ -12,12 +12,17 @@ function startChallenge() {
             egyptian:   150, // 2.5 min
             greek:      150, // 2.5 min
             babylonian: 120, // 2 min
-            chinese:    120  // 2 min
+            chinese:    120, // 2 min
+            mayan:      120  // 2 min
         };
         gameState.timeLimit = timeLimits[gameState.currentCivilization] || 180;
+        startTimer();
+    } else if (gameState.mode === 'thematic') {
+        startTimer(); // tracks elapsed time, no hard limit
+    } else if (gameState.mode === 'practice') {
+        document.getElementById('timer').textContent = '∞';
     }
 
-    startTimer();
     loadNextChallenge();
     showScreen('game-play');
 }
@@ -56,6 +61,16 @@ function loadNextChallenge() {
             gameState.currentProblem = generateChineseProblem(diff);
             displayChineseChallenge();
             break;
+        case 'mayan':
+            gameState.currentProblem = generateMayanProblem(diff);
+            displayMayanChallenge();
+            break;
+    }
+
+    // Assign reverse challenge (30% chance) in non-temporal modes
+    if (gameState.mode !== 'temporal') {
+        gameState.currentProblem.isReverse = Math.random() < 0.3;
+        if (gameState.currentProblem.isReverse) applyReverseDisplay();
     }
 
     document.getElementById('feedback').classList.remove('show');
@@ -64,6 +79,19 @@ function loadNextChallenge() {
     clearAnswer();
     renderSymbolPad();
     updateOraclePiecesDisplay();
+}
+
+function applyReverseDisplay() {
+    const problem = gameState.currentProblem;
+    const civName = civilizations[gameState.currentCivilization].name;
+    document.getElementById('problem').innerHTML = `
+        <div class="problem-numerals reverse-problem">
+            <div class="reverse-prompt">Write in ${civName} numerals:</div>
+            <div class="reverse-number">${problem.answer}</div>
+        </div>
+    `;
+    const answerInput = document.getElementById('answer-input');
+    if (answerInput) answerInput.placeholder = 'Build the numeral using the symbol pad above';
 }
 
 function submitAnswer() {
@@ -82,33 +110,37 @@ function submitAnswer() {
     switch (gameState.currentCivilization) {
         case 'roman': {
             const upper = input.toUpperCase();
-            isCorrect = upper === problem.romanAnswer
-                || (Number.isInteger(+input) && +input === correctNumber)
-                || romanToNumber(upper) === correctNumber;
+            isCorrect = upper === problem.romanAnswer || romanToNumber(upper) === correctNumber;
+            if (!problem.isReverse) isCorrect = isCorrect || (Number.isInteger(+input) && +input === correctNumber);
             break;
         }
         case 'egyptian':
-            isCorrect = input === problem.egyptianAnswer
-                || (Number.isInteger(+input) && +input === correctNumber)
-                || egyptianToNumber(input) === correctNumber;
+            isCorrect = input === problem.egyptianAnswer || egyptianToNumber(input) === correctNumber;
+            if (!problem.isReverse) isCorrect = isCorrect || (Number.isInteger(+input) && +input === correctNumber);
             break;
         case 'greek':
-            isCorrect = input === problem.greekAnswer
-                || (Number.isInteger(+input) && +input === correctNumber)
-                || greekToNumber(input) === correctNumber;
+            isCorrect = input === problem.greekAnswer || greekToNumber(input) === correctNumber;
+            if (!problem.isReverse) isCorrect = isCorrect || (Number.isInteger(+input) && +input === correctNumber);
             break;
         case 'babylonian':
-            isCorrect = input === problem.babylonianAnswer
-                || (Number.isInteger(+input) && +input === correctNumber);
+            isCorrect = input === problem.babylonianAnswer;
+            if (!problem.isReverse) isCorrect = isCorrect || (Number.isInteger(+input) && +input === correctNumber);
             if (!isCorrect) {
                 try { isCorrect = babylonianToNumber(input) === correctNumber; } catch (e) { /* ignore */ }
             }
             break;
         case 'chinese':
-            isCorrect = input === problem.chineseAnswer
-                || (Number.isInteger(+input) && +input === correctNumber);
+            isCorrect = input === problem.chineseAnswer;
+            if (!problem.isReverse) isCorrect = isCorrect || (Number.isInteger(+input) && +input === correctNumber);
             if (!isCorrect) {
                 try { isCorrect = chineseToNumber(input) === correctNumber; } catch (e) { /* ignore */ }
+            }
+            break;
+        case 'mayan':
+            isCorrect = input === problem.mayanAnswer;
+            if (!problem.isReverse) isCorrect = isCorrect || (Number.isInteger(+input) && +input === correctNumber);
+            if (!isCorrect) {
+                try { isCorrect = mayanToNumber(input) === correctNumber; } catch (e) { /* ignore */ }
             }
             break;
     }
@@ -147,13 +179,20 @@ function handleCorrectAnswer() {
 }
 
 function handleIncorrectAnswer() {
-    showFeedback('❌ Incorrect. Try again!', 'incorrect');
     playSound('incorrect');
     shakeElement(document.querySelector('.problem-display'));
 
     if (gameState.mode === 'temporal') {
         gameState.timeLimit -= 10;
+        showFeedback('❌ Incorrect. Try again! (-10s)', 'incorrect');
         showAchievement('Time Penalty!', '-10 seconds');
+    } else if (gameState.mode === 'practice') {
+        const civ = gameState.currentCivilization;
+        const problem = gameState.currentProblem;
+        const civAnswer = problem[`${civ}Answer`] !== undefined ? problem[`${civ}Answer`] : problem.answer;
+        showFeedback(`❌ Not quite! Answer: ${problem.answer} = ${civAnswer}`, 'incorrect');
+    } else {
+        showFeedback('❌ Incorrect. Try again!', 'incorrect');
     }
 }
 
@@ -172,29 +211,31 @@ function endChallenge(completed) {
         resultsTitle.textContent = '🎊 Challenge Complete!';
         playSound('complete');
 
-        const stats = {
-            score:          gameState.score,
-            time:           elapsed,
-            correctAnswers: gameState.correctAnswers,
-            hintsUsed:      gameState.hintsUsed,
-            mode:           gameState.mode,
-            completedAt:    new Date().toISOString()
-        };
-        saveCivilizationStats(gameState.currentCivilization, stats);
-        markCivilizationComplete(gameState.currentCivilization);
+        if (gameState.mode !== 'practice') {
+            const stats = {
+                score:          gameState.score,
+                time:           elapsed,
+                correctAnswers: gameState.correctAnswers,
+                hintsUsed:      gameState.hintsUsed,
+                mode:           gameState.mode,
+                completedAt:    new Date().toISOString()
+            };
+            saveCivilizationStats(gameState.currentCivilization, stats);
+            markCivilizationComplete(gameState.currentCivilization);
 
-        // Unlock next civilization
-        const civIds      = Object.keys(civilizations);
-        const currentIdx  = civIds.indexOf(gameState.currentCivilization);
-        if (currentIdx < civIds.length - 1) {
-            const nextId = civIds[currentIdx + 1];
-            civilizations[nextId].unlocked = true;
-            setStorage(`mathematikos_${nextId}_unlocked`, 'true');
-            showAchievement('New Civilization Unlocked!',
-                `You can now explore ${civilizations[nextId].name}!`);
-        } else {
-            showAchievement('🏆 Master of Numbers!',
-                'You have completed all civilizations! You are a true Guardian of Numbers!');
+            // Unlock next civilization
+            const civIds      = Object.keys(civilizations);
+            const currentIdx  = civIds.indexOf(gameState.currentCivilization);
+            if (currentIdx < civIds.length - 1) {
+                const nextId = civIds[currentIdx + 1];
+                civilizations[nextId].unlocked = true;
+                setStorage(`mathematikos_${nextId}_unlocked`, 'true');
+                showAchievement('New Civilization Unlocked!',
+                    `You can now explore ${civilizations[nextId].name}!`);
+            } else {
+                showAchievement('🏆 Master of Numbers!',
+                    'You have completed all civilizations! You are a true Guardian of Numbers!');
+            }
         }
 
         resultsContent.innerHTML = `

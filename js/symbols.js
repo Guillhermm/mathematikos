@@ -104,6 +104,13 @@ const NUMERAL_SVGS = {
                 stroke="currentColor" stroke-width="9" stroke-linecap="round"/>
         </svg>`,
     },
+
+    // ── Maya Vigesimal Symbols ─────────────────────────────────────────────────
+    mayan: {
+        '●': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="16" fill="currentColor"/></svg>`,
+        '━': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 28" aria-hidden="true"><rect x="4" y="6" width="72" height="16" rx="4" fill="currentColor"/></svg>`,
+        '○': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 44" aria-hidden="true"><ellipse cx="40" cy="22" rx="34" ry="15" stroke="currentColor" stroke-width="5" fill="none"/><ellipse cx="40" cy="22" rx="18" ry="7" stroke="currentColor" stroke-width="3" fill="none"/></svg>`
+    },
 };
 
 // ── Helper: single character → SVG string or raw Unicode ─────────────────────
@@ -131,6 +138,8 @@ function getSymbolSvg(civ, char) {
         if (char === '𒐕') return NUMERAL_SVGS.babylonian[1];
     } else if (civ === 'greek') {
         if (NUMERAL_SVGS.greek[char]) return NUMERAL_SVGS.greek[char];
+    } else if (civ === 'mayan') {
+        if (NUMERAL_SVGS.mayan[char]) return NUMERAL_SVGS.mayan[char];
     }
     return null; // no SVG available — caller falls back to Unicode
 }

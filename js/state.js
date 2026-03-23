@@ -65,6 +65,16 @@ const civilizations = {
         description: 'Calculate with counting rods in the imperial market.',
         numberSystem: 'Chinese Counting Rods',
         base: 10
+    },
+    mayan: {
+        id: 'mayan',
+        name: 'Maya Civilization',
+        icon: '🌿',
+        difficulty: 'Expert',
+        unlocked: false,
+        description: 'Decipher the base-20 vigesimal system of the ancient Maya.',
+        numberSystem: 'Maya Vigesimal (Base-20)',
+        base: 20
     }
 };
 
@@ -109,6 +119,13 @@ const stories = {
             setting: 'You arrive in the bustling marketplace of Chang\'an during the Han Dynasty. Merchants crowd the streets, selling silk, spices, jade, and countless treasures. An abacus master beckons you to his stall.',
             objective: 'Perform calculations using Chinese counting rod numerals or the suanpan (abacus) to help merchants with their trades and ensure fair exchanges.',
             character: '<strong>Master Liu the Abacus Expert:</strong> "Welcome, honored calculator! Our markets are alive with commerce. Use the ancient art of rod numerals to solve these merchant\'s calculations. Every transaction must be precise!"'
+        },
+
+        mayan: {
+            title: '🌿 Maya Civilization - Secrets of the Pyramid',
+            setting: 'You arrive at the magnificent pyramid of Chichen Itza at dawn. A Maya astronomer is studying the stars, using their remarkable vigesimal number system to track celestial cycles with extraordinary precision.',
+            objective: 'Help the astronomer Itzamná calculate offerings and astronomical cycles using the Maya base-20 numeral system of dots, bars, and shells.',
+            character: '<strong>Astronomer Itzamná:</strong> "Welcome, seeker of knowledge! Our vigesimal system — base 20 — holds secrets of the cosmos. Dots represent one, bars represent five, and the shell represents zero. Can you master our numbers?"'
         }
     },
 
@@ -151,6 +168,13 @@ const stories = {
             setting: 'The Emperor\'s New Year celebration is in jeopardy! A catastrophic miscalculation in the imperial budget threatens to collapse the festivities. Ancient accounting records are being destroyed by rivals!',
             objective: 'Use Chinese numerals to solve financial calculations and save the most important celebration of the year!',
             character: '<strong>Time Remaining:</strong> You have 2 minutes to save the imperial celebration!'
+        },
+
+        mayan: {
+            title: '🌋 Maya - Eruption at Chichen Itza',
+            setting: 'A volcanic eruption threatens the great Maya city of Chichen Itza! Precious stone tablets bearing centuries of mathematical and astronomical knowledge are about to be destroyed by ash and lava flows!',
+            objective: 'Solve base-20 calculations to save the Maya mathematical records before the eruption destroys everything!',
+            character: '<strong>Time Remaining:</strong> You have 2 minutes to save the ancient Maya knowledge!'
         }
     }
 };

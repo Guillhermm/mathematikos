@@ -114,6 +114,17 @@ h1, h2, h3, h4 {
     box-shadow: var(--shadow-lg);
 }
 
+.btn-tertiary {
+    background: #2E8B57;
+    color: white;
+}
+
+.btn-tertiary:hover {
+    background: #236B43;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
 .btn-back {
     background: #999;
     color: white;
@@ -956,6 +967,60 @@ h1, h2, h3, h4 {
         'Book Antiqua', 'Times New Roman', Georgia, serif;
     font-style: italic;
     font-size: inherit;
+}
+
+/* Maya vigesimal numerals */
+.mayan-number {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.mayan-digit {
+    display: block;
+}
+
+.mayan-digit svg {
+    width: 3rem;
+    height: auto;
+    display: block;
+}
+
+.mayan-ref svg {
+    width: 2rem;
+    height: auto;
+}
+
+.mayan-pos-sep {
+    display: block;
+    width: 75%;
+    border-top: 2px dashed currentColor;
+    opacity: 0.35;
+    margin: 2px auto;
+}
+
+.mayan-problem {
+    align-items: flex-start;
+}
+
+/* Reverse challenge display */
+.reverse-problem {
+    align-items: center;
+    gap: 8px;
+}
+
+.reverse-prompt {
+    font-size: 1rem;
+    color: #666;
+    font-style: italic;
+}
+
+.reverse-number {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #CD853F;
+    line-height: 1.1;
 }
 
 /* ===== END NUMERAL SVG SYMBOLS ===== */
