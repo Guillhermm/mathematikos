@@ -84,7 +84,7 @@ function renderSymbolPad() {
         button.setAttribute('aria-label', `${label} — ${symbol}`);
         button.onclick = () => addSymbol(symbol);
         // Use SVG for display where available; Unicode char is still used for the answer builder.
-        const iconHtml = symbolButtonHtml(civ, symbol);
+        const iconHtml = symbolButtonHtml(gameState.currentCivilization, symbol);
         button.innerHTML = `${iconHtml}<span class="symbol-label">${label}</span>`;
         pad.appendChild(button);
     });

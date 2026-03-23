@@ -2,7 +2,7 @@
 
 function showScreen(screenId) {
     // Stop timer when leaving the game screen
-    if (!document.getElementById('game-play').classList.contains('active') === false) {
+    if (document.getElementById('game-play').classList.contains('active')) {
         if (screenId !== 'game-play' && gameState.timerInterval) {
             clearInterval(gameState.timerInterval);
             gameState.timerInterval = null;
