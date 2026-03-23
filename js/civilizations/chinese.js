@@ -155,23 +155,23 @@ function displayChineseChallenge() {
         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 10px;">
             <div style="background: #f9f9f9; padding: 10px; border-radius: 5px;">
                 <strong>Basic Digits:</strong><br>
-                〇=0, 一=1, 二=2, 三=3, 四=4<br>
-                五=5, 六=6, 七=7, 八=8, 九=9
+                <span class="chinese-numeral">〇=0, 一=1, 二=2, 三=3, 四=4</span><br>
+                <span class="chinese-numeral">五=5, 六=6, 七=7, 八=8, 九=9</span>
             </div>
             <div style="background: #f9f9f9; padding: 10px; border-radius: 5px;">
                 <strong>Place Values:</strong><br>
-                十 = 10 (ten)<br>
-                百 = 100 (hundred)<br>
-                千 = 1,000 (thousand)<br>
-                萬 = 10,000 (ten thousand)
+                <span class="chinese-numeral">十</span> = 10 (ten)<br>
+                <span class="chinese-numeral">百</span> = 100 (hundred)<br>
+                <span class="chinese-numeral">千</span> = 1,000 (thousand)<br>
+                <span class="chinese-numeral">萬</span> = 10,000 (ten thousand)
             </div>
         </div>
-        <p style="font-size: 0.9rem; margin-top: 8px;">💡 Tip: Read from left to right. 三百五十二 = 3×100 + 5×10 + 2 = 352</p>
+        <p style="font-size: 0.9rem; margin-top: 8px;">💡 Tip: Read from left to right. <span class="chinese-numeral">三百五十二</span> = 3×100 + 5×10 + 2 = 352</p>
     `;
 
     document.getElementById('problem').innerHTML = `
-        <div style="font-size: 2.2rem; line-height: 1.5;">
-            ${problem.chinese1} ${problem.operation} ${problem.chinese2} = <span style="color: #CD853F;">?</span>
+        <div class="problem-numerals chinese-problem" style="font-size: 2.2rem; line-height: 1.5;">
+            ${chineseToHtml(problem.chinese1)} ${problem.operation} ${chineseToHtml(problem.chinese2)} = <span style="color: #CD853F;">?</span>
         </div>
     `;
 }

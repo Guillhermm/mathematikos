@@ -83,7 +83,9 @@ function renderSymbolPad() {
         button.setAttribute('role', 'button');
         button.setAttribute('aria-label', `${label} — ${symbol}`);
         button.onclick = () => addSymbol(symbol);
-        button.innerHTML = `${symbol}<span class="symbol-label">${label}</span>`;
+        // Use SVG for display where available; Unicode char is still used for the answer builder.
+        const iconHtml = symbolButtonHtml(civ, symbol);
+        button.innerHTML = `${iconHtml}<span class="symbol-label">${label}</span>`;
         pad.appendChild(button);
     });
 }

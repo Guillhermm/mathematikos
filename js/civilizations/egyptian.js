@@ -84,23 +84,23 @@ function displayEgyptianChallenge() {
 
     document.getElementById('number-system-info').innerHTML = `
         <h4>Egyptian Hieroglyphic Numerals</h4>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-top: 10px;">
-            <div><strong>𓏺</strong> = 1</div>
-            <div><strong>𓎆</strong> = 10</div>
-            <div><strong>𓍢</strong> = 100</div>
-            <div><strong>𓆼</strong> = 1,000</div>
-            <div><strong>𓂭</strong> = 10,000</div>
-            <div><strong>𓆏</strong> = 100,000</div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-top: 10px; align-items: center;">
+            <div class="symbol-ref"><span class="numeral-svg ref-svg">${NUMERAL_SVGS.egyptian[1]}</span> = 1</div>
+            <div class="symbol-ref"><span class="numeral-svg ref-svg">${NUMERAL_SVGS.egyptian[10]}</span> = 10</div>
+            <div class="symbol-ref"><span class="numeral-svg ref-svg">${NUMERAL_SVGS.egyptian[100]}</span> = 100</div>
+            <div class="symbol-ref"><span class="numeral-svg ref-svg">${NUMERAL_SVGS.egyptian[1000]}</span> = 1,000</div>
+            <div class="symbol-ref"><span class="numeral-svg ref-svg">${NUMERAL_SVGS.egyptian[10000]}</span> = 10,000</div>
+            <div class="symbol-ref"><span class="numeral-svg ref-svg">${NUMERAL_SVGS.egyptian[100000]}</span> = 100,000</div>
         </div>
         <p style="font-size: 0.9rem; margin-top: 8px;">💡 Tip: Count each symbol and multiply by its value, then add them all together!</p>
     `;
 
     document.getElementById('problem').innerHTML = `
-        <div style="font-size: 2.5rem; line-height: 1.4;">
-            ${problem.egyptian1}<br>
-            ${problem.operation}<br>
-            ${problem.egyptian2}<br>
-            = <span style="color: #CD853F;">?</span>
+        <div class="problem-numerals" style="line-height: 2;">
+            <div>${egyptianToSVGHtml(problem.egyptian1)}</div>
+            <div>${problem.operation}</div>
+            <div>${egyptianToSVGHtml(problem.egyptian2)}</div>
+            <div>= <span style="color: #CD853F;">?</span></div>
         </div>
     `;
 }

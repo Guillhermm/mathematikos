@@ -97,20 +97,20 @@ function displayGreekChallenge() {
         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; font-size: 0.9rem;">
             <div><strong>α</strong>=1 <strong>β</strong>=2 <strong>γ</strong>=3</div>
             <div><strong>δ</strong>=4 <strong>ε</strong>=5 <strong>ϛ</strong>=6</div>
-            <div><strong>ζ</strong>=7 <strong>η</strong>=8 <strong>θ</strong>=9</div>
-            <div><strong>ι</strong>=10 <strong>κ</strong>=20 <strong>λ</strong>=30</div>
-            <div><strong>μ</strong>=40 <strong>ν</strong>=50 <strong>ξ</strong>=60</div>
-            <div><strong>ο</strong>=70 <strong>π</strong>=80 <strong>ϙ</strong>=90</div>
-            <div><strong>ρ</strong>=100 <strong>σ</strong>=200 <strong>τ</strong>=300</div>
-            <div><strong>υ</strong>=400 <strong>φ</strong>=500 <strong>χ</strong>=600</div>
-            <div><strong>ψ</strong>=700 <strong>ω</strong>=800 <strong>ϡ</strong>=900</div>
+            <div><span class="greek-char">ζ</span>=7 <span class="greek-char">η</span>=8 <span class="greek-char">θ</span>=9</div>
+            <div><span class="greek-char">ι</span>=10 <span class="greek-char">κ</span>=20 <span class="greek-char">λ</span>=30</div>
+            <div><span class="greek-char">μ</span>=40 <span class="greek-char">ν</span>=50 <span class="greek-char">ξ</span>=60</div>
+            <div><span class="greek-char">ο</span>=70 <span class="greek-char">π</span>=80 <span class="numeral-svg ref-svg-inline">${NUMERAL_SVGS.greek['ϙ']}</span>=90</div>
+            <div><span class="greek-char">ρ</span>=100 <span class="greek-char">σ</span>=200 <span class="greek-char">τ</span>=300</div>
+            <div><span class="greek-char">υ</span>=400 <span class="greek-char">φ</span>=500 <span class="greek-char">χ</span>=600</div>
+            <div><span class="greek-char">ψ</span>=700 <span class="greek-char">ω</span>=800 <span class="numeral-svg ref-svg-inline">${NUMERAL_SVGS.greek['ϡ']}</span>=900</div>
         </div>
         <p style="font-size: 0.9rem; margin-top: 8px;">💡 Tip: Letters are combined to form numbers. ρκγ = 100 + 20 + 3 = 123</p>
     `;
 
     document.getElementById('problem').innerHTML = `
-        <div style="font-size: 2.2rem;">
-            ${problem.greek1} ${problem.operation} ${problem.greek2} = <span style="color: #CD853F;">?</span>
+        <div class="problem-numerals greek-problem" style="font-size: 2.2rem; line-height: 1.5;">
+            ${greekToSVGHtml(problem.greek1)} ${problem.operation} ${greekToSVGHtml(problem.greek2)} = <span style="color: #CD853F;">?</span>
         </div>
     `;
 }

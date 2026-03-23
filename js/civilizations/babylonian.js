@@ -98,23 +98,23 @@ function displayBabylonianChallenge() {
         <h4>Babylonian Sexagesimal (Base-60) System</h4>
         <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin-top: 10px;">
             <p><strong>Symbols:</strong></p>
-            <div style="font-size: 1.5rem; margin: 10px 0;">
-                <strong>𒐕</strong> = 1 (vertical wedge)<br>
-                <strong>𒌋</strong> = 10 (horizontal wedge)<br>
-                <strong>⊙</strong> = 0 or empty position
+            <div style="margin: 12px 0; display: flex; flex-direction: column; gap: 8px;">
+                <div class="symbol-ref"><span class="numeral-svg ref-svg">${NUMERAL_SVGS.babylonian[1]}</span> = 1 (vertical wedge)</div>
+                <div class="symbol-ref"><span class="numeral-svg ref-svg">${NUMERAL_SVGS.babylonian[10]}</span> = 10 (horizontal wedge)</div>
+                <div class="symbol-ref"><span class="numeral-svg ref-svg">${NUMERAL_SVGS.babylonian[0]}</span> = 0 or empty position</div>
             </div>
             <p style="margin-top: 10px;"><strong>How it works:</strong> Numbers are written in positions. Each position to the left is worth 60× more (like our base-10, but base-60!).</p>
-            <p style="font-size: 0.9rem; margin-top: 8px;">Example: <strong>𒐕 𒌋𒌋</strong> = (1 × 60) + 20 = 80</p>
+            <p style="font-size: 0.9rem; margin-top: 8px;">Example: <span class="numeral-svg ref-svg-inline">${NUMERAL_SVGS.babylonian[1]}</span> <span class="numeral-svg ref-svg-inline">${NUMERAL_SVGS.babylonian[10]}</span><span class="numeral-svg ref-svg-inline">${NUMERAL_SVGS.babylonian[10]}</span> = (1 × 60) + 20 = 80</p>
         </div>
         <p style="font-size: 0.9rem; margin-top: 8px;">💡 Tip: Count the wedges in each position, then multiply by powers of 60!</p>
     `;
 
     document.getElementById('problem').innerHTML = `
-        <div style="font-size: 2rem; line-height: 1.6;">
-            ${problem.babylonian1}<br>
-            ${problem.operation}<br>
-            ${problem.babylonian2}<br>
-            = <span style="color: #CD853F;">?</span>
+        <div class="problem-numerals" style="line-height: 2.2;">
+            <div>${babylonianToSVGHtml(problem.babylonian1)}</div>
+            <div>${problem.operation}</div>
+            <div>${babylonianToSVGHtml(problem.babylonian2)}</div>
+            <div>= <span style="color: #CD853F;">?</span></div>
         </div>
     `;
 }

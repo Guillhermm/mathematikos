@@ -849,6 +849,109 @@ h1, h2, h3, h4 {
     }
 }
 
+/* ===== NUMERAL SVG SYMBOLS ===== */
+
+/* Inline SVG wrapper — sizes the SVG relative to surrounding text */
+.numeral-svg {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    line-height: 1;
+}
+.numeral-svg svg {
+    width: 2.2rem;
+    height: 2.2rem;
+    flex-shrink: 0;
+}
+
+/* Compact inline variant for reference tables and examples */
+.ref-svg-inline {
+    display: inline-flex;
+    vertical-align: middle;
+}
+.ref-svg-inline svg {
+    width: 1.4rem;
+    height: 1.4rem;
+}
+
+/* Reference grid icons (slightly larger than inline) */
+.ref-svg svg {
+    width: 1.8rem;
+    height: 1.8rem;
+}
+
+/* Symbol reference grid item */
+.symbol-ref {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Symbol pad button icons */
+.symbol-button .numeral-svg svg {
+    width: 2.4rem;
+    height: 2.4rem;
+}
+
+/* Babylonian positional groups (wedge clusters separated by space) */
+.babylonian-group {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 2px;
+    margin: 0 6px;
+}
+.babylonian-sep {
+    display: inline-block;
+    width: 12px;
+}
+
+/* Problem display numeral containers */
+.problem-numerals {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    font-size: 1rem;
+}
+.problem-numerals > div {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    flex-wrap: wrap;
+}
+
+/* Greek problem: inline layout (short numeral strings) */
+.greek-problem,
+.chinese-problem {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Chinese numerals — prioritise CJK fonts */
+.chinese-numeral {
+    font-family:
+        'Noto Sans CJK SC', 'Noto Sans SC',
+        'Source Han Sans CN', 'Microsoft YaHei', '微软雅黑',
+        'PingFang SC', 'Hiragino Sans GB', 'SimSun', '宋体',
+        sans-serif;
+    font-size: inherit;
+}
+
+/* Greek alphabetic numerals — prioritise serif fonts with good Unicode coverage */
+.greek-char {
+    font-family:
+        'Noto Serif', 'GFS Porson', 'Palatino Linotype',
+        'Book Antiqua', 'Times New Roman', Georgia, serif;
+    font-style: italic;
+    font-size: inherit;
+}
+
+/* ===== END NUMERAL SVG SYMBOLS ===== */
+
 /* Dark mode support (optional enhancement) */
 @media (prefers-color-scheme: dark) {
     :root {
