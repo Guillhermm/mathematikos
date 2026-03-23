@@ -8,8 +8,14 @@ function startTimer() {
 }
 
 function updateTimer() {
-    const elapsed = Math.floor((Date.now() - gameState.startTime) / 1000);
     const timerEl = document.getElementById('timer');
+
+    if (gameState.mode === 'practice') {
+        timerEl.textContent = '∞';
+        return;
+    }
+
+    const elapsed = Math.floor((Date.now() - gameState.startTime) / 1000);
 
     if (gameState.mode === 'temporal') {
         const remaining = gameState.timeLimit - elapsed;
