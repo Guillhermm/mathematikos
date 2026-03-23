@@ -52,7 +52,8 @@ const CIVILIZATION_SYMBOLS = {
     babylonian: [
         { symbol: '𒐕', label: '1' },
         { symbol: '𒌋', label: '10' },
-        { symbol: '⊙', label: '0/space' }
+        { symbol: '⊙', label: '0' },
+        { symbol: ' ', label: 'sep' }  // group separator for positional notation
     ],
     chinese: [
         { symbol: '〇', label: '0' },
@@ -75,16 +76,20 @@ const CIVILIZATION_SYMBOLS = {
 function renderSymbolPad() {
     const pad = document.getElementById('symbol-pad');
     pad.innerHTML = '';
-    const symbols = CIVILIZATION_SYMBOLS[gameState.currentCivilization] || [];
+    const civ = gameState.currentCivilization;
+    const symbols = CIVILIZATION_SYMBOLS[civ] || [];
 
     symbols.forEach(({ symbol, label }) => {
         const button = document.createElement('div');
         button.className = 'symbol-button';
         button.setAttribute('role', 'button');
-        button.setAttribute('aria-label', `${label} — ${symbol}`);
+        button.setAttribute('aria-label', label);
         button.onclick = () => addSymbol(symbol);
-        // Use SVG for display where available; Unicode char is still used for the answer builder.
-        const iconHtml = symbolButtonHtml(gameState.currentCivilization, symbol);
+
+        // Space is used as a Babylonian positional group separator — show a visual dash.
+        const iconHtml = symbol === ' '
+            ? '<span class="sep-icon">╌</span>'
+            : symbolButtonHtml(civ, symbol);
         button.innerHTML = `${iconHtml}<span class="symbol-label">${label}</span>`;
         pad.appendChild(button);
     });
@@ -108,6 +113,24 @@ function backspaceAnswer() {
 
 function updateBuiltAnswer() {
     const display = document.getElementById('built-answer');
-    display.textContent = builtAnswer;
     display.classList.toggle('empty', !builtAnswer);
+
+    if (!builtAnswer) {
+        display.innerHTML = '';
+        return;
+    }
+
+    // Render via SVG helpers so supplementary-plane characters (Egyptian, Babylonian)
+    // display correctly instead of falling back to unsupported font glyphs.
+    const civ = gameState.currentCivilization;
+    let html;
+    switch (civ) {
+        case 'egyptian':   html = egyptianToSVGHtml(builtAnswer);   break;
+        case 'babylonian': html = babylonianToSVGHtml(builtAnswer); break;
+        case 'greek':      html = greekToSVGHtml(builtAnswer);      break;
+        case 'chinese':    html = chineseToHtml(builtAnswer);       break;
+        default:           html = builtAnswer; // roman: plain ASCII renders everywhere
+    }
+
+    display.innerHTML = html;
 }

@@ -894,6 +894,14 @@ h1, h2, h3, h4 {
     height: 2.4rem;
 }
 
+/* Babylonian group-separator button */
+.sep-icon {
+    font-size: 1.6rem;
+    line-height: 1;
+    color: currentColor;
+    opacity: 0.6;
+}
+
 /* Babylonian positional groups (wedge clusters separated by space) */
 .babylonian-group {
     display: inline-flex;
