@@ -8,18 +8,19 @@ function startChallenge() {
 
     if (gameState.mode === 'temporal') {
         const timeLimits = {
-            roman:      180, // 3 min
-            egyptian:   150, // 2.5 min
-            greek:      150, // 2.5 min
-            babylonian: 120, // 2 min
-            chinese:    120, // 2 min
-            mayan:      120  // 2 min
+            roman:          180, // 3 min
+            egyptian:       150, // 2.5 min
+            greek:          150, // 2.5 min
+            babylonian:     120, // 2 min
+            chinese:        120, // 2 min
+            mayan:          120, // 2 min
+            'hindu-arabic': 120  // 2 min
         };
         gameState.timeLimit = timeLimits[gameState.currentCivilization] || 180;
         startTimer();
     } else if (gameState.mode === 'thematic') {
         startTimer(); // tracks elapsed time, no hard limit
-    } else if (gameState.mode === 'practice') {
+    } else if (gameState.mode === 'practice' || gameState.mode === 'daily') {
         document.getElementById('timer').textContent = '∞';
     }
 
@@ -29,6 +30,7 @@ function startChallenge() {
 
 function loadNextChallenge() {
     gameState.currentChallenge++;
+    gameState._crossCivTarget = null;
 
     if (gameState.currentChallenge > gameState.totalChallenges) {
         endChallenge(true);
@@ -38,6 +40,23 @@ function loadNextChallenge() {
     document.getElementById('score').textContent = gameState.score;
     document.getElementById('challenge-number').textContent =
         `${gameState.currentChallenge}/${gameState.totalChallenges}`;
+    document.getElementById('feedback').classList.remove('show');
+    document.getElementById('hint-display').classList.remove('show');
+    document.getElementById('answer-input').value = '';
+    clearAnswer();
+
+    // In practice mode with 2+ unlocked civs: 20% chance of cross-civ conversion challenge
+    if (gameState.mode === 'practice' && getUnlockedCivIds().length >= 2 && Math.random() < 0.2) {
+        const crossProblem = generateCrossCivProblem();
+        if (crossProblem) {
+            gameState.currentProblem  = crossProblem;
+            gameState._crossCivTarget = crossProblem.targetCivId;
+            displayCrossCivChallenge();
+            renderSymbolPad();
+            updateOraclePiecesDisplay();
+            return;
+        }
+    }
 
     const diff = gameState.currentChallenge;
     switch (gameState.currentCivilization) {
@@ -65,6 +84,10 @@ function loadNextChallenge() {
             gameState.currentProblem = generateMayanProblem(diff);
             displayMayanChallenge();
             break;
+        case 'hindu-arabic':
+            gameState.currentProblem = generateHinduArabicProblem(diff);
+            displayHinduArabicChallenge();
+            break;
     }
 
     // Assign reverse challenge (30% chance) in non-temporal modes
@@ -73,10 +96,6 @@ function loadNextChallenge() {
         if (gameState.currentProblem.isReverse) applyReverseDisplay();
     }
 
-    document.getElementById('feedback').classList.remove('show');
-    document.getElementById('hint-display').classList.remove('show');
-    document.getElementById('answer-input').value = '';
-    clearAnswer();
     renderSymbolPad();
     updateOraclePiecesDisplay();
 }
@@ -106,6 +125,17 @@ function submitAnswer() {
     const problem       = gameState.currentProblem;
     const correctNumber = problem.answer;
     let isCorrect       = false;
+
+    // Handle cross-civilization conversion challenge
+    if (problem.type === 'cross-civ') {
+        isCorrect = isCrossCivCorrect(input, problem);
+        if (isCorrect) {
+            handleCorrectAnswer();
+        } else {
+            handleIncorrectAnswer();
+        }
+        return;
+    }
 
     switch (gameState.currentCivilization) {
         case 'roman': {
@@ -141,6 +171,13 @@ function submitAnswer() {
             if (!problem.isReverse) isCorrect = isCorrect || (Number.isInteger(+input) && +input === correctNumber);
             if (!isCorrect) {
                 try { isCorrect = mayanToNumber(input) === correctNumber; } catch (e) { /* ignore */ }
+            }
+            break;
+        case 'hindu-arabic':
+            isCorrect = input === problem.hinduArabicAnswer;
+            if (!problem.isReverse) isCorrect = isCorrect || (Number.isInteger(+input) && +input === correctNumber);
+            if (!isCorrect) {
+                try { isCorrect = hinduArabicToNumber(input) === correctNumber; } catch (e) { /* ignore */ }
             }
             break;
     }
@@ -186,10 +223,11 @@ function handleIncorrectAnswer() {
         gameState.timeLimit -= 10;
         showFeedback('❌ Incorrect. Try again! (-10s)', 'incorrect');
         showAchievement('Time Penalty!', '-10 seconds');
-    } else if (gameState.mode === 'practice') {
-        const civ = gameState.currentCivilization;
-        const problem = gameState.currentProblem;
-        const civAnswer = problem[`${civ}Answer`] !== undefined ? problem[`${civ}Answer`] : problem.answer;
+    } else if (gameState.mode === 'practice' || gameState.mode === 'daily') {
+        const civ       = gameState.currentCivilization;
+        const problem   = gameState.currentProblem;
+        const key       = civ.replace('-', '') + 'Answer'; // e.g. hinduArabicAnswer
+        const civAnswer = problem[key] !== undefined ? problem[key] : problem.answer;
         showFeedback(`❌ Not quite! Answer: ${problem.answer} = ${civAnswer}`, 'incorrect');
     } else {
         showFeedback('❌ Incorrect. Try again!', 'incorrect');
@@ -211,7 +249,17 @@ function endChallenge(completed) {
         resultsTitle.textContent = '🎊 Challenge Complete!';
         playSound('complete');
 
-        if (gameState.mode !== 'practice') {
+        // Record daily completion and update streak
+        if (gameState.mode === 'daily') {
+            const streak = recordDailyComplete();
+            if (streak > 1) {
+                showAchievement(`🔥 ${streak}-Day Streak!`, 'Come back tomorrow to keep it going!');
+            } else {
+                showAchievement('Daily Challenge Complete!', 'Come back tomorrow for a new civilization!');
+            }
+        }
+
+        if (gameState.mode !== 'practice' && gameState.mode !== 'daily') {
             const stats = {
                 score:          gameState.score,
                 time:           elapsed,
@@ -240,7 +288,7 @@ function endChallenge(completed) {
 
         resultsContent.innerHTML = `
             <div class="final-score">${gameState.score}</div>
-            <p style="font-size: 1.2rem; margin-bottom: 20px;">Total Score</p>
+            <p class="results-score-label">Total Score</p>
 
             <div class="stats">
                 <div class="stat-item">
@@ -262,20 +310,30 @@ function endChallenge(completed) {
             </div>
 
             ${gameState.mode === 'thematic' ? `
-                <div style="background: #FFF9E6; padding: 20px; border-radius: 10px; margin-top: 20px; border: 2px solid #DAA520;">
+                <div class="oracle-collected-box">
                     <h3>✨ Oracle Piece Collected!</h3>
                     <p>You have collected a fragment of the Oracle of Numbers from the ${civilizations[gameState.currentCivilization].name}!</p>
-                    <p style="margin-top: 10px;"><em>"The wisdom of numbers transcends time..."</em></p>
+                    <p><em>"The wisdom of numbers transcends time..."</em></p>
                 </div>
             ` : ''}
         `;
+
+        // Show Codex button for completed non-practice runs
+        const codexBtn = document.getElementById('codex-btn');
+        if (codexBtn) {
+            codexBtn.style.display = gameState.mode !== 'practice' ? 'inline-block' : 'none';
+        }
     } else {
+        // Hide Codex button on time-out
+        const codexBtn = document.getElementById('codex-btn');
+        if (codexBtn) codexBtn.style.display = 'none';
+
         resultsTitle.textContent = '⏰ Time\'s Up!';
         resultsContent.innerHTML = `
-            <p style="font-size: 1.2rem; margin: 20px 0;">The Children of Time have destroyed the records!</p>
+            <p class="results-timeout-msg">The Children of Time have destroyed the records!</p>
 
             <div class="final-score">${gameState.score}</div>
-            <p style="font-size: 1.1rem; margin-bottom: 20px;">Score Achieved</p>
+            <p class="results-score-label">Score Achieved</p>
 
             <div class="stats">
                 <div class="stat-item">
@@ -288,7 +346,7 @@ function endChallenge(completed) {
                 </div>
             </div>
 
-            <p style="margin-top: 20px;">Don't give up! Try again to save the knowledge of ancient civilizations!</p>
+            <p class="results-retry-msg">Don't give up! Try again to save the knowledge of ancient civilizations!</p>
         `;
     }
 

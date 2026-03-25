@@ -9,6 +9,11 @@ function startGame(mode) {
 }
 
 function nextCivilization() {
+    // After a daily challenge, return to the daily screen
+    if (gameState.mode === 'daily') {
+        showDailyChallenge();
+        return;
+    }
     const civIds     = Object.keys(civilizations);
     const currentIdx = civIds.indexOf(gameState.currentCivilization);
     if (currentIdx < civIds.length - 1 && civilizations[civIds[currentIdx + 1]].unlocked) {
@@ -20,6 +25,16 @@ function nextCivilization() {
 
 function closeHelp() {
     document.getElementById('help-modal').classList.remove('show');
+}
+
+function openCodexCurrent() {
+    openCodex(gameState.currentCivilization);
+}
+
+function toggleAmbient() {
+    const enabled = setAmbientEnabled(!isAmbientEnabled());
+    const btn = document.getElementById('sound-toggle');
+    if (btn) btn.textContent = enabled ? '🔊' : '🔇';
 }
 
 function updateProgress() {
@@ -45,6 +60,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (progress.completed > 0) {
         console.log(`📊 Progress: ${progress.completed}/${progress.total} civilizations completed!`);
     }
+
+    // Restore ambient preference
+    const soundBtn = document.getElementById('sound-toggle');
+    if (soundBtn) soundBtn.textContent = isAmbientEnabled() ? '🔊' : '🔇';
 
     // Keyboard shortcuts (game screen only)
     document.addEventListener('keydown', e => {

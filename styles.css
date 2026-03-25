@@ -1129,4 +1129,527 @@ h1, h2, h3, h4 {
     .civ-best-score {
         color: #aaa;
     }
+
+    /* Civilization themes in dark mode */
+    body[data-civ="roman"]        { --bg-color: #1a0505; --card-bg: #2a0e0e; }
+    body[data-civ="egyptian"]     { --bg-color: #1a1505; --card-bg: #2a2010; }
+    body[data-civ="greek"]        { --bg-color: #050d1a; --card-bg: #0e1a2a; }
+    body[data-civ="babylonian"]   { --bg-color: #120a1a; --card-bg: #1e1028; }
+    body[data-civ="chinese"]      { --bg-color: #1a0505; --card-bg: #1a0a0a; }
+    body[data-civ="mayan"]        { --bg-color: #051205; --card-bg: #0e1e0e; }
+    body[data-civ="hindu-arabic"] { --bg-color: #100a1a; --card-bg: #1a1228; }
+
+    /* Dark mode specific components */
+    .hypatia-guide       { background: #1a1a2e; border-left-color: #9c85d0; }
+    .oracle-collected-box { background: #2a2415; border-color: #b8960a; }
+    .daily-info          { background: #2C1810; }
+    .daily-civ-card      { background: #3C2820; }
+    .about-intro, .about-creator, .about-why { background: #3C2820; }
+    .timeline-card       { background: #3C2820; border-color: #5a3e30; }
+    .screenshot-placeholder { background: #252525; border-color: #555; color: #aaa; }
+    .codex-header        { border-bottom-color: #5a3e30; }
+    .codex-section       { border-bottom-color: #3a2a20; }
+    .codex-section-heading { color: #c8a060; }
+    .codex-meta          { color: #aaa; }
+    .btn-daily           { background: #1a3a50; }
+    .btn-daily:hover     { background: #254d6b; }
+}
+
+/* ===== CIVILIZATION VISUAL THEMES (light mode) ===== */
+/* Applied via body[data-civ="..."] when a civilization is active */
+
+body[data-civ="roman"] {
+    --primary-color:   #8B0000;
+    --secondary-color: #C0A050;
+    --accent-color:    #A0522D;
+    --bg-color:        #FAF0E6;
+    --card-bg:         #F0E8D8;
+}
+body[data-civ="roman"] body {
+    background: linear-gradient(135deg, #FAF0E6 0%, #E8D8C0 100%);
+}
+
+body[data-civ="egyptian"] {
+    --primary-color:   #8B6914;
+    --secondary-color: #DAA520;
+    --accent-color:    #2C7873;
+    --bg-color:        #FFFACD;
+    --card-bg:         #FFF0A0;
+}
+
+body[data-civ="greek"] {
+    --primary-color:   #1C4E80;
+    --secondary-color: #4A90A4;
+    --accent-color:    #1565C0;
+    --bg-color:        #EFF6FF;
+    --card-bg:         #DBEAFE;
+}
+
+body[data-civ="babylonian"] {
+    --primary-color:   #5C2D1A;
+    --secondary-color: #C84B31;
+    --accent-color:    #9C6B2A;
+    --bg-color:        #FDF3E7;
+    --card-bg:         #FAE5CC;
+}
+
+body[data-civ="chinese"] {
+    --primary-color:   #8B0000;
+    --secondary-color: #D4AF37;
+    --accent-color:    #C41E3A;
+    --bg-color:        #FFF5F5;
+    --card-bg:         #FFE8E8;
+}
+
+body[data-civ="mayan"] {
+    --primary-color:   #1B5E20;
+    --secondary-color: #558B2F;
+    --accent-color:    #8D4004;
+    --bg-color:        #F1F8E9;
+    --card-bg:         #DCEDC8;
+}
+
+body[data-civ="hindu-arabic"] {
+    --primary-color:   #4527A0;
+    --secondary-color: #7B5EA7;
+    --accent-color:    #8B6914;
+    --bg-color:        #EDE7F6;
+    --card-bg:         #D1C4E9;
+}
+
+/* ===== MAIN MENU NEW ELEMENTS ===== */
+
+.btn-daily {
+    background: #1565C0;
+    color: white;
+}
+
+.btn-daily:hover {
+    background: #0D47A1;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-about-link {
+    display: block;
+    margin-top: 20px;
+    background: none;
+    border: none;
+    color: var(--accent-color);
+    font-size: 0.9rem;
+    text-decoration: underline;
+    cursor: pointer;
+    font-family: inherit;
+    text-align: center;
+}
+
+.btn-about-link:hover {
+    color: var(--primary-color);
+}
+
+/* Sound toggle button in game header */
+.btn-sound-toggle {
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 6px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.btn-sound-toggle:hover {
+    opacity: 1;
+}
+
+/* ===== CIVILIZATION CARD ADDITIONS ===== */
+
+.civ-locked-hint {
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+
+.btn-codex-card {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 4px 10px;
+    font-size: 0.8rem;
+    background: var(--secondary-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.btn-codex-card:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* ===== RESULTS SCREEN ===== */
+
+.results-score-label {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.results-timeout-msg {
+    font-size: 1.2rem;
+    margin: 20px 0;
+}
+
+.results-retry-msg {
+    margin-top: 20px;
+}
+
+.oracle-collected-box {
+    background: #FFF9E6;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    border: 2px solid #DAA520;
+}
+
+.oracle-collected-box p {
+    margin-top: 8px;
+}
+
+.btn-codex {
+    background: #6B4F9E;
+    color: white;
+}
+
+.btn-codex:hover {
+    background: #52397A;
+    transform: translateY(-2px);
+}
+
+/* ===== HYPATIA GUIDE ===== */
+
+.hypatia-guide {
+    background: #f5eeff;
+    border-left: 4px solid #7B5EA7;
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+}
+
+.hypatia-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.hypatia-avatar {
+    font-size: 1.6rem;
+}
+
+.hypatia-name {
+    font-size: 1rem;
+    color: var(--primary-color);
+}
+
+.hypatia-quote {
+    font-style: italic;
+    color: #7B5EA7;
+    margin: 0 0 8px 0;
+    font-size: 0.95rem;
+    border: none;
+    padding: 0;
+}
+
+.hypatia-guidance {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* ===== HINDU-ARABIC NUMERAL DISPLAY ===== */
+
+.hindu-arabic-numeral {
+    font-family:
+        'Noto Naskh Arabic', 'Noto Sans Arabic',
+        'Arabic Typesetting', 'Segoe UI', Arial, sans-serif;
+    font-size: 1.4em;
+    direction: ltr;
+    unicode-bidi: bidi-override;
+}
+
+/* ===== CODEX MODAL ===== */
+
+.codex-modal-content {
+    max-width: 650px;
+}
+
+.codex-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--accent-color);
+    margin-bottom: 20px;
+}
+
+.codex-icon {
+    font-size: 3rem;
+    line-height: 1;
+}
+
+.codex-title {
+    margin: 0 0 4px 0;
+    color: var(--primary-color);
+    font-size: 1.4rem;
+}
+
+.codex-meta {
+    font-size: 0.85rem;
+    color: var(--accent-color);
+    font-style: italic;
+    margin: 0;
+}
+
+.codex-section {
+    padding: 14px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.codex-section:last-child {
+    border-bottom: none;
+}
+
+.codex-section-heading {
+    color: var(--primary-color);
+    margin: 0 0 8px 0;
+    font-size: 1rem;
+}
+
+/* ===== DAILY CHALLENGE SCREEN ===== */
+
+.daily-info {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+}
+
+.daily-date {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+}
+
+.daily-streak {
+    font-size: 1rem;
+    color: var(--accent-color);
+}
+
+.daily-civ-card {
+    background: var(--card-bg);
+    padding: 24px;
+    border-radius: 10px;
+    text-align: center;
+    border: 3px solid var(--secondary-color);
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+}
+
+.daily-civ-icon {
+    font-size: 3.5rem;
+    margin-bottom: 8px;
+}
+
+.daily-civ-name {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 4px;
+}
+
+.daily-civ-system {
+    font-size: 0.95rem;
+    color: var(--accent-color);
+    font-style: italic;
+    margin-bottom: 6px;
+}
+
+.daily-civ-difficulty {
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.daily-completed-msg {
+    background: #D4EDDA;
+    color: #2E8B57;
+    border: 2px solid #2E8B57;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.daily-description {
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+/* ===== ABOUT SCREEN ===== */
+
+.about-intro, .about-creator, .about-why {
+    background: var(--card-bg);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+}
+
+.about-intro {
+    border-left: 4px solid var(--secondary-color);
+}
+
+.about-why ul {
+    padding-left: 20px;
+    margin-top: 10px;
+    line-height: 1.8;
+}
+
+.timeline-heading {
+    margin: 30px 0 20px;
+    text-align: center;
+}
+
+/* Vertical timeline */
+.timeline {
+    position: relative;
+    padding: 10px 0;
+    margin-bottom: 30px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--secondary-color);
+    transform: translateX(-50%);
+}
+
+.timeline-item {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: calc(50% + 30px);
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.timeline-item.timeline-right {
+    justify-content: flex-start;
+    padding-right: 0;
+    padding-left: calc(50% + 30px);
+}
+
+.timeline-dot {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 36px;
+    height: 36px;
+    background: var(--card-bg);
+    border: 3px solid var(--secondary-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    z-index: 1;
+    top: 10px;
+}
+
+.timeline-card {
+    background: var(--card-bg);
+    border-radius: 10px;
+    padding: 16px;
+    box-shadow: var(--shadow);
+    border: 1px solid #e0d5c5;
+    max-width: 320px;
+}
+
+.timeline-date {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+}
+
+.timeline-title {
+    color: var(--primary-color);
+    margin: 0 0 8px 0;
+    font-size: 1rem;
+}
+
+.timeline-text {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.timeline-proof {
+    margin-top: 8px;
+    font-size: 0.8rem;
+    background: #f5f5f5;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-family: monospace;
+    color: #555;
+}
+
+.about-screenshots {
+    margin-top: 20px;
+}
+
+.screenshot-placeholder {
+    background: #f5f5f5;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    margin: 12px 0;
+    color: #888;
+    font-style: italic;
+}
+
+/* Responsive timeline — single column on mobile */
+@media (max-width: 640px) {
+    .timeline::before {
+        left: 18px;
+    }
+
+    .timeline-item,
+    .timeline-item.timeline-right {
+        justify-content: flex-start;
+        padding-right: 0;
+        padding-left: 52px;
+    }
+
+    .timeline-dot {
+        left: 18px;
+        transform: none;
+    }
+
+    .timeline-card {
+        max-width: 100%;
+    }
 }

@@ -76,13 +76,26 @@ const CIVILIZATION_SYMBOLS = {
         { symbol: '百', label: '100' },
         { symbol: '千', label: '1K' },
         { symbol: '萬', label: '10K' }
+    ],
+    'hindu-arabic': [
+        { symbol: '٠', label: '0' },
+        { symbol: '١', label: '1' },
+        { symbol: '٢', label: '2' },
+        { symbol: '٣', label: '3' },
+        { symbol: '٤', label: '4' },
+        { symbol: '٥', label: '5' },
+        { symbol: '٦', label: '6' },
+        { symbol: '٧', label: '7' },
+        { symbol: '٨', label: '8' },
+        { symbol: '٩', label: '9' }
     ]
 };
 
 function renderSymbolPad() {
     const pad = document.getElementById('symbol-pad');
     pad.innerHTML = '';
-    const civ = gameState.currentCivilization;
+    // For cross-civ challenges, show the target civilization's symbols
+    const civ     = gameState._crossCivTarget || gameState.currentCivilization;
     const symbols = CIVILIZATION_SYMBOLS[civ] || [];
 
     symbols.forEach(({ symbol, label }) => {
@@ -129,15 +142,17 @@ function updateBuiltAnswer() {
 
     // Render via SVG helpers so supplementary-plane characters (Egyptian, Babylonian)
     // display correctly instead of falling back to unsupported font glyphs.
-    const civ = gameState.currentCivilization;
+    // For cross-civ challenges, render using the target civ's renderer.
+    const civ = gameState._crossCivTarget || gameState.currentCivilization;
     let html;
     switch (civ) {
         case 'egyptian':   html = egyptianToSVGHtml(builtAnswer);   break;
         case 'babylonian': html = babylonianToSVGHtml(builtAnswer); break;
         case 'greek':      html = greekToSVGHtml(builtAnswer);      break;
         case 'chinese':    html = chineseToHtml(builtAnswer);       break;
-        case 'mayan':      html = mayanToSVGHtml(builtAnswer);      break;
-        default:           html = builtAnswer; // roman: plain ASCII renders everywhere
+        case 'mayan':          html = mayanToSVGHtml(builtAnswer);      break;
+        case 'hindu-arabic':   html = hinduArabicToHtml(builtAnswer);   break;
+        default:               html = builtAnswer; // roman: plain ASCII renders everywhere
     }
 
     display.innerHTML = html;

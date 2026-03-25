@@ -8,6 +8,13 @@ function showScreen(screenId) {
             gameState.timerInterval = null;
         }
     }
+
+    // Clear civilization theme when returning to root screens
+    if (screenId === 'main-menu' || screenId === 'about-screen' || screenId === 'daily-screen') {
+        clearTheme();
+        stopAmbient();
+    }
+
     document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
     document.getElementById(screenId).classList.add('active');
 }
@@ -31,8 +38,11 @@ function renderCivilizationSelect() {
             <div class="icon">${civ.icon}</div>
             <div class="name">${civ.name}</div>
             <div class="difficulty">${civ.difficulty}</div>
-            ${isCompleted ? '<div class="completion-badge">✓ Completed</div>' : ''}
-            ${!civ.unlocked ? '<p style="margin-top: 10px; font-size: 0.9rem;">🔒 Complete previous civilization first</p>' : ''}
+            ${isCompleted ? `
+                <div class="completion-badge">✓ Completed</div>
+                <button class="btn-codex-card" onclick="event.stopPropagation(); openCodex('${civ.id}')">📚 Codex</button>
+            ` : ''}
+            ${!civ.unlocked ? '<p class="civ-locked-hint">🔒 Complete previous civilization first</p>' : ''}
             ${stats && civ.unlocked ? `<p class="civ-best-score">Best Score: ${stats.score}</p>` : ''}
         `;
 
@@ -42,16 +52,34 @@ function renderCivilizationSelect() {
 
 function selectCivilization(civId) {
     gameState.currentCivilization = civId;
+    applyTheme(civId);
+    startAmbient(civId);
     showStoryIntro();
 }
 
 function showStoryIntro() {
     const civ   = civilizations[gameState.currentCivilization];
     const mode  = gameState.mode;
-    const story = stories[mode][gameState.currentCivilization];
+    // Daily challenge uses the thematic story content
+    const storyMode = mode === 'daily' ? 'thematic' : mode;
+    const story = stories[storyMode][gameState.currentCivilization];
+
+    // Hypatia guide block — shown in thematic and daily modes
+    const hypatiaBlock = (mode === 'thematic' || mode === 'daily') && story.hypatia ? `
+        <div class="hypatia-guide">
+            <div class="hypatia-header">
+                <span class="hypatia-avatar">🔭</span>
+                <strong class="hypatia-name">Hypatia of Alexandria</strong>
+            </div>
+            <blockquote class="hypatia-quote">"${story.hypatia.quote}"</blockquote>
+            <p class="hypatia-guidance">${story.hypatia.guidance}</p>
+        </div>
+    ` : '';
 
     document.getElementById('story-content').innerHTML = `
-        ${mode === 'thematic' && gameState.oraclePieces.length === 0 ? stories[mode].intro : ''}
+        ${mode === 'thematic' && gameState.oraclePieces.length === 0 ? stories['thematic'].intro : ''}
+
+        ${hypatiaBlock}
 
         <h3>${story.title}</h3>
 

@@ -65,6 +65,7 @@ loadScript('js/civilizations/greek.js');
 loadScript('js/civilizations/babylonian.js');
 loadScript('js/civilizations/chinese.js');
 loadScript('js/civilizations/mayan.js');
+loadScript('js/civilizations/hindu-arabic.js');
 
 // ── Test suites ───────────────────────────────────────────────────────────────
 require('./roman.test.js');
@@ -73,6 +74,7 @@ require('./greek.test.js');
 require('./babylonian.test.js');
 require('./chinese.test.js');
 require('./mayan.test.js');
+require('./hindu-arabic.test.js');
 
 // ── Summary ───────────────────────────────────────────────────────────────────
 const total = _passed + _failed;

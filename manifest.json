@@ -1,0 +1,33 @@
+{
+    "name": "Mathematikos — Journey Through Ancient Numbers",
+    "short_name": "Mathematikos",
+    "description": "Travel through time and solve mathematical challenges using ancient number systems.",
+    "start_url": "./",
+    "scope": "./",
+    "display": "standalone",
+    "orientation": "portrait-primary",
+    "background_color": "#FFF8DC",
+    "theme_color": "#8B4513",
+    "categories": ["education", "games"],
+    "lang": "en",
+    "icons": [
+        {
+            "src": "icons/icon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any"
+        },
+        {
+            "src": "icons/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "icons/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}
