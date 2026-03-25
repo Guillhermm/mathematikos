@@ -103,13 +103,19 @@ function showAbout() {
 
         <div class="about-screenshots">
             <h3>Evidence &amp; Provenance</h3>
-            <p>Screenshots of the original 2024 ChatGPT conversation and the private prototype repository commit history are available as documentation of independent origin.</p>
-            <div class="screenshot-placeholder">
-                <p>[ Screenshot: ChatGPT conversation — "Jogo de adição histórica", 2024 ]</p>
-            </div>
-            <div class="screenshot-placeholder">
-                <p>[ Screenshot: Private prototype repository — first commit October 19, 2024 ]</p>
-            </div>
+            <p>The original 2024 ChatGPT conversation and the private prototype repository commit history document independent origin. The prototype repository has since been archived.</p>
+            <figure class="screenshot-figure">
+                <img src="screenshots/screenshot-chatgpt-2024-october.png"
+                     alt="ChatGPT conversation titled 'Jogo de adição histórica', October 2024"
+                     class="screenshot-img">
+                <figcaption>ChatGPT conversation — <em>"Jogo de adição histórica"</em>, October 2024</figcaption>
+            </figure>
+            <figure class="screenshot-figure">
+                <img src="screenshots/screenshot-github-mathematikos-proto-readme-history.png"
+                     alt="Private prototype repository showing first commit on October 19, 2024"
+                     class="screenshot-img">
+                <figcaption>Private prototype repository — first commit October 19, 2024</figcaption>
+            </figure>
         </div>
     `;
 

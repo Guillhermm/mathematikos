@@ -1,7 +1,7 @@
 // ===== SERVICE WORKER =====
 // Cache-first strategy for offline play.
 
-const CACHE_NAME = 'mathematikos-v1';
+const CACHE_NAME = 'mathematikos-v2';
 
 const SHELL_ASSETS = [
     './',
@@ -42,7 +42,10 @@ const SHELL_ASSETS = [
     // Game
     './js/challenges/cross-civ.js',
     './js/challenges.js',
-    './js/game.js'
+    './js/game.js',
+    // Screenshots
+    './screenshots/screenshot-chatgpt-2024-october.png',
+    './screenshots/screenshot-github-mathematikos-proto-readme-history.png'
 ];
 
 self.addEventListener('install', event => {

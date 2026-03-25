@@ -1258,12 +1258,15 @@ body[data-civ="hindu-arabic"] {
 
     /* Dark mode specific components */
     .hypatia-guide       { background: #1a1a2e; border-left-color: #9c85d0; }
+    .hypatia-guidance    { color: #f0ebe4; }
     .oracle-collected-box { background: #2a2415; border-color: #b8960a; }
     .daily-info          { background: #2C1810; }
     .daily-civ-card      { background: #3C2820; }
     .about-intro, .about-creator, .about-why { background: #3C2820; }
     .timeline-card       { background: #3C2820; border-color: #5a3e30; }
     .screenshot-placeholder { background: #252525; border-color: #555; color: #aaa; }
+    .screenshot-img         { border-color: #444; }
+    .screenshot-figure figcaption { color: #aaa; }
     .codex-header        { border-bottom-color: #5a3e30; }
     .codex-section       { border-bottom-color: #3a2a20; }
     .codex-section-heading { color: #c8a060; }
@@ -1701,6 +1704,25 @@ body[data-civ="hindu-arabic"] {
     text-align: center;
     margin: 12px 0;
     color: #888;
+    font-style: italic;
+}
+
+.screenshot-figure {
+    margin: 16px 0;
+    text-align: center;
+}
+
+.screenshot-img {
+    max-width: 100%;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.screenshot-figure figcaption {
+    margin-top: 6px;
+    font-size: 0.85rem;
+    color: #666;
     font-style: italic;
 }
 
