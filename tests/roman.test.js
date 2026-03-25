@@ -72,3 +72,51 @@ describe('generateRomanProblem', () => {
         }
     });
 });
+
+describe('numberToRoman — additional values', () => {
+    it('converts 2 → II',    () => assertEqual(numberToRoman(2),    'II'));
+    it('converts 3 → III',   () => assertEqual(numberToRoman(3),    'III'));
+    it('converts 8 → VIII',  () => assertEqual(numberToRoman(8),    'VIII'));
+    it('converts 49 → XLIX', () => assertEqual(numberToRoman(49),   'XLIX'));
+    it('converts 499 → CDXCIX', () => assertEqual(numberToRoman(499), 'CDXCIX'));
+    it('converts 3888 → MMMDCCCLXXXVIII', () => assertEqual(numberToRoman(3888), 'MMMDCCCLXXXVIII'));
+    it('converts 2000 → MM', () => assertEqual(numberToRoman(2000), 'MM'));
+    it('converts 3000 → MMM', () => assertEqual(numberToRoman(3000), 'MMM'));
+});
+
+describe('romanToNumber — edge cases', () => {
+    it('returns 0 for unknown character Z', () => assertEqual(romanToNumber('Z'), 0));
+    it('returns 0 for null',     () => assertEqual(romanToNumber(null),      0));
+    it('returns 0 for undefined',() => assertEqual(romanToNumber(undefined), 0));
+    it('skips unknown chars in mixed string XZX → 20', () => assertEqual(romanToNumber('XZX'), 20));
+    it('parses D → 500',   () => assertEqual(romanToNumber('D'),    500));
+    it('parses L → 50',    () => assertEqual(romanToNumber('L'),    50));
+    it('parses III → 3',   () => assertEqual(romanToNumber('III'),  3));
+    it('parses VIII → 8',  () => assertEqual(romanToNumber('VIII'), 8));
+    it('parses XLIX → 49', () => assertEqual(romanToNumber('XLIX'), 49));
+    it('parses CDXCIX → 499', () => assertEqual(romanToNumber('CDXCIX'), 499));
+});
+
+describe('generateRomanProblem — all difficulties', () => {
+    [1, 2, 3, 4, 5].forEach(diff => {
+        it(`difficulty ${diff}: answer > 0, ≤ 3999, romanAnswer round-trips`, () => {
+            for (let i = 0; i < 10; i++) {
+                const p = generateRomanProblem(diff);
+                assertTrue(p.answer > 0 && p.answer <= 3999,
+                    `answer ${p.answer} out of range at difficulty ${diff}`);
+                assertEqual(romanToNumber(p.romanAnswer), p.answer);
+            }
+        });
+    });
+
+    it('problem has all required fields', () => {
+        const p = generateRomanProblem(1);
+        assertTrue(typeof p.num1 === 'number', 'num1 is number');
+        assertTrue(typeof p.num2 === 'number', 'num2 is number');
+        assertTrue(p.operation === '+' || p.operation === '-', 'valid operation');
+        assertTrue(typeof p.roman1 === 'string' && p.roman1.length > 0, 'roman1 non-empty');
+        assertTrue(typeof p.roman2 === 'string' && p.roman2.length > 0, 'roman2 non-empty');
+        assertTrue(typeof p.context === 'string' && p.context.length > 0, 'context non-empty');
+        assertTrue(typeof p.hint === 'string' && p.hint.length > 0, 'hint non-empty');
+    });
+});

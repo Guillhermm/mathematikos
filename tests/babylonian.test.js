@@ -88,3 +88,66 @@ describe('generateBabylonianProblem', () => {
         }
     });
 });
+
+describe('convertBabylonianDigit — extended', () => {
+    [2, 3, 4, 5, 6, 7, 8, 9].forEach(n => {
+        it(`digit ${n} has exactly ${n} ones and 0 tens`, () => {
+            const result = convertBabylonianDigit(n);
+            const ones = (result.match(/𒐕/g) || []).length;
+            const tens = (result.match(/𒌋/g) || []).length;
+            assertEqual(ones, n);
+            assertEqual(tens, 0);
+        });
+    });
+    it('digit 20 has 2 tens and 0 ones', () => {
+        const result = convertBabylonianDigit(20);
+        assertEqual((result.match(/𒌋/g) || []).length, 2);
+        assertEqual((result.match(/𒐕/g) || []).length, 0);
+    });
+    it('digit 30 has 3 tens', () => {
+        assertEqual((convertBabylonianDigit(30).match(/𒌋/g) || []).length, 3);
+    });
+    it('digit 45 has 4 tens and 5 ones', () => {
+        const r = convertBabylonianDigit(45);
+        assertEqual((r.match(/𒌋/g) || []).length, 4);
+        assertEqual((r.match(/𒐕/g) || []).length, 5);
+    });
+});
+
+describe('parseBabylonianDigit — round-trips with convertBabylonianDigit', () => {
+    [0, 1, 5, 10, 19, 23, 45, 59].forEach(n => {
+        it(`round-trips digit ${n}`, () => {
+            assertEqual(parseBabylonianDigit(convertBabylonianDigit(n)), n);
+        });
+    });
+});
+
+describe('babylonianToNumber — extended', () => {
+    it('parses single zero ⊙ → 0', () => assertEqual(babylonianToNumber('⊙'), 0));
+    it('parses 3599 correctly', () => {
+        assertEqual(babylonianToNumber(numberToBabylonian(3599)), 3599);
+    });
+    it('parses 3540 = 59×60', () => {
+        assertEqual(babylonianToNumber(numberToBabylonian(3540)), 3540);
+    });
+});
+
+describe('generateBabylonianProblem — babylonianAnswer round-trips', () => {
+    it('babylonianAnswer round-trips correctly (50 runs)', () => {
+        for (let i = 0; i < 50; i++) {
+            const p = generateBabylonianProblem(rand(1, 5));
+            assertEqual(babylonianToNumber(p.babylonianAnswer), p.answer,
+                `round-trip failed for ${p.babylonianAnswer} (expected ${p.answer})`);
+        }
+    });
+
+    [1, 2, 3, 4, 5].forEach(diff => {
+        it(`difficulty ${diff}: answer in range [1, 3599]`, () => {
+            for (let i = 0; i < 10; i++) {
+                const p = generateBabylonianProblem(diff);
+                assertTrue(p.answer >= 1 && p.answer < 3600,
+                    `answer ${p.answer} out of range at diff ${diff}`);
+            }
+        });
+    });
+});

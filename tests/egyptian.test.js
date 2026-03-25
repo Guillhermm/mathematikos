@@ -53,3 +53,58 @@ describe('generateEgyptianProblem', () => {
         }
     });
 });
+
+describe('numberToEgyptian — higher powers', () => {
+    it('converts 10000',  () => assertEqual(numberToEgyptian(10000),  '𓂭'));
+    it('converts 100000', () => assertEqual(numberToEgyptian(100000), '𓆏'));
+    it('converts 999999 — valid non-Invalid result with 100000 symbol', () => {
+        const s = numberToEgyptian(999999);
+        assertTrue(s !== 'Invalid', 'should not be Invalid');
+        assertTrue(s.includes('𓆏'), '100000 tadpole symbol missing');  // 9 tadpoles
+        assertTrue(s.includes('𓏺'), '1 stroke symbol missing');          // 9 strokes
+    });
+    it('converts 22222', () => {
+        const s = numberToEgyptian(22222);
+        const n = egyptianToNumber(s);
+        assertEqual(n, 22222);
+    });
+    it('converts 9 → nine strokes', () => {
+        const s = numberToEgyptian(9);
+        assertEqual((s.match(/𓏺/g) || []).length, 9);
+    });
+});
+
+describe('egyptianToNumber — edge cases', () => {
+    it('returns 0 for empty string', () => assertEqual(egyptianToNumber(''), 0));
+    it('returns 0 for non-hieroglyph chars', () => assertEqual(egyptianToNumber('ABC123'), 0));
+    it('parses 𓂭 → 10000',  () => assertEqual(egyptianToNumber('𓂭'), 10000));
+    it('parses 𓆏 → 100000', () => assertEqual(egyptianToNumber('𓆏'), 100000));
+    it('parses repeated symbols: 𓏺𓏺𓏺 → 3', () => assertEqual(egyptianToNumber('𓏺𓏺𓏺'), 3));
+    it('parses 𓎆𓎆𓎆 → 30', () => assertEqual(egyptianToNumber('𓎆𓎆𓎆'), 30));
+});
+
+describe('Egyptian round-trip — extended', () => {
+    [10000, 100000, 22222, 99999, 111111, 999999].forEach(n => {
+        it(`round-trips ${n}`, () => assertEqual(egyptianToNumber(numberToEgyptian(n)), n));
+    });
+});
+
+describe('generateEgyptianProblem — all difficulties', () => {
+    [1, 2, 3, 4, 5].forEach(diff => {
+        it(`difficulty ${diff}: answer > 0, egyptianAnswer round-trips`, () => {
+            for (let i = 0; i < 10; i++) {
+                const p = generateEgyptianProblem(diff);
+                assertTrue(p.answer > 0, `answer must be > 0 at diff ${diff}`);
+                assertEqual(egyptianToNumber(p.egyptianAnswer), p.answer);
+            }
+        });
+    });
+
+    it('problem has all required fields', () => {
+        const p = generateEgyptianProblem(1);
+        assertTrue(typeof p.num1 === 'number', 'num1 is number');
+        assertTrue(p.operation === '+' || p.operation === '-', 'valid operation');
+        assertTrue(typeof p.context === 'string' && p.context.length > 0, 'context non-empty');
+        assertTrue(typeof p.hint === 'string' && p.hint.length > 0, 'hint non-empty');
+    });
+});

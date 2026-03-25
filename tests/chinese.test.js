@@ -73,3 +73,35 @@ describe('generateChineseProblem', () => {
         }
     });
 });
+
+describe('numberToChinese — tricky cases', () => {
+    it('converts 1010 → 千一十', () => assertEqual(numberToChinese(1010), '千一十'));
+    it('converts 2001 → 二千〇一',  () => assertEqual(numberToChinese(2001), '二千〇一'));
+    it('converts 10001 → 萬〇〇一',  () => assertEqual(numberToChinese(10001), '萬〇〇一'));
+    it('converts 11111 → 萬千百一十一', () => assertEqual(numberToChinese(11111), '萬千百一十一'));
+    it('converts 99999 → 九萬九千九百九十九', () => assertEqual(numberToChinese(99999), '九萬九千九百九十九'));
+    it('converts 2 → 二',  () => assertEqual(numberToChinese(2),  '二'));
+    it('converts 50 → 五十', () => assertEqual(numberToChinese(50), '五十'));
+    it('converts 500 → 五百', () => assertEqual(numberToChinese(500), '五百'));
+});
+
+describe('chineseToNumber — edge cases', () => {
+    it('returns 0 for unknown chars', () => assertEqual(chineseToNumber('ABC'), 0));
+    it('parses 五百 → 500',   () => assertEqual(chineseToNumber('五百'), 500));
+    it('parses 五十 → 50',    () => assertEqual(chineseToNumber('五十'), 50));
+    it('parses 千〇一 → 1001', () => assertEqual(chineseToNumber('千〇一'), 1001));
+    it('parses 千百 → 1100',   () => assertEqual(chineseToNumber('千百'), 1100));
+});
+
+describe('generateChineseProblem — all difficulties', () => {
+    [1, 2, 3, 4, 5].forEach(diff => {
+        it(`difficulty ${diff}: answer > 0, chineseAnswer round-trips`, () => {
+            for (let i = 0; i < 10; i++) {
+                const p = generateChineseProblem(diff);
+                assertTrue(p.answer > 0, `answer must be > 0 at diff ${diff}`);
+                assertEqual(chineseToNumber(p.chineseAnswer), p.answer,
+                    `round-trip failed at diff ${diff}: ${p.chineseAnswer} ≠ ${p.answer}`);
+            }
+        });
+    });
+});
