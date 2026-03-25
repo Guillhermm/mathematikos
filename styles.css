@@ -1043,6 +1043,68 @@ h1, h2, h3, h4 {
     color: #666;
 }
 
+/* ===== CIVILIZATION VISUAL THEMES (light mode) ===== */
+/* Applied via body[data-civ="..."] when a civilization is active */
+
+body[data-civ="roman"] {
+    --primary-color:   #8B0000;
+    --secondary-color: #C0A050;
+    --accent-color:    #A0522D;
+    --bg-color:        #FAF0E6;
+    --card-bg:         #F0E8D8;
+}
+body[data-civ="roman"] body {
+    background: linear-gradient(135deg, #FAF0E6 0%, #E8D8C0 100%);
+}
+
+body[data-civ="egyptian"] {
+    --primary-color:   #8B6914;
+    --secondary-color: #DAA520;
+    --accent-color:    #2C7873;
+    --bg-color:        #FFFACD;
+    --card-bg:         #FFF0A0;
+}
+
+body[data-civ="greek"] {
+    --primary-color:   #1C4E80;
+    --secondary-color: #4A90A4;
+    --accent-color:    #1565C0;
+    --bg-color:        #EFF6FF;
+    --card-bg:         #DBEAFE;
+}
+
+body[data-civ="babylonian"] {
+    --primary-color:   #5C2D1A;
+    --secondary-color: #C84B31;
+    --accent-color:    #9C6B2A;
+    --bg-color:        #FDF3E7;
+    --card-bg:         #FAE5CC;
+}
+
+body[data-civ="chinese"] {
+    --primary-color:   #8B0000;
+    --secondary-color: #D4AF37;
+    --accent-color:    #C41E3A;
+    --bg-color:        #FFF5F5;
+    --card-bg:         #FFE8E8;
+}
+
+body[data-civ="mayan"] {
+    --primary-color:   #1B5E20;
+    --secondary-color: #558B2F;
+    --accent-color:    #8D4004;
+    --bg-color:        #F1F8E9;
+    --card-bg:         #DCEDC8;
+}
+
+body[data-civ="hindu-arabic"] {
+    --primary-color:   #4527A0;
+    --secondary-color: #7B5EA7;
+    --accent-color:    #8B6914;
+    --bg-color:        #EDE7F6;
+    --card-bg:         #D1C4E9;
+}
+
 /* Dark mode */
 @media (prefers-color-scheme: dark) {
     :root {
@@ -1153,68 +1215,6 @@ h1, h2, h3, h4 {
     .codex-meta          { color: #aaa; }
     .btn-daily           { background: #1a3a50; }
     .btn-daily:hover     { background: #254d6b; }
-}
-
-/* ===== CIVILIZATION VISUAL THEMES (light mode) ===== */
-/* Applied via body[data-civ="..."] when a civilization is active */
-
-body[data-civ="roman"] {
-    --primary-color:   #8B0000;
-    --secondary-color: #C0A050;
-    --accent-color:    #A0522D;
-    --bg-color:        #FAF0E6;
-    --card-bg:         #F0E8D8;
-}
-body[data-civ="roman"] body {
-    background: linear-gradient(135deg, #FAF0E6 0%, #E8D8C0 100%);
-}
-
-body[data-civ="egyptian"] {
-    --primary-color:   #8B6914;
-    --secondary-color: #DAA520;
-    --accent-color:    #2C7873;
-    --bg-color:        #FFFACD;
-    --card-bg:         #FFF0A0;
-}
-
-body[data-civ="greek"] {
-    --primary-color:   #1C4E80;
-    --secondary-color: #4A90A4;
-    --accent-color:    #1565C0;
-    --bg-color:        #EFF6FF;
-    --card-bg:         #DBEAFE;
-}
-
-body[data-civ="babylonian"] {
-    --primary-color:   #5C2D1A;
-    --secondary-color: #C84B31;
-    --accent-color:    #9C6B2A;
-    --bg-color:        #FDF3E7;
-    --card-bg:         #FAE5CC;
-}
-
-body[data-civ="chinese"] {
-    --primary-color:   #8B0000;
-    --secondary-color: #D4AF37;
-    --accent-color:    #C41E3A;
-    --bg-color:        #FFF5F5;
-    --card-bg:         #FFE8E8;
-}
-
-body[data-civ="mayan"] {
-    --primary-color:   #1B5E20;
-    --secondary-color: #558B2F;
-    --accent-color:    #8D4004;
-    --bg-color:        #F1F8E9;
-    --card-bg:         #DCEDC8;
-}
-
-body[data-civ="hindu-arabic"] {
-    --primary-color:   #4527A0;
-    --secondary-color: #7B5EA7;
-    --accent-color:    #8B6914;
-    --bg-color:        #EDE7F6;
-    --card-bg:         #D1C4E9;
 }
 
 /* ===== MAIN MENU NEW ELEMENTS ===== */

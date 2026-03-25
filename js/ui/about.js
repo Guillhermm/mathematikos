@@ -27,6 +27,12 @@ const TIMELINE_ENTRIES = [
         text: 'A physical board game called <em>Mathematicus</em> is released, covering Babylonian, Egyptian, Chinese, Roman, Mayan, Arabic, and binary numeral systems — a convergent concept developed independently. Mathematikos predates this release by over a year, as evidenced by the 2024 Git history. The two products are complementary, not competitive: Mathematikus is digital and free; Mathematicus is physical and paid.'
     },
     {
+        date: '2025',
+        icon: '🎓',
+        title: 'Master\'s Degree Begins — Development Paused',
+        text: 'Guilherme begins a Master\'s degree in Applied Mathematics. Development of Mathematikos is paused to focus on academic work. The project rests, but the idea does not disappear.'
+    },
+    {
         date: 'February 15, 2026',
         icon: '🔄',
         title: 'Rebuilt as Pure HTML/CSS/JS',
