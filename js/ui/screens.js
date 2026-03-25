@@ -33,7 +33,7 @@ function renderCivilizationSelect() {
             <div class="difficulty">${civ.difficulty}</div>
             ${isCompleted ? '<div class="completion-badge">✓ Completed</div>' : ''}
             ${!civ.unlocked ? '<p style="margin-top: 10px; font-size: 0.9rem;">🔒 Complete previous civilization first</p>' : ''}
-            ${stats && civ.unlocked ? `<p style="margin-top: 8px; font-size: 0.85rem; color: #666;">Best Score: ${stats.score}</p>` : ''}
+            ${stats && civ.unlocked ? `<p class="civ-best-score">Best Score: ${stats.score}</p>` : ''}
         `;
 
         container.appendChild(card);
@@ -55,21 +55,21 @@ function showStoryIntro() {
 
         <h3>${story.title}</h3>
 
-        <div style="background: #f0f0f0; padding: 15px; border-radius: 8px; margin: 15px 0;">
+        <div class="story-box story-setting-box">
             <strong>📍 Setting:</strong>
             <p>${story.setting}</p>
         </div>
 
-        <div style="background: #e8f4f8; padding: 15px; border-radius: 8px; margin: 15px 0;">
+        <div class="story-box story-objective-box">
             <strong>🎯 Objective:</strong>
             <p>${story.objective}</p>
         </div>
 
-        <div style="background: #fff9e6; padding: 15px; border-radius: 8px; margin: 15px 0;">
+        <div class="story-box story-character-box">
             ${story.character}
         </div>
 
-        <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin: 15px 0;">
+        <div class="story-box story-numsystem-box">
             <strong>📚 Number System:</strong> ${civ.numberSystem}
         </div>
     `;
