@@ -103,6 +103,7 @@ h1, h2, h3, h4 {
     .brand {
         flex-direction: row;
         align-items: center;
+        justify-content: center;
         gap: 24px;
     }
 
