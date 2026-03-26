@@ -3,7 +3,6 @@ name: CI
 on:
   push:
     branches: ['**']
-    tags: ['v*']
   pull_request:
 
 jobs:
@@ -17,24 +16,3 @@ jobs:
           node-version: 20
       - name: Run test suite
         run: node tests/run-tests.js
-
-  deploy:
-    name: Deploy to GitHub Pages
-    needs: test
-    if: startsWith(github.ref, 'refs/tags/v')
-    runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: '.'
-      - name: Deploy
-        id: deployment
-        uses: actions/deploy-pages@v4
