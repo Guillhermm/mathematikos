@@ -1,0 +1,80 @@
+<!-- CONCEPT 4 (updated): Astrolabe with path-based M from monogram, warm brown palette -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <radialGradient id="bg4" cx="40%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#4a2c0a"/>
+      <stop offset="100%" stop-color="#1a0d02"/>
+    </radialGradient>
+    <radialGradient id="brass" cx="40%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="#f5d080"/>
+      <stop offset="100%" stop-color="#b8860b"/>
+    </radialGradient>
+    <radialGradient id="innerDisc" cx="40%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#3a1e06"/>
+      <stop offset="100%" stop-color="#150f04"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <circle cx="256" cy="256" r="256" fill="url(#bg4)"/>
+
+  <!-- Outer brass ring -->
+  <circle cx="256" cy="256" r="236" fill="none" stroke="url(#brass)" stroke-width="14"/>
+
+  <!-- Degree tick marks on outer ring (every 30°) -->
+  <g stroke="#f5d080" stroke-width="3" opacity="0.8">
+    <line x1="256" y1="24"  x2="256" y2="46"/>
+    <line x1="256" y1="466" x2="256" y2="488"/>
+    <line x1="24"  y1="256" x2="46"  y2="256"/>
+    <line x1="466" y1="256" x2="488" y2="256"/>
+    <!-- 30° diagonal ticks -->
+    <line x1="374" y1="55"  x2="364" y2="72"/>
+    <line x1="457" y1="138" x2="441" y2="148"/>
+    <line x1="457" y1="374" x2="441" y2="364"/>
+    <line x1="374" y1="457" x2="364" y2="441"/>
+    <line x1="138" y1="457" x2="148" y2="441"/>
+    <line x1="55"  y1="374" x2="72"  y2="364"/>
+    <line x1="55"  y1="138" x2="72"  y2="148"/>
+    <line x1="138" y1="55"  x2="148" y2="72"/>
+  </g>
+
+  <!-- Middle ring -->
+  <circle cx="256" cy="256" r="196" fill="none" stroke="#c8900a" stroke-width="3" opacity="0.6"/>
+
+  <!-- Inner decorative ring -->
+  <circle cx="256" cy="256" r="156" fill="none" stroke="#c8900a" stroke-width="1.5" opacity="0.35"/>
+
+  <!-- Cross hairs -->
+  <line x1="256" y1="64"  x2="256" y2="448" stroke="#c8900a" stroke-width="1.5" opacity="0.25"/>
+  <line x1="64"  y1="256" x2="448" y2="256" stroke="#c8900a" stroke-width="1.5" opacity="0.25"/>
+  <line x1="118" y1="118" x2="394" y2="394" stroke="#c8900a" stroke-width="1"   opacity="0.15"/>
+  <line x1="394" y1="118" x2="118" y2="394" stroke="#c8900a" stroke-width="1"   opacity="0.15"/>
+
+  <!-- Alidade (rotating arm) -->
+  <line x1="256" y1="256" x2="360" y2="110" stroke="url(#brass)" stroke-width="5"
+        stroke-linecap="round" opacity="0.9"/>
+  <circle cx="360" cy="110" r="7" fill="#f5d080" opacity="0.9"/>
+
+  <!-- Center disc -->
+  <circle cx="256" cy="256" r="74" fill="url(#innerDisc)"/>
+  <circle cx="256" cy="256" r="74" fill="none" stroke="url(#brass)" stroke-width="4"/>
+
+  <!-- M — same geometric path as icon-1, scaled 0.3× around center (256,256) -->
+  <path d="M 98 370 L 98 142 L 256 290 L 414 142 L 414 370
+           L 368 370 L 368 222 L 256 342 L 144 222 L 144 370 Z"
+        fill="url(#brass)"
+        transform="translate(256,256) scale(0.3) translate(-256,-256)"/>
+
+  <!-- Cardinal Roman numerals -->
+  <text x="256" y="50"  font-family="Georgia, serif" font-size="22" font-weight="bold"
+        fill="#f5d080" text-anchor="middle" opacity="0.9">XII</text>
+  <text x="463" y="264" font-family="Georgia, serif" font-size="22" font-weight="bold"
+        fill="#f5d080" text-anchor="middle" opacity="0.9">III</text>
+  <text x="256" y="480" font-family="Georgia, serif" font-size="22" font-weight="bold"
+        fill="#f5d080" text-anchor="middle" opacity="0.9">VI</text>
+  <text x="49"  y="264" font-family="Georgia, serif" font-size="22" font-weight="bold"
+        fill="#f5d080" text-anchor="middle" opacity="0.9">IX</text>
+
+  <!-- Center pin -->
+  <circle cx="256" cy="256" r="5" fill="#f5d080"/>
+</svg>

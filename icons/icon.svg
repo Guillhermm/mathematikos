@@ -1,14 +1,28 @@
+<!-- CONCEPT 1: Clean Monogram — Deep brown circle, bold golden M, minimal and app-icon-ready -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <radialGradient id="bg1" cx="40%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#4a2c0a"/>
+      <stop offset="100%" stop-color="#1a0d02"/>
+    </radialGradient>
+    <radialGradient id="gold1" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#f5d080"/>
+      <stop offset="100%" stop-color="#b8860b"/>
+    </radialGradient>
+  </defs>
+
   <!-- Background circle -->
-  <circle cx="256" cy="256" r="256" fill="#8B4513"/>
-  <!-- Inner decorative ring -->
-  <circle cx="256" cy="256" r="220" fill="none" stroke="#DAA520" stroke-width="8"/>
-  <!-- Letter M -->
-  <text x="256" y="300" font-family="Georgia, serif" font-size="200" font-weight="bold"
-        fill="#FFF8DC" text-anchor="middle" dominant-baseline="middle">M</text>
-  <!-- Small decorative dots at compass points -->
-  <circle cx="256" cy="48"  r="12" fill="#DAA520"/>
-  <circle cx="256" cy="464" r="12" fill="#DAA520"/>
-  <circle cx="48"  cy="256" r="12" fill="#DAA520"/>
-  <circle cx="464" cy="256" r="12" fill="#DAA520"/>
+  <circle cx="256" cy="256" r="256" fill="url(#bg1)"/>
+
+  <!-- Subtle inner ring -->
+  <circle cx="256" cy="256" r="220" fill="none" stroke="#c8a040" stroke-width="3" opacity="0.4"/>
+
+  <!-- Bold geometric M -->
+  <path d="M 98 370 L 98 142 L 256 290 L 414 142 L 414 370
+           L 368 370 L 368 222 L 256 342 L 144 222 L 144 370 Z"
+        fill="url(#gold1)"/>
+
+  <!-- Corner dots -->
+  <circle cx="98"  cy="130" r="8" fill="#c8a040" opacity="0.6"/>
+  <circle cx="414" cy="130" r="8" fill="#c8a040" opacity="0.6"/>
 </svg>

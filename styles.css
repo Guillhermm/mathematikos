@@ -66,6 +66,17 @@ h1, h2, h3, h4 {
     text-align: center;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+}
+
+.title-icon {
+    width: 2.2rem;
+    height: 2.2rem;
+    flex-shrink: 0;
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
 }
 
 .subtitle {
