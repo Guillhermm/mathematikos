@@ -4,7 +4,7 @@
 
 ## Play
 
-> Live at **[gzeni.github.io/mathematikos](https://gzeni.github.io/mathematikos)** — no install required. Also installable as a Progressive Web App (PWA) for offline play.
+> Live at **[guillhermm.github.io/mathematikos](https://guillhermm.github.io/mathematikos)** — no install required. Also installable as a Progressive Web App (PWA) for offline play.
 
 ## Features
 
