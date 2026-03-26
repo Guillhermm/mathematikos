@@ -10,8 +10,8 @@ const TIMELINE_ENTRIES = [
     {
         date: 'October 19, 2024',
         icon: '📁',
-        title: 'Private Prototype Repository Created',
-        text: 'The first commit to the private prototype repository is made at 22:21 (UTC-3). Eighteen minutes later, a comprehensive design document is committed — the complete game concept, story narrative, civilizations, mechanics, and technology plan. This document is cryptographically timestamped in Git history.',
+        title: 'Prototype Repository Created',
+        text: 'The first commit to the prototype repository is made at 22:21 (UTC-3). Eighteen minutes later, a comprehensive design document is committed and pushed the next day — the complete game concept, story narrative, civilizations, mechanics, and technology plan. This document is cryptographically timestamped in Git history.',
         proof: 'Prototype first commit: <code>e78660e</code> — Oct 19, 2024, 22:21 UTC-3'
     },
     {
@@ -29,8 +29,8 @@ const TIMELINE_ENTRIES = [
     {
         date: '2025',
         icon: '🎓',
-        title: 'Master\'s Degree Begins — Development Paused',
-        text: 'Guilherme begins a Master\'s degree in Applied Mathematics. Development of Mathematikos is paused to focus on academic work. The project rests, but the idea does not disappear.'
+        title: 'Master\'s Degree in Applied Mathematics Begins',
+        text: 'Development of Mathematikos is paused to focus on academic work. The project rests, but the idea does not disappear.'
     },
     {
         date: 'February 15, 2026',
@@ -63,12 +63,12 @@ function showAbout() {
 
     container.innerHTML = `
         <div class="about-intro">
-            <p>Mathematikos is a free, open educational game created by <strong>Guilherme Zeni</strong>. This page documents the project's origin — including timestamps predating all known similar products — and the philosophy behind it.</p>
+            <p>Mathematikos is a free, open educational game created by <strong>Guilherme Almeida Zeni</strong>. This page documents the project's origin — including timestamps predating all known similar products — and the philosophy behind it.</p>
         </div>
 
         <div class="about-creator">
             <h3>The Creator</h3>
-            <p><strong>Guilherme Zeni</strong> is a senior software engineer with over 10 years of experience. Mathematikos was born from a personal passion for history and mathematics, and a conviction that there is no good free browser game that teaches ancient number systems as a genuine game experience.</p>
+            <p>Guilherme is a senior software engineer with over 10 years of experience. Mathematikos was born from a personal passion for history and mathematics, and a conviction that there is no good free browser game that teaches ancient number systems as a genuine game experience.</p>
             <p>The game is and will remain <strong>free</strong>. If it helps you, consider supporting it voluntarily.</p>
         </div>
 
@@ -103,7 +103,7 @@ function showAbout() {
 
         <div class="about-screenshots">
             <h3>Evidence &amp; Provenance</h3>
-            <p>The original 2024 ChatGPT conversation and the private prototype repository commit history document independent origin. The prototype repository has since been archived.</p>
+            <p>The original 2024 ChatGPT conversation and the mathematikos prototype repository commit history document independent origin. The prototype repository has since been archived.</p>
             <figure class="screenshot-figure">
                 <img src="screenshots/screenshot-chatgpt-2024-october.png"
                      alt="ChatGPT conversation titled 'Jogo de adição histórica', October 2024"
@@ -112,9 +112,9 @@ function showAbout() {
             </figure>
             <figure class="screenshot-figure">
                 <img src="screenshots/screenshot-github-mathematikos-proto-readme-history.png"
-                     alt="Private prototype repository showing first commit on October 19, 2024"
+                     alt="Prototype repository showing first commit on October 19, 2024"
                      class="screenshot-img">
-                <figcaption>Private prototype repository — first commit October 19, 2024</figcaption>
+                <figcaption>Prototype repository — first commit October 19, 2024</figcaption>
             </figure>
         </div>
     `;
