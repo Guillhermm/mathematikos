@@ -204,6 +204,7 @@ h1, h2, h3, h4 {
     width: 100%;
     padding: 20px;
     font-size: 1.2rem;
+    margin: 0;
 }
 
 /* Game Info Box */
@@ -1232,10 +1233,15 @@ body[data-civ="hindu-arabic"] {
         color: #aaa;
     }
 
+    .story-setting-box,
+    .story-objective-box,
+    .story-character-box,
+    .story-numsystem-box { color: var(--text-color); }
     .story-setting-box  { background: #252525; }
     .story-objective-box { background: #1a2530; }
     .story-character-box { background: #2a2415; }
     .story-numsystem-box { background: #1e1e1e; }
+    .hypatia-quote       { color: #c4a0e8; }
 
     .civ-best-score {
         color: #aaa;
@@ -1310,6 +1316,24 @@ body[data-civ="hindu-arabic"] {
 
 .btn-sound-toggle:hover {
     opacity: 1;
+}
+
+.btn-game-back {
+    background: none;
+    border: 1px solid var(--secondary-color);
+    color: var(--text-color);
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 4px 10px;
+    border-radius: 6px;
+    opacity: 0.75;
+    transition: opacity 0.2s;
+    font-family: inherit;
+}
+
+.btn-game-back:hover {
+    opacity: 1;
+    background: rgba(0,0,0,0.08);
 }
 
 /* ===== CIVILIZATION CARD ADDITIONS ===== */
@@ -1695,7 +1719,7 @@ body[data-civ="hindu-arabic"] {
 
     .timeline-dot {
         left: 18px;
-        transform: none;
+        transform: translateX(-50%);
     }
 
     .timeline-card {
