@@ -29,26 +29,28 @@
             </div>
 
             <div class="menu-options">
-                <button class="btn btn-primary" onclick="startGame('thematic')">
-                    📜 Thematic Scenes
+                <button class="menu-btn menu-btn-thematic" onclick="startGame('thematic')">
+                    <div class="menu-btn-left"><span>📜</span><span>Thematic Scenes</span></div>
+                    <span class="menu-btn-arrow">→</span>
                 </button>
-                <button class="btn btn-secondary" onclick="startGame('temporal')">
-                    ⏰ Temporal Challenges
+                <button class="menu-btn menu-btn-temporal" onclick="startGame('temporal')">
+                    <div class="menu-btn-left"><span>⏰</span><span>Temporal Challenges</span></div>
+                    <span class="menu-btn-arrow">→</span>
                 </button>
-                <button class="btn btn-tertiary" onclick="startGame('practice')">
-                    📖 Practice Mode
+                <button class="menu-btn menu-btn-practice" onclick="startGame('practice')">
+                    <div class="menu-btn-left"><span>📖</span><span>Practice Mode</span></div>
+                    <span class="menu-btn-arrow">→</span>
                 </button>
-                <button class="btn btn-daily" onclick="showDailyChallenge()">
-                    📅 Daily Challenge
+                <button class="menu-btn menu-btn-daily" onclick="showDailyChallenge()">
+                    <div class="menu-btn-left"><span>📅</span><span>Daily Challenge</span></div>
+                    <span class="menu-btn-arrow">→</span>
                 </button>
             </div>
 
-            <div class="game-info">
-                <h3>About the Game</h3>
-                <p>Travel through time and explore ancient civilizations by solving mathematical challenges using their unique number systems!</p>
+            <div class="menu-footer">
+                <button class="btn-about-link" onclick="showAbout()">About &amp; Origin Story →</button>
+                <span class="menu-version">v1.0</span>
             </div>
-
-            <button class="btn-about-link" onclick="showAbout()">About &amp; Origin Story</button>
         </div>
     </div>
 
@@ -56,6 +58,7 @@
     <div id="civilization-select" class="screen">
         <div class="container">
             <h2>Select Your Civilization</h2>
+            <p class="civ-select-subtitle">Uncover the mathematical secrets of the ancients.</p>
             <div id="civilization-list" class="civilization-grid"></div>
             <button class="btn btn-back" onclick="showScreen('main-menu')">← Back to Menu</button>
         </div>
@@ -63,32 +66,44 @@
 
     <!-- Story Introduction -->
     <div id="story-intro" class="screen">
-        <div class="container">
+        <header class="story-intro-header">
+            <button class="btn-game-back" onclick="showScreen('civilization-select')" title="Back">←</button>
+            <span class="story-intro-header-civ" id="story-intro-civ-title"></span>
+            <button class="btn-game-back" onclick="openCodexCurrent()" title="Open Codex">📚</button>
+        </header>
+        <div class="story-scroll">
             <div id="story-content"></div>
-            <button class="btn btn-back" onclick="showScreen('civilization-select')">← Back</button>
-            <button class="btn btn-primary" onclick="startChallenge()">Begin Challenge →</button>
+        </div>
+        <div class="story-cta">
+            <button class="btn-begin-challenge" onclick="startChallenge()">Begin Challenge →</button>
         </div>
     </div>
 
     <!-- Game Play -->
     <div id="game-play" class="screen">
-        <!-- Header with stats -->
+        <!-- Header: back | timer | score + sound -->
         <div class="game-header">
             <button class="btn-game-back" onclick="showScreen('story-intro')" title="Back to story">←</button>
-            <div class="stat">
-                <span class="label">Score:</span>
-                <span id="score" class="value">0</span>
-            </div>
-            <div class="stat">
-                <span class="label">Time:</span>
+            <div class="game-header-timer">
+                <span class="game-timer-icon">⏱</span>
                 <span id="timer" class="value">00:00</span>
             </div>
-            <div class="stat">
-                <span class="label">Challenge:</span>
-                <span id="challenge-number" class="value">1/5</span>
+            <div class="game-header-right">
+                <div class="game-score-coin">
+                    <span id="score">0</span>
+                    <span>🪙</span>
+                </div>
+                <span class="oracle-badge" id="oracle-badge">✨ 0</span>
+                <button class="btn-sound-toggle" id="sound-toggle" onclick="toggleAmbient()" title="Toggle ambient sound">🔊</button>
             </div>
-            <span class="oracle-badge" id="oracle-badge">✨ 0</span>
-            <button class="btn-sound-toggle" id="sound-toggle" onclick="toggleAmbient()" title="Toggle ambient sound">🔊</button>
+        </div>
+
+        <!-- Challenge progress strip -->
+        <div class="game-challenge-strip">
+            <div class="game-progress-track">
+                <div class="game-progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="game-challenge-label" id="challenge-number">Challenge 1/5</div>
         </div>
 
         <!-- Context chips (mobile progressive disclosure) -->
@@ -115,21 +130,37 @@
                 </div>
 
                 <div class="answer-section">
+                    <label class="answer-label">Your Answer</label>
                     <div id="answer-builder" class="answer-builder">
                         <div id="built-answer" class="built-answer"></div>
                     </div>
                     <div class="symbol-pad-zone">
                         <div id="symbol-pad" class="symbol-pad"></div>
                     </div>
+                    <!-- Numeric keypad for Arabic answer entry -->
+                    <div class="numeric-pad" id="numeric-pad">
+                        <div class="numeric-grid">
+                            <button class="numeric-key" onclick="appendDigit(1)">1</button>
+                            <button class="numeric-key" onclick="appendDigit(2)">2</button>
+                            <button class="numeric-key" onclick="appendDigit(3)">3</button>
+                            <button class="numeric-key" onclick="appendDigit(4)">4</button>
+                            <button class="numeric-key" onclick="appendDigit(5)">5</button>
+                            <button class="numeric-key" onclick="appendDigit(6)">6</button>
+                            <button class="numeric-key" onclick="appendDigit(7)">7</button>
+                            <button class="numeric-key" onclick="appendDigit(8)">8</button>
+                            <button class="numeric-key" onclick="appendDigit(9)">9</button>
+                            <div class="numeric-key-spacer"></div>
+                            <button class="numeric-key" onclick="appendDigit(0)">0</button>
+                            <div class="numeric-key-spacer"></div>
+                        </div>
+                    </div>
                     <div id="feedback" class="feedback"></div>
                     <div class="hint-section">
                         <button class="btn btn-hint" onclick="showHint()">💡 Get Hint</button>
                         <div id="hint-display" class="hint-display"></div>
                     </div>
-                    <div class="or-divider">
-                        <span>or type number</span>
-                    </div>
-                    <input type="text" id="answer-input" placeholder="Type Arabic number (1, 2, 3...)" autocomplete="off">
+                    <!-- Hidden — kept for JS compatibility -->
+                    <input type="text" id="answer-input" autocomplete="off" style="display:none">
                 </div>
             </div>
         </div>

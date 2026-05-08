@@ -39,10 +39,17 @@ function loadNextChallenge() {
 
     document.getElementById('score').textContent = gameState.score;
     document.getElementById('challenge-number').textContent =
-        `${gameState.currentChallenge}/${gameState.totalChallenges}`;
+        `Challenge ${gameState.currentChallenge}/${gameState.totalChallenges}`;
+    const fillEl = document.getElementById('progress-fill');
+    if (fillEl) {
+        fillEl.style.width =
+            `${((gameState.currentChallenge - 1) / gameState.totalChallenges) * 100}%`;
+    }
     document.getElementById('feedback').classList.remove('show');
     document.getElementById('hint-display').classList.remove('show');
     document.getElementById('answer-input').value = '';
+    const numPad = document.getElementById('numeric-pad');
+    if (numPad) numPad.classList.remove('is-reverse');
     clearAnswer();
 
     // In practice mode with 2+ unlocked civs: 20% chance of cross-civ conversion challenge
@@ -111,11 +118,13 @@ function applyReverseDisplay() {
     `;
     const answerInput = document.getElementById('answer-input');
     if (answerInput) answerInput.placeholder = 'Build the numeral using the symbol pad above';
+    const numPad = document.getElementById('numeric-pad');
+    if (numPad) numPad.classList.add('is-reverse');
 }
 
 function submitAnswer() {
     const typedRaw = document.getElementById('answer-input').value.trim();
-    const input    = builtAnswer || typedRaw;
+    const input    = numericInput || builtAnswer || typedRaw;
 
     if (!input) {
         showFeedback('Please build an answer or type a number!', 'incorrect');

@@ -1,6 +1,7 @@
 // ===== SYMBOL PAD & ANSWER BUILDER =====
 
-let builtAnswer = '';
+let builtAnswer   = '';
+let numericInput  = '';
 
 const CIVILIZATION_SYMBOLS = {
     roman: [
@@ -115,25 +116,43 @@ function renderSymbolPad() {
     });
 }
 
+function appendDigit(n) {
+    builtAnswer  = '';
+    numericInput += String(n);
+    updateBuiltAnswer();
+}
+
 function addSymbol(symbol) {
+    numericInput = '';
     builtAnswer += symbol;
     updateBuiltAnswer();
 }
 
 function clearAnswer() {
-    builtAnswer = '';
+    builtAnswer  = '';
+    numericInput = '';
     updateBuiltAnswer();
 }
 
 function backspaceAnswer() {
-    // Slice by Unicode code point to correctly remove multi-byte characters.
-    builtAnswer = [...builtAnswer].slice(0, -1).join('');
+    if (numericInput) {
+        numericInput = numericInput.slice(0, -1);
+    } else {
+        // Slice by Unicode code point to correctly remove multi-byte characters.
+        builtAnswer = [...builtAnswer].slice(0, -1).join('');
+    }
     updateBuiltAnswer();
 }
 
 function updateBuiltAnswer() {
-    const display = document.getElementById('built-answer');
-    display.classList.toggle('empty', !builtAnswer);
+    const display  = document.getElementById('built-answer');
+    const hasInput = builtAnswer || numericInput;
+    display.classList.toggle('empty', !hasInput);
+
+    if (numericInput) {
+        display.textContent = numericInput;
+        return;
+    }
 
     if (!builtAnswer) {
         display.innerHTML = '';

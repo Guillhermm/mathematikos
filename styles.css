@@ -1,15 +1,21 @@
 /* Root Variables */
 :root {
-    --primary-color: #8B4513;
+    --primary-color: #6c2f00;
+    --primary-container: #8b4513;
     --secondary-color: #DAA520;
     --accent-color: #CD853F;
     --success-color: #2E8B57;
     --error-color: #DC143C;
     --text-color: #2C1810;
-    --bg-color: #FFF8DC;
+    --on-surface-variant: #54433a;
+    --outline: #877369;
+    --outline-variant: #dac2b6;
+    --bg-color: #fff8f5;
     --card-bg: #FAEBD7;
-    --shadow: 0 4px 20px rgba(44, 24, 16, 0.12);
-    --shadow-lg: 0 10px 30px rgba(44, 24, 16, 0.2);
+    --surface-container: #fbebe3;
+    --surface-container-low: #fff1eb;
+    --shadow: 0 2px 8px rgba(44, 24, 16, 0.12);
+    --shadow-lg: 0 8px 24px rgba(44, 24, 16, 0.18);
 }
 
 /* Reset and Base Styles */
@@ -21,7 +27,7 @@
 
 body {
     font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
-    background: linear-gradient(135deg, var(--bg-color) 0%, #F5DEB3 100%);
+    background: linear-gradient(180deg, #FFF8DC 0%, #FAEBD7 100%);
     color: var(--text-color);
     min-height: 100vh;
     padding: 10px;
@@ -72,10 +78,10 @@ h1, h2, h3, h4 {
 }
 
 .brand-icon {
-    width: 7rem;
-    height: 7rem;
+    width: 5rem;
+    height: 5rem;
     flex-shrink: 0;
-    filter: drop-shadow(2px 2px 10px rgba(0,0,0,0.4));
+    filter: drop-shadow(0 2px 8px rgba(44,24,16,0.3));
 }
 
 .brand-text {
@@ -731,20 +737,7 @@ h1, h2, h3, h4 {
     }
 
     .civilization-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-    }
-
-    .civilization-card {
-        padding: 12px;
-    }
-
-    .civilization-card .icon {
-        font-size: 2rem;
-    }
-
-    .civilization-card .name {
-        font-size: 1rem;
+        grid-template-columns: 1fr;
     }
 }
 
@@ -2040,5 +2033,521 @@ body[data-civ="hindu-arabic"] {
             background: #3C2820;
             border-top-color: rgba(255, 255, 255, 0.08);
         }
+    }
+}
+
+/* ===== MAIN MENU — row-style buttons ===== */
+
+.menu-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    margin: 24px 0;
+}
+
+.menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 16px 20px;
+    background: var(--card-bg);
+    border: 1px solid var(--outline-variant);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    font-family: 'Literata', Georgia, serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-color);
+    text-align: left;
+    transition: box-shadow 0.2s, transform 0.15s, border-color 0.2s;
+    min-height: 56px;
+}
+
+.menu-btn:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-1px);
+    border-color: var(--accent-color);
+}
+
+.menu-btn:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow);
+}
+
+.menu-btn-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.menu-btn-left > span:first-child {
+    font-size: 1.4rem;
+    line-height: 1;
+}
+
+.menu-btn-arrow {
+    font-size: 1.1rem;
+    opacity: 0.5;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.menu-btn:hover .menu-btn-arrow {
+    opacity: 1;
+    transform: translateX(3px);
+}
+
+/* Accent left-border per mode */
+.menu-btn-thematic   { border-left: 4px solid var(--primary-color); }
+.menu-btn-temporal   { border-left: 4px solid var(--secondary-color); }
+.menu-btn-practice   { border-left: 4px solid var(--success-color); }
+.menu-btn-daily      { border-left: 4px solid #1976D2; }
+
+.menu-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 8px;
+    padding: 0 4px;
+}
+
+.btn-about-link {
+    background: none;
+    border: none;
+    padding: 8px 0;
+    color: var(--on-surface-variant);
+    font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.2s;
+}
+
+.btn-about-link:hover {
+    color: var(--primary-color);
+}
+
+.menu-version {
+    font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+    font-size: 0.8rem;
+    color: var(--outline);
+    opacity: 0.7;
+}
+
+/* ===== CIVILIZATION SELECT — subtitle + updated cards ===== */
+
+.civ-select-subtitle {
+    font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+    font-size: 1rem;
+    color: var(--on-surface-variant);
+    text-align: center;
+    margin: 4px 0 20px;
+}
+
+.civilization-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+.civilization-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 12px;
+    background: #FAEBD7;
+    border: 1px solid var(--outline-variant);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    text-align: center;
+    position: relative;
+    transition: box-shadow 0.25s, transform 0.2s, border-color 0.2s;
+    min-height: 140px;
+    gap: 6px;
+}
+
+.civilization-card:not(.locked):hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+    border-color: var(--accent-color);
+}
+
+.civilization-card.locked {
+    opacity: 0.55;
+    filter: grayscale(30%);
+    cursor: not-allowed;
+}
+
+.civ-card-icon {
+    font-size: 2.6rem;
+    line-height: 1;
+    margin-bottom: 2px;
+}
+
+.civilization-card.locked .civ-card-icon {
+    filter: blur(2px);
+}
+
+.civ-card-name {
+    font-family: 'Literata', Georgia, serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-color);
+    line-height: 1.25;
+}
+
+.civ-difficulty-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+
+.diff-easy {
+    background: rgba(46, 139, 87, 0.12);
+    color: var(--success-color);
+    border: 1px solid rgba(46, 139, 87, 0.25);
+}
+
+.diff-intermediate {
+    background: rgba(205, 133, 63, 0.15);
+    color: var(--primary-color);
+    border: 1px solid rgba(205, 133, 63, 0.3);
+}
+
+.diff-advanced {
+    background: rgba(218, 165, 32, 0.18);
+    color: #7a5800;
+    border: 1px solid rgba(218, 165, 32, 0.35);
+}
+
+.diff-expert {
+    background: rgba(220, 20, 60, 0.1);
+    color: var(--error-color);
+    border: 1px solid rgba(220, 20, 60, 0.2);
+}
+
+.civ-completion-badge {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--success-color);
+    margin-top: 2px;
+}
+
+.civ-best-score {
+    font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+    font-size: 0.8rem;
+    color: var(--on-surface-variant);
+    margin: 0;
+}
+
+.civ-locked-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(250, 235, 215, 0.55);
+    border-radius: 12px;
+    z-index: 2;
+}
+
+.civ-locked-overlay-icon {
+    font-size: 2rem;
+    opacity: 0.6;
+}
+
+.btn-codex-card {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: none;
+    border: none;
+    padding: 4px 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    color: var(--primary-color);
+    border-radius: 6px;
+    transition: background 0.2s;
+    z-index: 3;
+}
+
+.btn-codex-card:hover {
+    background: rgba(108, 47, 0, 0.08);
+}
+
+@media (max-width: 480px) {
+    .civilization-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===== STORY INTRO — fixed full-screen layout ===== */
+
+#story-intro.active {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+    overflow: hidden;
+}
+
+.story-intro-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 14px;
+    background: var(--surface-container-low);
+    border-bottom: 1px solid var(--outline-variant);
+    flex-shrink: 0;
+    min-height: 56px;
+}
+
+.story-intro-header-civ {
+    font-family: 'Literata', Georgia, serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    flex: 1;
+    text-align: center;
+    padding: 0 8px;
+}
+
+.story-scroll {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 20px 20px 12px;
+}
+
+.story-cta {
+    flex-shrink: 0;
+    padding: 12px 20px 16px;
+    background: var(--card-bg);
+    border-top: 1px solid var(--outline-variant);
+    box-shadow: 0 -4px 16px rgba(44, 24, 16, 0.1);
+}
+
+.btn-begin-challenge {
+    display: block;
+    width: 100%;
+    padding: 14px 20px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Literata', Georgia, serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.2s, transform 0.15s;
+    min-height: 52px;
+}
+
+.btn-begin-challenge:hover {
+    background: var(--primary-container);
+    transform: translateY(-1px);
+}
+
+.btn-begin-challenge:active {
+    transform: translateY(0);
+}
+
+/* ===== GAME CHALLENGE STRIP (progress bar row) ===== */
+
+.game-challenge-strip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 14px;
+    flex-shrink: 0;
+    border-bottom: 1px solid rgba(44, 24, 16, 0.07);
+}
+
+.game-progress-track {
+    flex: 1;
+    height: 6px;
+    background: var(--outline-variant);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.game-progress-fill {
+    height: 100%;
+    background: var(--primary-color);
+    border-radius: 3px;
+    width: 0%;
+    transition: width 0.4s ease;
+}
+
+.game-challenge-label {
+    font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--on-surface-variant);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* ===== GAME HEADER — new inner elements ===== */
+
+.game-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.game-header-timer {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.game-timer-icon {
+    font-size: 1rem;
+    opacity: 0.7;
+}
+
+.game-header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.game-score-coin {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.game-score-coin span:last-child {
+    font-size: 1.1rem;
+}
+
+/* ===== ANSWER SECTION — label ===== */
+
+.answer-label {
+    display: block;
+    font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--on-surface-variant);
+    margin-bottom: 6px;
+}
+
+/* ===== NUMERIC KEYPAD (Arabic answer entry) ===== */
+
+.numeric-pad {
+    margin-top: 12px;
+}
+
+.numeric-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.numeric-key {
+    padding: 14px 8px;
+    background: var(--card-bg);
+    border: 1.5px solid var(--outline-variant);
+    border-radius: 10px;
+    font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, transform 0.1s;
+    min-height: 52px;
+    text-align: center;
+}
+
+.numeric-key:hover {
+    background: var(--surface-container);
+    border-color: var(--accent-color);
+}
+
+.numeric-key:active {
+    transform: scale(0.95);
+    background: var(--outline-variant);
+}
+
+/* .numeric-key-spacer — intentionally empty grid cell, keeps 0 key centred in bottom row */
+
+/* Hide numeric pad for reverse challenges (build ancient numeral) */
+#numeric-pad.is-reverse {
+    display: none;
+}
+
+/* ===== DARK MODE — new components ===== */
+@media (prefers-color-scheme: dark) {
+    .menu-btn {
+        background: #3C2820;
+        border-color: #5a3e30;
+        color: #f0ebe4;
+    }
+
+    .btn-about-link {
+        color: #a09080;
+    }
+
+    .civilization-card {
+        background: #3C2820;
+        border-color: #5a3e30;
+    }
+
+    .civ-card-name {
+        color: #f0ebe4;
+    }
+
+    .story-intro-header {
+        background: #2C1810;
+        border-bottom-color: #5a3e30;
+    }
+
+    .story-cta {
+        background: #2C1810;
+        border-top-color: #5a3e30;
+    }
+
+    .game-challenge-strip {
+        border-bottom-color: rgba(255, 255, 255, 0.06);
+    }
+
+    .numeric-key {
+        background: #3C2820;
+        border-color: #5a3e30;
+        color: #f0ebe4;
+    }
+
+    .numeric-key:hover {
+        background: #4a3428;
+        border-color: var(--accent-color);
     }
 }

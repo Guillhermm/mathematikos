@@ -19,31 +19,50 @@ function showScreen(screenId) {
     document.getElementById(screenId).classList.add('active');
 }
 
+const DIFFICULTY_CLASS = {
+    'Easy':         'diff-easy',
+    'Intermediate': 'diff-intermediate',
+    'Advanced':     'diff-advanced',
+    'Expert':       'diff-expert'
+};
+
 function renderCivilizationSelect() {
     const container = document.getElementById('civilization-list');
     container.innerHTML = '';
 
     Object.values(civilizations).forEach(civ => {
+        const isCompleted  = isCivilizationComplete(civ.id);
+        const stats        = getCivilizationStats(civ.id);
+        const diffClass    = DIFFICULTY_CLASS[civ.difficulty] || 'diff-intermediate';
+
         const card = document.createElement('div');
         card.className = `civilization-card ${!civ.unlocked ? 'locked' : ''}`;
-
-        const isCompleted = isCivilizationComplete(civ.id);
-        const stats = getCivilizationStats(civ.id);
 
         if (civ.unlocked) {
             card.onclick = () => selectCivilization(civ.id);
         }
 
+        const lockedOverlay = !civ.unlocked ? `
+            <div class="civ-locked-overlay">
+                <span class="civ-locked-overlay-icon">🔒</span>
+            </div>` : '';
+
+        const completionRow = isCompleted ? `
+            <div class="civ-completion-badge">
+                <span>✓</span><span>Best: ${stats ? stats.score : 0}</span>
+            </div>` : (stats && civ.unlocked ? `
+            <p class="civ-best-score">Best: ${stats.score}</p>` : '');
+
+        const codexBtn = isCompleted ? `
+            <button class="btn-codex-card" onclick="event.stopPropagation(); openCodex('${civ.id}')" title="Open Codex">📚</button>` : '';
+
         card.innerHTML = `
-            <div class="icon">${civ.icon}</div>
-            <div class="name">${civ.name}</div>
-            <div class="difficulty">${civ.difficulty}</div>
-            ${isCompleted ? `
-                <div class="completion-badge">✓ Completed</div>
-                <button class="btn-codex-card" onclick="event.stopPropagation(); openCodex('${civ.id}')">📚 Codex</button>
-            ` : ''}
-            ${!civ.unlocked ? '<p class="civ-locked-hint">🔒 Complete previous civilization first</p>' : ''}
-            ${stats && civ.unlocked ? `<p class="civ-best-score">Best Score: ${stats.score}</p>` : ''}
+            ${lockedOverlay}
+            ${codexBtn}
+            <div class="civ-card-icon">${civ.icon}</div>
+            <div class="civ-card-name">${civ.name}</div>
+            <span class="civ-difficulty-badge ${diffClass}">${civ.difficulty}</span>
+            ${completionRow}
         `;
 
         container.appendChild(card);
@@ -63,6 +82,9 @@ function showStoryIntro() {
     // Daily challenge uses the thematic story content
     const storyMode = mode === 'daily' ? 'thematic' : mode;
     const story = stories[storyMode][gameState.currentCivilization];
+
+    const civTitleEl = document.getElementById('story-intro-civ-title');
+    if (civTitleEl) civTitleEl.textContent = civ.name;
 
     // Hypatia guide block — shown in thematic and daily modes
     const hypatiaBlock = (mode === 'thematic' || mode === 'daily') && story.hypatia ? `
