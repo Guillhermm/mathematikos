@@ -70,9 +70,12 @@ function showStoryIntro() {
             <div class="hypatia-header">
                 <span class="hypatia-avatar">🔭</span>
                 <strong class="hypatia-name">Hypatia of Alexandria</strong>
+                <button class="hypatia-toggle" onclick="toggleHypatia()" title="Show/hide guidance">▼</button>
             </div>
-            <blockquote class="hypatia-quote">"${story.hypatia.quote}"</blockquote>
-            <p class="hypatia-guidance">${story.hypatia.guidance}</p>
+            <div class="hypatia-body" id="hypatia-body">
+                <blockquote class="hypatia-quote">"${story.hypatia.quote}"</blockquote>
+                <p class="hypatia-guidance">${story.hypatia.guidance}</p>
+            </div>
         </div>
     ` : '';
 

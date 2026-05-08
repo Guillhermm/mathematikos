@@ -31,6 +31,29 @@ function openCodexCurrent() {
     openCodex(gameState.currentCivilization);
 }
 
+function toggleChip(name) {
+    const allChips = ['scene', 'guide'];
+    const isAlreadyOpen = document.getElementById(`chip-panel-${name}`)?.classList.contains('open');
+
+    allChips.forEach(n => {
+        document.getElementById(`chip-panel-${n}`)?.classList.remove('open');
+        document.getElementById(`chip-btn-${n}`)?.classList.remove('active');
+    });
+
+    if (!isAlreadyOpen) {
+        document.getElementById(`chip-panel-${name}`)?.classList.add('open');
+        document.getElementById(`chip-btn-${name}`)?.classList.add('active');
+    }
+}
+
+function toggleHypatia() {
+    const body = document.getElementById('hypatia-body');
+    const btn = document.querySelector('.hypatia-toggle');
+    if (!body) return;
+    const isCollapsed = body.classList.toggle('collapsed');
+    if (btn) btn.textContent = isCollapsed ? '▶' : '▼';
+}
+
 function toggleAmbient() {
     const enabled = setAmbientEnabled(!isAmbientEnabled());
     const btn = document.getElementById('sound-toggle');

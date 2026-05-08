@@ -8,8 +8,8 @@
     --text-color: #2C1810;
     --bg-color: #FFF8DC;
     --card-bg: #FAEBD7;
-    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.2);
+    --shadow: 0 4px 20px rgba(44, 24, 16, 0.12);
+    --shadow-lg: 0 10px 30px rgba(44, 24, 16, 0.2);
 }
 
 /* Reset and Base Styles */
@@ -20,7 +20,7 @@
 }
 
 body {
-    font-family: 'Georgia', 'Times New Roman', serif;
+    font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
     background: linear-gradient(135deg, var(--bg-color) 0%, #F5DEB3 100%);
     color: var(--text-color);
     min-height: 100vh;
@@ -57,6 +57,7 @@ body {
 
 /* Typography */
 h1, h2, h3, h4 {
+    font-family: 'Literata', 'Georgia', 'Times New Roman', serif;
     color: var(--primary-color);
     margin-bottom: 15px;
 }
@@ -71,8 +72,8 @@ h1, h2, h3, h4 {
 }
 
 .brand-icon {
-    width: 11rem;
-    height: 11rem;
+    width: 7rem;
+    height: 7rem;
     flex-shrink: 0;
     filter: drop-shadow(2px 2px 10px rgba(0,0,0,0.4));
 }
@@ -133,7 +134,7 @@ h1, h2, h3, h4 {
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
-    font-family: inherit;
+    font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
     font-weight: bold;
     box-shadow: var(--shadow);
     display: inline-block;
@@ -397,7 +398,7 @@ h1, h2, h3, h4 {
 }
 
 .built-answer.empty::before {
-    content: 'Click symbols below to build your answer';
+    content: 'Tap symbols below to build your answer';
     font-size: 1rem;
     color: #999;
     font-weight: normal;
@@ -730,7 +731,20 @@ h1, h2, h3, h4 {
     }
 
     .civilization-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .civilization-card {
+        padding: 12px;
+    }
+
+    .civilization-card .icon {
+        font-size: 2rem;
+    }
+
+    .civilization-card .name {
+        font-size: 1rem;
     }
 }
 
@@ -1404,6 +1418,7 @@ body[data-civ="hindu-arabic"] {
     align-items: center;
     gap: 10px;
     margin-bottom: 8px;
+    justify-content: space-between;
 }
 
 .hypatia-avatar {
@@ -1759,4 +1774,271 @@ body[data-civ="hindu-arabic"] {
     .screenshot-placeholder { background: #252525; border-color: #555; color: #aaa; }
     .screenshot-img         { border-color: #444; }
     .screenshot-figure figcaption { color: #aaa; }
+}
+
+/* ===== MOBILE-FIRST GAME-PLAY FULL-SCREEN LAYOUT ===== */
+
+/* Context chips: visible on mobile only */
+.context-chips {
+    display: none;
+}
+
+/* Oracle badge: hidden on desktop */
+.oracle-badge {
+    display: none;
+}
+
+/* Action row: always present */
+.game-action-row {
+    display: flex;
+    gap: 10px;
+}
+
+/* ── Mobile (≤768px): fixed full-screen flex column ── */
+@media (max-width: 768px) {
+    #game-play.active {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        background: var(--bg-color);
+        z-index: 50;
+    }
+
+    /* Game header: static flex item, not sticky */
+    #game-play .game-header {
+        position: static;
+        flex-shrink: 0;
+        padding: 8px 14px;
+        margin: 0;
+        border-radius: 0;
+        border-bottom: 1px solid rgba(44, 24, 16, 0.1);
+        box-shadow: none;
+    }
+
+    /* Context chips row */
+    .context-chips {
+        display: flex;
+        flex-shrink: 0;
+        gap: 8px;
+        padding: 8px 14px;
+        background: rgba(250, 235, 215, 0.6);
+        border-bottom: 1px solid rgba(44, 24, 16, 0.07);
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Chip buttons */
+    .chip-btn {
+        flex-shrink: 0;
+        padding: 5px 14px;
+        border: 1.5px solid var(--accent-color);
+        border-radius: 20px;
+        background: transparent;
+        color: var(--text-color);
+        font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s, color 0.2s;
+        white-space: nowrap;
+        min-height: 34px;
+    }
+
+    .chip-btn.active {
+        background: var(--accent-color);
+        color: white;
+    }
+
+    /* Chip panels: collapsed by default */
+    .chip-panel {
+        flex-shrink: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    .chip-panel.open {
+        max-height: 200px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Strip card styling from panels on mobile — they're inline slices */
+    .chip-panel .scene-box,
+    .chip-panel .info-box {
+        border-radius: 0;
+        margin: 0;
+        border-left: none;
+        border-bottom: 2px solid var(--accent-color);
+        box-shadow: none;
+    }
+
+    /* Scrollable game body */
+    .game-scroll {
+        flex: 1;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 12px 14px 4px;
+    }
+
+    /* Strip challenge-area card on mobile */
+    .game-scroll .challenge-area {
+        background: transparent;
+        box-shadow: none;
+        padding: 0;
+        margin-bottom: 0;
+    }
+
+    /* Sticky action row at bottom */
+    .game-action-row {
+        flex-shrink: 0;
+        gap: 6px;
+        padding: 8px 12px;
+        background: var(--card-bg);
+        border-top: 1px solid rgba(44, 24, 16, 0.1);
+        box-shadow: 0 -4px 16px rgba(44, 24, 16, 0.1);
+    }
+
+    .game-action-row .btn {
+        margin: 0;
+        min-height: 48px;
+        font-size: 0.9rem;
+        padding: 8px 10px;
+    }
+
+    /* Oracle badge in header */
+    .oracle-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 2px 10px;
+        background: rgba(218, 165, 32, 0.15);
+        border: 1px solid var(--secondary-color);
+        border-radius: 12px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        white-space: nowrap;
+    }
+
+    /* Hide full oracle section — badge handles it */
+    #game-play .oracle-pieces {
+        display: none;
+    }
+
+    /* Symbol pad zone: scrollable to handle large pads (Babylonian, Mayan, Chinese) */
+    .symbol-pad-zone {
+        max-height: 210px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 10px;
+    }
+
+    /* 52px touch targets for symbol buttons */
+    .symbol-button {
+        min-height: 52px;
+        padding: 10px 8px;
+    }
+}
+
+/* Submit button always takes remaining space */
+.btn-submit {
+    flex: 1;
+}
+
+/* ── Desktop (≥769px): normal block layout with max-width ── */
+@media (min-width: 769px) {
+    #game-play .game-header {
+        max-width: 840px;
+        margin-inline: auto;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 15px 20px;
+        margin-bottom: 20px;
+    }
+
+    #game-play .chip-panel {
+        max-width: 840px;
+        margin-inline: auto;
+        width: 100%;
+        box-sizing: border-box;
+        padding-inline: 20px;
+    }
+
+    .game-scroll {
+        max-width: 840px;
+        margin-inline: auto;
+        width: 100%;
+        box-sizing: border-box;
+        padding-inline: 20px;
+    }
+
+    .game-action-row {
+        max-width: 840px;
+        margin-inline: auto;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 20px 20px;
+    }
+
+    .game-action-row .btn {
+        margin: 5px;
+    }
+
+    #game-play .oracle-pieces {
+        max-width: 840px;
+        margin-inline: auto;
+        width: 100%;
+        box-sizing: border-box;
+        padding-inline: 20px;
+        display: block;
+    }
+}
+
+/* ===== HYPATIA TOGGLE ===== */
+
+.hypatia-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--primary-color);
+    font-size: 0.8rem;
+    padding: 2px 6px;
+    opacity: 0.55;
+    transition: opacity 0.2s;
+    font-family: inherit;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.hypatia-toggle:hover {
+    opacity: 1;
+}
+
+.hypatia-body {
+    transition: none;
+}
+
+.hypatia-body.collapsed {
+    display: none;
+}
+
+/* ===== DARK MODE — game-play additions ===== */
+@media (prefers-color-scheme: dark) {
+    @media (max-width: 768px) {
+        .context-chips {
+            background: rgba(60, 40, 32, 0.7);
+        }
+
+        .chip-panel .scene-box,
+        .chip-panel .info-box {
+            border-bottom-color: var(--accent-color);
+        }
+
+        .game-action-row {
+            background: #3C2820;
+            border-top-color: rgba(255, 255, 255, 0.08);
+        }
+    }
 }

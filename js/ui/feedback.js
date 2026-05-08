@@ -32,6 +32,9 @@ function updateOraclePiecesDisplay() {
         }
         container.appendChild(piece);
     }
+
+    const badge = document.getElementById('oracle-badge');
+    if (badge) badge.textContent = `✨ ${gameState.oraclePieces.length}`;
 }
 
 function showAchievement(title, message) {

@@ -12,6 +12,9 @@
     <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Main Menu -->
@@ -69,32 +72,44 @@
 
     <!-- Game Play -->
     <div id="game-play" class="screen">
-        <div class="container">
-            <!-- Header with stats -->
-            <div class="game-header">
-                <button class="btn-game-back" onclick="showScreen('story-intro')" title="Back to story">←</button>
-                <div class="stat">
-                    <span class="label">Score:</span>
-                    <span id="score" class="value">0</span>
-                </div>
-                <div class="stat">
-                    <span class="label">Time:</span>
-                    <span id="timer" class="value">00:00</span>
-                </div>
-                <div class="stat">
-                    <span class="label">Challenge:</span>
-                    <span id="challenge-number" class="value">1/5</span>
-                </div>
-                <button class="btn-sound-toggle" id="sound-toggle" onclick="toggleAmbient()" title="Toggle ambient sound">🔊</button>
+        <!-- Header with stats -->
+        <div class="game-header">
+            <button class="btn-game-back" onclick="showScreen('story-intro')" title="Back to story">←</button>
+            <div class="stat">
+                <span class="label">Score:</span>
+                <span id="score" class="value">0</span>
             </div>
+            <div class="stat">
+                <span class="label">Time:</span>
+                <span id="timer" class="value">00:00</span>
+            </div>
+            <div class="stat">
+                <span class="label">Challenge:</span>
+                <span id="challenge-number" class="value">1/5</span>
+            </div>
+            <span class="oracle-badge" id="oracle-badge">✨ 0</span>
+            <button class="btn-sound-toggle" id="sound-toggle" onclick="toggleAmbient()" title="Toggle ambient sound">🔊</button>
+        </div>
 
-            <!-- Scene description -->
+        <!-- Context chips (mobile progressive disclosure) -->
+        <div class="context-chips">
+            <button class="chip-btn" id="chip-btn-scene" onclick="toggleChip('scene')">📖 Story</button>
+            <button class="chip-btn" id="chip-btn-guide" onclick="toggleChip('guide')">📚 Guide</button>
+        </div>
+
+        <!-- Collapsible: scene description -->
+        <div class="chip-panel" id="chip-panel-scene">
             <div id="scene-description" class="scene-box"></div>
+        </div>
 
-            <!-- Challenge area -->
+        <!-- Collapsible: number system guide -->
+        <div class="chip-panel" id="chip-panel-guide">
+            <div id="number-system-info" class="info-box"></div>
+        </div>
+
+        <!-- Scrollable game body -->
+        <div class="game-scroll">
             <div class="challenge-area">
-                <div id="number-system-info" class="info-box"></div>
-
                 <div class="problem-display">
                     <div id="problem" class="problem"></div>
                 </div>
@@ -103,31 +118,33 @@
                     <div id="answer-builder" class="answer-builder">
                         <div id="built-answer" class="built-answer"></div>
                     </div>
-                    <div id="symbol-pad" class="symbol-pad"></div>
-                    <div class="answer-controls">
-                        <button class="btn btn-clear" onclick="clearAnswer()">🔄 Clear</button>
-                        <button class="btn btn-backspace" onclick="backspaceAnswer()">⌫ Backspace</button>
-                        <button class="btn btn-primary" onclick="submitAnswer()">✓ Submit</button>
+                    <div class="symbol-pad-zone">
+                        <div id="symbol-pad" class="symbol-pad"></div>
+                    </div>
+                    <div id="feedback" class="feedback"></div>
+                    <div class="hint-section">
+                        <button class="btn btn-hint" onclick="showHint()">💡 Get Hint</button>
+                        <div id="hint-display" class="hint-display"></div>
                     </div>
                     <div class="or-divider">
                         <span>or type number</span>
                     </div>
                     <input type="text" id="answer-input" placeholder="Type Arabic number (1, 2, 3...)" autocomplete="off">
                 </div>
-
-                <div id="feedback" class="feedback"></div>
-
-                <div class="hint-section">
-                    <button class="btn btn-hint" onclick="showHint()">💡 Get Hint</button>
-                    <div id="hint-display" class="hint-display"></div>
-                </div>
             </div>
+        </div>
 
-            <!-- Oracle pieces collected -->
-            <div class="oracle-pieces">
-                <h4>Oracle Pieces Collected:</h4>
-                <div id="pieces-display" class="pieces-grid"></div>
-            </div>
+        <!-- Sticky action row -->
+        <div class="game-action-row">
+            <button class="btn btn-clear" onclick="clearAnswer()">🔄 Clear</button>
+            <button class="btn btn-backspace" onclick="backspaceAnswer()">⌫ Back</button>
+            <button class="btn btn-primary btn-submit" onclick="submitAnswer()">✓ Submit</button>
+        </div>
+
+        <!-- Oracle pieces collected (desktop) -->
+        <div class="oracle-pieces">
+            <h4>Oracle Pieces Collected:</h4>
+            <div id="pieces-display" class="pieces-grid"></div>
         </div>
     </div>
 
