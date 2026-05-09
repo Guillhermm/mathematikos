@@ -106,61 +106,52 @@
             <div class="game-challenge-label" id="challenge-number">Challenge 1/5</div>
         </div>
 
-        <!-- Context chips (mobile progressive disclosure) -->
+        <!-- Context chips (mobile only — hidden on desktop) -->
         <div class="context-chips">
             <button class="chip-btn" id="chip-btn-scene" onclick="toggleChip('scene')">📖 Story</button>
             <button class="chip-btn" id="chip-btn-guide" onclick="toggleChip('guide')">📚 Guide</button>
         </div>
 
-        <!-- Collapsible: scene description -->
-        <div class="chip-panel" id="chip-panel-scene">
-            <div id="scene-description" class="scene-box"></div>
-        </div>
-
-        <!-- Collapsible: number system guide -->
-        <div class="chip-panel" id="chip-panel-guide">
-            <div id="number-system-info" class="info-box"></div>
-        </div>
-
-        <!-- Scrollable game body -->
-        <div class="game-scroll">
-            <div class="challenge-area">
-                <div class="problem-display">
-                    <div id="problem" class="problem"></div>
+        <!-- Desktop sidebar + mobile collapsible panels -->
+        <div class="game-columns">
+            <!-- Left sidebar (desktop) / collapsible panels (mobile) -->
+            <div class="game-sidebar">
+                <div class="chip-panel" id="chip-panel-scene">
+                    <div id="scene-description" class="scene-box"></div>
                 </div>
+                <div class="chip-panel" id="chip-panel-guide">
+                    <div id="number-system-info" class="info-box"></div>
+                </div>
+                <!-- Oracle pieces: left sidebar on desktop -->
+                <div class="oracle-pieces">
+                    <h4>Oracle Pieces Collected:</h4>
+                    <div id="pieces-display" class="pieces-grid"></div>
+                </div>
+            </div>
 
-                <div class="answer-section">
-                    <label class="answer-label">Your Answer</label>
-                    <div id="answer-builder" class="answer-builder">
-                        <div id="built-answer" class="built-answer"></div>
+            <!-- Right column: scrollable game body -->
+            <div class="game-scroll">
+                <div class="challenge-area">
+                    <div class="problem-display">
+                        <div id="problem" class="problem"></div>
                     </div>
-                    <div class="symbol-pad-zone">
-                        <div id="symbol-pad" class="symbol-pad"></div>
-                    </div>
-                    <!-- Numeric keypad for Arabic answer entry -->
-                    <div class="numeric-pad" id="numeric-pad">
-                        <div class="numeric-grid">
-                            <button class="numeric-key" onclick="appendDigit(1)">1</button>
-                            <button class="numeric-key" onclick="appendDigit(2)">2</button>
-                            <button class="numeric-key" onclick="appendDigit(3)">3</button>
-                            <button class="numeric-key" onclick="appendDigit(4)">4</button>
-                            <button class="numeric-key" onclick="appendDigit(5)">5</button>
-                            <button class="numeric-key" onclick="appendDigit(6)">6</button>
-                            <button class="numeric-key" onclick="appendDigit(7)">7</button>
-                            <button class="numeric-key" onclick="appendDigit(8)">8</button>
-                            <button class="numeric-key" onclick="appendDigit(9)">9</button>
-                            <div class="numeric-key-spacer"></div>
-                            <button class="numeric-key" onclick="appendDigit(0)">0</button>
-                            <div class="numeric-key-spacer"></div>
+
+                    <div class="answer-section">
+                        <label class="answer-label">Your Answer</label>
+                        <div id="answer-builder" class="answer-builder">
+                            <div id="built-answer" class="built-answer"></div>
                         </div>
+                        <div class="symbol-pad-zone">
+                            <div id="symbol-pad" class="symbol-pad"></div>
+                        </div>
+                        <div id="feedback" class="feedback"></div>
+                        <div class="hint-section">
+                            <button class="btn btn-hint" onclick="showHint()">💡 Get Hint</button>
+                            <div id="hint-display" class="hint-display"></div>
+                        </div>
+                        <!-- Hidden — kept for JS compatibility -->
+                        <input type="text" id="answer-input" autocomplete="off" style="display:none">
                     </div>
-                    <div id="feedback" class="feedback"></div>
-                    <div class="hint-section">
-                        <button class="btn btn-hint" onclick="showHint()">💡 Get Hint</button>
-                        <div id="hint-display" class="hint-display"></div>
-                    </div>
-                    <!-- Hidden — kept for JS compatibility -->
-                    <input type="text" id="answer-input" autocomplete="off" style="display:none">
                 </div>
             </div>
         </div>
@@ -170,12 +161,6 @@
             <button class="btn btn-clear" onclick="clearAnswer()">🔄 Clear</button>
             <button class="btn btn-backspace" onclick="backspaceAnswer()">⌫ Back</button>
             <button class="btn btn-primary btn-submit" onclick="submitAnswer()">✓ Submit</button>
-        </div>
-
-        <!-- Oracle pieces collected (desktop) -->
-        <div class="oracle-pieces">
-            <h4>Oracle Pieces Collected:</h4>
-            <div id="pieces-display" class="pieces-grid"></div>
         </div>
     </div>
 

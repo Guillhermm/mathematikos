@@ -1166,105 +1166,148 @@ body[data-civ="hindu-arabic"] {
 }
 
 /* Dark mode */
+/* ===== DARK MODE — Nocturnal Codex palette ===== */
 @media (prefers-color-scheme: dark) {
     :root {
-        --text-color: #f0ebe4;
-        --bg-color: #2C1810;
-        --card-bg: #3C2820;
+        --text-color: #f5ded3;
+        --on-surface-variant: #d7c2b8;
+        --outline: #9f8d84;
+        --outline-variant: #52443c;
+        --bg-color: #1c110b;
+        --card-bg: #291d16;
+        --surface-container: #342720;
+        --surface-container-low: #251912;
+        --primary-color: #ffb68c;
+        --primary-container: #ffb68c;
+        --secondary-color: #f6be3b;
+        --accent-color: #CD853F;
+        --shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+        --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
     }
 
     body {
-        background: linear-gradient(135deg, #2C1810 0%, #3C2820 100%);
+        background: #1c110b;
+        color: var(--text-color);
     }
 
+    /* ── Navigation & structure ── */
+    .game-header,
+    .story-intro-header,
+    .context-chips {
+        background: #251912;
+        border-color: #52443c;
+    }
+
+    .btn-game-back {
+        border-color: rgba(255, 182, 140, 0.3);
+        color: var(--text-color);
+    }
+
+    .btn-game-back:hover { background: rgba(255, 182, 140, 0.08); }
+
+    /* ── Challenge area ── */
     .challenge-area,
+    .problem-display,
     .answer-builder,
-    .modal-content,
-    .results-box .stat-item,
     .number-display {
-        background: #2C1810;
-        color: var(--text-color);
+        background: #342720;
+        border-color: #52443c;
     }
 
-    .or-divider span {
-        background: #2C1810;
-        color: #aaa;
-    }
+    .problem { color: var(--text-color); }
 
-    .or-divider::before {
-        background: #555;
-    }
-
-    #answer-input {
-        background: #3C2820;
-        color: var(--text-color);
-        border-color: #5a3e30;
-    }
-
-    .symbol-button {
-        background: #3C2820;
-        color: var(--text-color);
-    }
-
-    .symbol-button .symbol-label {
-        color: #aaa;
-    }
-
-    .built-answer.empty::before {
-        color: #aaa;
-    }
-
+    .scene-box,
     .info-box {
-        background: #1a2530;
-        border-left-color: #4A90A4;
+        background: #291d16;
+        border-left-color: #ffb68c;
+        color: var(--text-color);
     }
 
-    .info-box h4 {
-        color: #8cb8c8;
-    }
+    .info-box h4 { color: #ffb68c; }
 
     .hint-display {
-        background: #2a2415;
+        background: #251912;
+        border-color: #52443c;
+        color: #d7c2b8;
     }
 
-    .feedback.correct {
-        background: #1a3a25;
+    .feedback.correct  { background: #0e2418; color: #7dcca0; }
+    .feedback.incorrect { background: #2a0e10; color: #ffb4ab; }
+
+    /* ── Symbol pad ── */
+    .symbol-button {
+        background: #291d16;
+        border-color: #52443c;
+        color: var(--text-color);
+    }
+    .symbol-button:hover { background: #342720; border-color: #ffb68c; }
+    .symbol-button .symbol-label { color: #9f8d84; }
+
+    /* ── Answer builder ── */
+    .built-answer {
+        background: #1c110b;
+        border-color: #52443c;
+        color: var(--text-color);
+    }
+    .built-answer.empty::before { color: #9f8d84; }
+
+    /* ── Modals ── */
+    .modal-content {
+        background: #291d16;
+        border-color: #52443c;
+        color: var(--text-color);
     }
 
-    .feedback.incorrect {
-        background: #3a1a1f;
+    /* ── Results & stats ── */
+    .results-box .stat-item { background: #342720; border-color: #52443c; }
+    .final-score { color: #ffb68c; }
+    .oracle-collected-box { background: #251912; border-color: #f6be3b; }
+
+    /* ── Story boxes ── */
+    .story-setting-box  { background: #291d16; border-color: #52443c; color: var(--text-color); }
+    .story-objective-box { background: #251912; border-color: #52443c; color: var(--text-color); }
+    .story-character-box { background: #342720; border-color: #52443c; color: var(--text-color); }
+    .story-numsystem-box { background: #1c110b; border-color: #52443c; color: var(--text-color); }
+
+    /* ── Civilization cards ── */
+    .civilization-card { background: #291d16; border-color: #52443c; }
+    .civ-card-name     { color: var(--text-color); }
+    .civ-best-score    { color: #9f8d84; }
+    .civ-locked-overlay { background: rgba(28, 17, 11, 0.6); }
+
+    /* ── Main menu buttons ── */
+    .menu-btn {
+        background: #291d16;
+        border-color: #52443c;
+        color: var(--text-color);
     }
+    .menu-btn:hover { border-color: #ffb68c; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+    .btn-about-link { color: #9f8d84; }
+    .menu-version   { color: #52443c; }
 
-    .progress-bar {
-        background: #555;
-    }
+    /* ── Story intro ── */
+    .story-cta     { background: #251912; border-top-color: #52443c; }
+    .story-intro-header-civ { color: #ffb68c; }
 
-    .reverse-prompt {
-        color: #aaa;
-    }
+    /* ── Game challenge strip ── */
+    .game-progress-track { background: #52443c; }
+    .game-progress-fill  { background: #ffb68c; }
+    .game-challenge-label { color: #9f8d84; }
 
-    .story-setting-box,
-    .story-objective-box,
-    .story-character-box,
-    .story-numsystem-box { color: var(--text-color); }
-    .story-setting-box  { background: #252525; }
-    .story-objective-box { background: #1a2530; }
-    .story-character-box { background: #2a2415; }
-    .story-numsystem-box { background: #1e1e1e; }
+    /* ── Answer section ── */
+    .answer-label { color: #9f8d84; }
 
-    .civ-best-score {
-        color: #aaa;
-    }
+    /* ── Sidebar on desktop ── */
+    .game-sidebar { border-right-color: #52443c; background: #251912; }
 
-    /* Civilization themes in dark mode */
-    body[data-civ="roman"]        { --bg-color: #1a0505; --card-bg: #2a0e0e; }
-    body[data-civ="egyptian"]     { --bg-color: #1a1505; --card-bg: #2a2010; }
-    body[data-civ="greek"]        { --bg-color: #050d1a; --card-bg: #0e1a2a; }
-    body[data-civ="babylonian"]   { --bg-color: #120a1a; --card-bg: #1e1028; }
-    body[data-civ="chinese"]      { --bg-color: #1a0505; --card-bg: #1a0a0a; }
-    body[data-civ="mayan"]        { --bg-color: #051205; --card-bg: #0e1e0e; }
-    body[data-civ="hindu-arabic"] { --bg-color: #100a1a; --card-bg: #1a1228; }
-
+    /* ── Civilization theme dark variants (warm-dark, no cold colors) ── */
+    body[data-civ="roman"]        { --bg-color: #1a0808; --card-bg: #2a0f0f; }
+    body[data-civ="egyptian"]     { --bg-color: #1a1508; --card-bg: #2a2012; }
+    body[data-civ="greek"]        { --bg-color: #081018; --card-bg: #101a28; }
+    body[data-civ="babylonian"]   { --bg-color: #1a0c08; --card-bg: #2a1510; }
+    body[data-civ="chinese"]      { --bg-color: #1a0808; --card-bg: #2a1010; }
+    body[data-civ="mayan"]        { --bg-color: #081408; --card-bg: #101e10; }
+    body[data-civ="hindu-arabic"] { --bg-color: #0d0818; --card-bg: #181025; }
 }
 
 /* ===== MAIN MENU NEW ELEMENTS ===== */
@@ -1789,6 +1832,21 @@ body[data-civ="hindu-arabic"] {
 
 /* ── Mobile (≤768px): fixed full-screen flex column ── */
 @media (max-width: 768px) {
+    /* game-columns: transparent wrapper — children flow in the flex column */
+    .game-columns {
+        display: contents;
+    }
+
+    /* game-sidebar: also transparent wrapper on mobile */
+    .game-sidebar {
+        display: contents;
+    }
+
+    /* oracle-pieces inside sidebar: hidden on mobile (badge handles it) */
+    .game-sidebar .oracle-pieces {
+        display: none;
+    }
+
     #game-play.active {
         position: fixed;
         inset: 0;
@@ -1940,53 +1998,110 @@ body[data-civ="hindu-arabic"] {
     flex: 1;
 }
 
-/* ── Desktop (≥769px): normal block layout with max-width ── */
+/* ── Desktop (≥769px): two-column layout ── */
 @media (min-width: 769px) {
-    #game-play .game-header {
-        max-width: 840px;
-        margin-inline: auto;
-        width: 100%;
-        box-sizing: border-box;
-        padding: 15px 20px;
-        margin-bottom: 20px;
+    #game-play.active {
+        /* Switch from fixed-fullscreen to normal flow on desktop */
+        position: static;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        overflow: visible;
     }
 
-    #game-play .chip-panel {
-        max-width: 840px;
+    #game-play .game-header {
+        position: static;
+        flex-shrink: 0;
+        max-width: 1200px;
         margin-inline: auto;
         width: 100%;
         box-sizing: border-box;
-        padding-inline: 20px;
+        padding: 14px 28px;
+        border-bottom: 1px solid rgba(44, 24, 16, 0.1);
+        box-shadow: var(--shadow);
+    }
+
+    #game-play .game-challenge-strip {
+        max-width: 1200px;
+        margin-inline: auto;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 8px 28px;
+    }
+
+    /* Hide chips on desktop — panels always visible in sidebar */
+    .context-chips { display: none; }
+
+    /* Two-column body */
+    .game-columns {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        flex: 1;
+        max-width: 1200px;
+        margin-inline: auto;
+        width: 100%;
+        box-sizing: border-box;
+        min-height: 0;
+    }
+
+    .game-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding: 20px 20px 20px 28px;
+        overflow-y: auto;
+        border-right: 1px solid var(--outline-variant);
+        background: var(--surface-container-low);
+    }
+
+    /* Chip panels always expanded in sidebar */
+    .game-sidebar .chip-panel {
+        max-height: none;
+        overflow: visible;
+    }
+
+    .game-sidebar .chip-panel .scene-box,
+    .game-sidebar .chip-panel .info-box {
+        border-radius: 12px;
+        margin: 0;
+        border-left: 3px solid var(--accent-color);
+        box-shadow: var(--shadow);
+    }
+
+    .game-sidebar .oracle-pieces {
+        display: block;
+        margin-top: auto;
+        padding-top: 12px;
+        border-top: 1px solid var(--outline-variant);
     }
 
     .game-scroll {
-        max-width: 840px;
-        margin-inline: auto;
-        width: 100%;
-        box-sizing: border-box;
-        padding-inline: 20px;
+        flex: 1;
+        overflow-y: auto;
+        padding: 20px 28px 20px 20px;
+        max-width: none;
+        margin-inline: 0;
+    }
+
+    .game-scroll .challenge-area {
+        background: transparent;
+        box-shadow: none;
+        padding: 0;
     }
 
     .game-action-row {
-        max-width: 840px;
+        flex-shrink: 0;
+        max-width: 1200px;
         margin-inline: auto;
         width: 100%;
         box-sizing: border-box;
-        padding: 0 20px 20px;
+        padding: 12px 28px 20px;
+        border-top: 1px solid rgba(44, 24, 16, 0.1);
+        background: var(--card-bg);
+        box-shadow: 0 -4px 16px rgba(44, 24, 16, 0.08);
     }
 
-    .game-action-row .btn {
-        margin: 5px;
-    }
-
-    #game-play .oracle-pieces {
-        max-width: 840px;
-        margin-inline: auto;
-        width: 100%;
-        box-sizing: border-box;
-        padding-inline: 20px;
-        display: block;
-    }
+    .game-action-row .btn { margin: 0 4px; }
 }
 
 /* ===== HYPATIA TOGGLE ===== */
@@ -2021,17 +2136,19 @@ body[data-civ="hindu-arabic"] {
 @media (prefers-color-scheme: dark) {
     @media (max-width: 768px) {
         .context-chips {
-            background: rgba(60, 40, 32, 0.7);
+            background: #251912;
+            border-bottom-color: #52443c;
         }
 
         .chip-panel .scene-box,
         .chip-panel .info-box {
-            border-bottom-color: var(--accent-color);
+            border-bottom-color: #ffb68c;
         }
 
         .game-action-row {
-            background: #3C2820;
-            border-top-color: rgba(255, 255, 255, 0.08);
+            background: #251912;
+            border-top-color: #52443c;
+            box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.4);
         }
     }
 }
@@ -2505,49 +2622,26 @@ body[data-civ="hindu-arabic"] {
     display: none;
 }
 
-/* ===== DARK MODE — new components ===== */
+/* ===== DARK MODE — desktop sidebar ===== */
 @media (prefers-color-scheme: dark) {
-    .menu-btn {
-        background: #3C2820;
-        border-color: #5a3e30;
-        color: #f0ebe4;
-    }
+    @media (min-width: 769px) {
+        .game-sidebar {
+            background: #251912;
+            border-right-color: #52443c;
+        }
 
-    .btn-about-link {
-        color: #a09080;
-    }
+        .game-action-row {
+            background: #251912;
+            border-top-color: #52443c;
+        }
 
-    .civilization-card {
-        background: #3C2820;
-        border-color: #5a3e30;
-    }
+        .game-sidebar .chip-panel .scene-box,
+        .game-sidebar .chip-panel .info-box {
+            border-left-color: #ffb68c;
+        }
 
-    .civ-card-name {
-        color: #f0ebe4;
-    }
-
-    .story-intro-header {
-        background: #2C1810;
-        border-bottom-color: #5a3e30;
-    }
-
-    .story-cta {
-        background: #2C1810;
-        border-top-color: #5a3e30;
-    }
-
-    .game-challenge-strip {
-        border-bottom-color: rgba(255, 255, 255, 0.06);
-    }
-
-    .numeric-key {
-        background: #3C2820;
-        border-color: #5a3e30;
-        color: #f0ebe4;
-    }
-
-    .numeric-key:hover {
-        background: #4a3428;
-        border-color: var(--accent-color);
+        .game-sidebar .oracle-pieces {
+            border-top-color: #52443c;
+        }
     }
 }
