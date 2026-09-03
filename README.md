@@ -42,7 +42,21 @@ Unlock historical fact cards as you play. Each civilization reveals its mathemat
 Your guide through time. On the story screen of every civilization she appears in an illustrated
 scene, standing in front of that culture's architecture and introducing its number system in her
 own words. The figure is one authored SVG reused everywhere, so she looks the same in Rome and in
-Baghdad; only the backdrop and the palette change.
+Baghdad; only the backdrop and the palette change. She appears again on the results screen, holding
+the Oracle fragments you recovered.
+
+### Artwork
+
+All artwork is inline SVG drawn against CSS custom properties: seven civilization backdrops, the
+Hypatia figure, the Oracle disc, and a line-icon set. Nothing is a raster image, so every asset
+recolors itself for each civilization and for dark mode without a second copy, and the complete
+offline install stays around 445 KB, most of which is the PWA icons and the provenance screenshots
+rather than the artwork.
+
+### The Oracle of Numbers
+
+The artifact you are reassembling is drawn as one disc with a wedge per challenge. Each correct
+answer locks a fragment into place, so a run visibly rebuilds it.
 
 ### Themes
 
@@ -56,7 +70,7 @@ Ambient audio per civilization. Each historical setting has its own soundscape.
 
 - Pure HTML, CSS, and ES6 JavaScript, with no build step and no dependencies.
 - Progressive Web App (PWA): installable, offline-capable via service worker.
-- 578 automated tests covering the conversion functions and the scene system across all seven civilizations.
+- 592 automated tests covering the conversion functions, the scene system, and the Oracle across all seven civilizations.
 - CI/CD via GitHub Actions: tests run on every push, deploy to GitHub Pages on version tags.
 
 ## Project Structure
@@ -78,7 +92,7 @@ mathematikos/
 │   ├── themes.js          # Theme management
 │   ├── storage.js         # Local persistence
 │   ├── civilizations/     # One module per civilization
-│   └── ui/                # Screens, scenes, timer, symbol-pad, feedback
+│   └── ui/                # Screens, scenes, icons, timer, symbol-pad, feedback
 ├── tests/                 # Test suite
 ├── screenshots/           # Provenance screenshots
 └── icons/                 # PWA icons (SVG, PNG, favicon)
