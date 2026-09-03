@@ -228,6 +228,7 @@ h1, h2, h3, h4 {
     text-decoration: underline;
     text-underline-offset: 2px;
     box-shadow: none;
+    min-height: 44px;
 }
 
 .btn-hint:hover {
@@ -1246,6 +1247,7 @@ h1, h2, h3, h4 {
     font-weight: 700;
     color: var(--accent-color);
     list-style: none;
+    min-height: 44px;
 }
 
 .mission-scene-summary::-webkit-details-marker {
@@ -1419,7 +1421,9 @@ body[data-civ="hindu-arabic"] {
     .btn-game-back {
         border-color: rgba(255, 182, 140, 0.3);
         color: var(--text-color);
-    }
+        min-width: 44px;
+    min-height: 44px;
+}
 
     .btn-game-back:hover { background: rgba(255, 182, 140, 0.08); }
 
@@ -1537,14 +1541,48 @@ body[data-civ="hindu-arabic"] {
     /* ── Sidebar on desktop ── */
     .game-sidebar { border-right-color: #52443c; background: #251912; }
 
-    /* ── Civilization theme dark variants (warm-dark, no cold colors) ── */
-    body[data-civ="roman"]        { --bg-color: #1a0808; --card-bg: #2a0f0f;  --scene-sky: #2a1a12; --scene-ground: #1f120c;}
-    body[data-civ="egyptian"]     { --bg-color: #1a1508; --card-bg: #2a2012;  --scene-sky: #2e2410; --scene-ground: #241a0a;}
-    body[data-civ="greek"]        { --bg-color: #081018; --card-bg: #101a28;  --scene-sky: #13202f; --scene-ground: #0d1722;}
-    body[data-civ="babylonian"]   { --bg-color: #1a0c08; --card-bg: #2a1510;  --scene-sky: #2a1710; --scene-ground: #1e0f0a;}
-    body[data-civ="chinese"]      { --bg-color: #1a0808; --card-bg: #2a1010;  --scene-sky: #2a1212; --scene-ground: #1e0c0c;}
-    body[data-civ="mayan"]        { --bg-color: #081408; --card-bg: #101e10;  --scene-sky: #12251a; --scene-ground: #0c1a10;}
-    body[data-civ="hindu-arabic"] { --bg-color: #0d0818; --card-bg: #181025;  --scene-sky: #1c1430; --scene-ground: #130d22;}
+    /* ── Civilization theme dark variants ──
+       These MUST redefine primary, secondary and accent, not only the surfaces.
+       body[data-civ="x"] has specificity (0,1,1) and beats the :root block
+       above it, so leaving these out means the light foreground colors survive
+       into dark mode and text lands dark-on-dark. Each hue below is its
+       civilization's, lightened until it clears 4.5:1 on that civilization's
+       own dark background. */
+    body[data-civ="roman"] {
+        --bg-color: #1a0808; --card-bg: #2a0f0f;
+        --scene-sky: #2a1a12; --scene-ground: #1f120c;
+        --primary-color: #ff9d90; --secondary-color: #e8c06a; --accent-color: #f0a97e;
+    }
+    body[data-civ="egyptian"] {
+        --bg-color: #1a1508; --card-bg: #2a2012;
+        --scene-sky: #2e2410; --scene-ground: #241a0a;
+        --primary-color: #f2ca70; --secondary-color: #ffd98c; --accent-color: #ecc463;
+    }
+    body[data-civ="greek"] {
+        --bg-color: #081018; --card-bg: #101a28;
+        --scene-sky: #13202f; --scene-ground: #0d1722;
+        --primary-color: #86bcec; --secondary-color: #9fd0e2; --accent-color: #93c6f2;
+    }
+    body[data-civ="babylonian"] {
+        --bg-color: #1a0c08; --card-bg: #2a1510;
+        --scene-sky: #2a1710; --scene-ground: #1e0f0a;
+        --primary-color: #f0ab8c; --secondary-color: #f79b7d; --accent-color: #e6b878;
+    }
+    body[data-civ="chinese"] {
+        --bg-color: #1a0808; --card-bg: #2a1010;
+        --scene-sky: #2a1212; --scene-ground: #1e0c0c;
+        --primary-color: #ff9f94; --secondary-color: #f0d472; --accent-color: #ff97a6;
+    }
+    body[data-civ="mayan"] {
+        --bg-color: #081408; --card-bg: #101e10;
+        --scene-sky: #12251a; --scene-ground: #0c1a10;
+        --primary-color: #8fd898; --secondary-color: #b0dd92; --accent-color: #e6ab6b;
+    }
+    body[data-civ="hindu-arabic"] {
+        --bg-color: #0d0818; --card-bg: #181025;
+        --scene-sky: #1c1430; --scene-ground: #130d22;
+        --primary-color: #bba5ec; --secondary-color: #ccb2ec; --accent-color: #eccd80;
+    }
 }
 
 /* ===== MAIN MENU NEW ELEMENTS ===== */
@@ -1587,6 +1625,8 @@ body[data-civ="hindu-arabic"] {
     border-radius: 6px;
     opacity: 0.7;
     transition: opacity 0.2s;
+    min-width: 44px;
+    min-height: 44px;
 }
 
 .btn-sound-toggle:hover {
@@ -1845,6 +1885,8 @@ body[data-civ="hindu-arabic"] {
     border-radius: 6px;
     color: var(--primary-color);
     cursor: pointer;
+    min-width: 44px;
+    min-height: 44px;
 }
 
 .briefing-arrow:disabled {
@@ -1871,6 +1913,12 @@ body[data-civ="hindu-arabic"] {
     opacity: 0.4;
     cursor: pointer;
     transition: opacity 0.2s, transform 0.2s;
+    /* Hit area 25px, dot still 9px: padding plus content-box clipping. This
+       clears the 24px WCAG 2.5.8 floor. Full 44px targets for moving between
+       slides are the arrows either side, plus swipe. */
+    box-sizing: content-box;
+    padding: 8px;
+    background-clip: content-box;
 }
 
 .briefing-dot.active {
@@ -2370,7 +2418,7 @@ body[data-civ="hindu-arabic"] {
         cursor: pointer;
         transition: background 0.2s, color 0.2s, border-color 0.2s;
         white-space: nowrap;
-        min-height: 34px;
+        min-height: 44px;
         box-shadow: 0 2px 6px rgba(44, 24, 16, 0.1);
     }
 
@@ -2743,6 +2791,7 @@ body[data-civ="hindu-arabic"] {
     text-decoration: underline;
     text-underline-offset: 2px;
     transition: color 0.2s;
+    min-height: 44px;
 }
 
 .btn-about-link:hover {
