@@ -84,7 +84,7 @@ const civilizations = {
 // ===== STORY CONTENT =====
 const stories = {
     thematic: {
-        intro: `<h3>🌟 The Oracle of Numbers</h3>
+        intro: `<h3>The Oracle of Numbers</h3>
         <p>You are a young mathematician who has discovered a secret time machine hidden in an ancient temple. Upon activation, you are transported through time to different civilizations.</p>
         <p>Your mission: Help people solve mathematical challenges using their unique number systems while collecting fragments of the mysterious <strong>Oracle of Numbers</strong> - an artifact broken and scattered through time.</p>
         <p>Each civilization holds a piece of the Oracle. Only by completing all challenges can you unlock the ancient wisdom that reveals the true nature of numbers.</p>`,
@@ -168,7 +168,7 @@ const stories = {
     },
 
     temporal: {
-        intro: `<h3>⚡ Guardian of Numbers</h3>
+        intro: `<h3>Guardian of Numbers</h3>
         <p>You are a Guardian of Numbers, and you've discovered a terrible truth: a secret organization called "The Children of Time" is attempting to erase the knowledge of ancient number systems from history.</p>
         <p>Your mission: Race against time to save the mathematical knowledge of ancient civilizations by solving numerical operations before the records are destroyed forever.</p>
         <p>Time is running out. Every second counts!</p>`,

@@ -85,7 +85,7 @@
         <div class="game-header">
             <button class="btn-game-back" onclick="showScreen('story-intro')" title="Back to story">←</button>
             <div class="game-header-timer">
-                <span class="game-timer-icon">⏱</span>
+                <svg class="icon game-timer-icon" aria-hidden="true"><use href="#i-clock"/></svg>
                 <span id="timer" class="value">00:00</span>
             </div>
             <div class="game-header-right">
@@ -159,7 +159,7 @@
         <!-- Sticky action row -->
         <div class="game-action-row">
             <button class="btn btn-clear" onclick="clearAnswer()">Clear</button>
-            <button class="btn btn-backspace" onclick="backspaceAnswer()">⌫ Back</button>
+            <button class="btn btn-backspace" onclick="backspaceAnswer()">Back</button>
             <button class="btn btn-primary btn-submit" onclick="submitAnswer()"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Submit</button>
         </div>
     </div>

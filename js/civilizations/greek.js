@@ -105,7 +105,7 @@ function displayGreekChallenge() {
             <div><span class="greek-char">υ</span>=400 <span class="greek-char">φ</span>=500 <span class="greek-char">χ</span>=600</div>
             <div><span class="greek-char">ψ</span>=700 <span class="greek-char">ω</span>=800 <span class="numeral-svg ref-svg-inline">${NUMERAL_SVGS.greek['ϡ']}</span>=900</div>
         </div>
-        <p style="font-size: 0.9rem; margin-top: 8px;">💡 Tip: Letters are combined to form numbers. ρκγ = 100 + 20 + 3 = 123</p>
+        <p style="font-size: 0.9rem; margin-top: 8px;">${icon('lamp')} Tip: Letters are combined to form numbers. ρκγ = 100 + 20 + 3 = 123</p>
     `;
 
     document.getElementById('problem').innerHTML = `

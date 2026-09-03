@@ -95,7 +95,7 @@ function displayRomanChallenge() {
         <h4>Roman Numerals Quick Reference</h4>
         <p><strong>I</strong> = 1, <strong>V</strong> = 5, <strong>X</strong> = 10, <strong>L</strong> = 50,
         <strong>C</strong> = 100, <strong>D</strong> = 500, <strong>M</strong> = 1000</p>
-        <p style="font-size: 0.9rem; margin-top: 8px;">💡 Tip: When a smaller numeral comes before a larger one, subtract it (e.g., IV = 4, IX = 9)</p>
+        <p style="font-size: 0.9rem; margin-top: 8px;">${icon('lamp')} Tip: When a smaller numeral comes before a larger one, subtract it (e.g., IV = 4, IX = 9)</p>
     `;
 
     document.getElementById('problem').innerHTML = `

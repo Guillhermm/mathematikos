@@ -166,7 +166,7 @@ function displayChineseChallenge() {
                 <span class="chinese-numeral">萬</span> = 10,000 (ten thousand)
             </div>
         </div>
-        <p style="font-size: 0.9rem; margin-top: 8px;">💡 Tip: Read from left to right. <span class="chinese-numeral">三百五十二</span> = 3×100 + 5×10 + 2 = 352</p>
+        <p style="font-size: 0.9rem; margin-top: 8px;">${icon('lamp')} Tip: Read from left to right. <span class="chinese-numeral">三百五十二</span> = 3×100 + 5×10 + 2 = 352</p>
     `;
 
     document.getElementById('problem').innerHTML = `

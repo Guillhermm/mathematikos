@@ -92,7 +92,7 @@ function displayEgyptianChallenge() {
             <div class="symbol-ref"><span class="numeral-svg ref-svg">${NUMERAL_SVGS.egyptian[10000]}</span> = 10,000</div>
             <div class="symbol-ref"><span class="numeral-svg ref-svg">${NUMERAL_SVGS.egyptian[100000]}</span> = 100,000</div>
         </div>
-        <p style="font-size: 0.9rem; margin-top: 8px;">💡 Tip: Count each symbol and multiply by its value, then add them all together!</p>
+        <p style="font-size: 0.9rem; margin-top: 8px;">${icon('lamp')} Tip: Count each symbol and multiply by its value, then add them all together!</p>
     `;
 
     document.getElementById('problem').innerHTML = `

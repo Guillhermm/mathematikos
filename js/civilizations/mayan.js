@@ -149,7 +149,7 @@ function displayMayanChallenge() {
             <div class="symbol-ref"><span class="numeral-svg mayan-ref">${mayanDigitSvg(0)}</span><span>○ = 0 (shell)</span></div>
             <div class="symbol-ref"><span class="numeral-svg mayan-ref">${mayanDigitSvg(19)}</span><span>max = 19</span></div>
         </div>
-        <p style="font-size: 0.9rem; margin-top: 8px;">💡 Tip: Each position is 20× the one below it. Positions stack vertically, with the top position most significant.</p>
+        <p style="font-size: 0.9rem; margin-top: 8px;">${icon('lamp')} Tip: Each position is 20× the one below it. Positions stack vertically, with the top position most significant.</p>
     `;
 
     document.getElementById('problem').innerHTML = `

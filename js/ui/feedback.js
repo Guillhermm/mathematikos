@@ -19,19 +19,10 @@ function showHint() {
 
 function updateOraclePiecesDisplay() {
     const container = document.getElementById('pieces-display');
-    container.innerHTML = '';
-
-    for (let i = 0; i < gameState.totalChallenges; i++) {
-        const piece = document.createElement('div');
-        piece.className = 'piece';
-        if (i < gameState.oraclePieces.length) {
-            piece.classList.add('collected');
-            piece.innerHTML = icon('oracle');
-        } else {
-            piece.innerHTML = '';
-        }
-        container.appendChild(piece);
-    }
+    container.innerHTML = oracleDiscMarkup(
+        gameState.oraclePieces.length,
+        gameState.totalChallenges
+    );
 
     const badge = document.getElementById('oracle-badge');
     const count = document.getElementById('oracle-count');

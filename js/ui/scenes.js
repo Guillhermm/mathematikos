@@ -263,6 +263,81 @@ function hypatiaSceneMarkup(civId) {
     `;
 }
 
+// ===== ORACLE OF NUMBERS =====
+// The Oracle is one artifact broken into fragments, so it is drawn as one disc
+// whose wedges fill in as pieces are recovered, rather than as separate tiles.
+
+const ORACLE_OUTER = 46;
+const ORACLE_INNER = 17;
+const ORACLE_GAP_DEGREES = 5;
+
+function oracleWedgePath(index, total) {
+    const step = 360 / total;
+    const start = -90 + index * step + ORACLE_GAP_DEGREES / 2;
+    const end = -90 + (index + 1) * step - ORACLE_GAP_DEGREES / 2;
+    const rad = deg => (deg * Math.PI) / 180;
+    const pt = (r, deg) => `${(60 + r * Math.cos(rad(deg))).toFixed(2)} ${(60 + r * Math.sin(rad(deg))).toFixed(2)}`;
+    const large = end - start > 180 ? 1 : 0;
+    return `M${pt(ORACLE_OUTER, start)}`
+         + `A${ORACLE_OUTER} ${ORACLE_OUTER} 0 ${large} 1 ${pt(ORACLE_OUTER, end)}`
+         + `L${pt(ORACLE_INNER, end)}`
+         + `A${ORACLE_INNER} ${ORACLE_INNER} 0 ${large} 0 ${pt(ORACLE_INNER, start)}Z`;
+}
+
+// The disc's shapes on their own 120x120 grid, with no <svg> wrapper, so they
+// can be dropped straight into a larger scene without nesting viewports.
+function oracleDiscShapes(collected, total) {
+    const wedges = [];
+    for (let i = 0; i < total; i++) {
+        const isFilled = i < collected;
+        wedges.push(
+            `<path class="oracle-wedge${isFilled ? ' filled' : ''}" d="${oracleWedgePath(i, total)}"/>`
+        );
+    }
+    return `<circle class="oracle-rim" cx="60" cy="60" r="54"/>`
+         + wedges.join('')
+         + `<circle class="oracle-hub" cx="60" cy="60" r="9"/>`
+         + `<circle class="oracle-pin" cx="60" cy="60" r="3"/>`;
+}
+
+function oracleProgressLabel(collected, total) {
+    return `Oracle of Numbers: ${collected} of ${total} fragments recovered`;
+}
+
+// Standalone disc, for the game screen.
+function oracleDiscMarkup(collected, total) {
+    return `
+        <svg class="oracle-disc" viewBox="0 0 120 120" role="img"
+             aria-label="${oracleProgressLabel(collected, total)}">
+            ${oracleDiscShapes(collected, total)}
+        </svg>
+    `;
+}
+
+// Closes the loop the story screen opens: the same figure, the same place,
+// now with the fragment she sent you for.
+function oracleResultSceneMarkup(civId, collected, total) {
+    return `
+        <div class="result-scene">
+            <svg class="result-scene-art" viewBox="0 0 400 200" role="img"
+                 aria-label="Hypatia with ${collected} of ${total} Oracle fragments recovered">
+                <rect width="400" height="200" fill="var(--scene-sky)"/>
+                <use href="#${sceneBackdropId(civId)}" width="400" height="200"/>
+                <rect y="168" width="400" height="32" fill="var(--scene-ground)"/>
+                <ellipse cx="128" cy="189" rx="52" ry="6"
+                         fill="var(--scene-shadow)" opacity=".2"/>
+                <use href="#hypatia" x="44" y="12" width="168" height="202"/>
+                <g transform="translate(286 96) scale(0.86)">
+                    <circle class="result-oracle-halo" cx="0" cy="0" r="62"/>
+                    <g transform="translate(-60 -60)">
+                        ${oracleDiscShapes(collected, total)}
+                    </g>
+                </g>
+            </svg>
+        </div>
+    `;
+}
+
 // Adds the sprite to the document once. Safe to call repeatedly.
 function injectSceneSprite() {
     if (document.getElementById(SCENE_SPRITE_ID)) return;

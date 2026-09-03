@@ -35,6 +35,7 @@
     --scene-sky:    #EDE3D2;
     --scene-ground: #D8C8B0;
     --scene-shadow: #5E4482;
+    --scrim: rgba(250, 235, 215, 0.55);
 }
 
 /* Reset and Base Styles */
@@ -609,29 +610,67 @@ h1, h2, h3, h4 {
     margin-top: 0;
 }
 
+/* ===== ORACLE OF NUMBERS =====
+   One disc, one wedge per challenge. A recovered fragment fills its wedge, so
+   the artifact visibly reassembles across a run. */
+
 .pieces-grid {
     display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
+    justify-content: center;
     margin-top: 15px;
 }
 
-.piece {
-    width: 50px;
-    height: 50px;
-    background: var(--accent-color);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    box-shadow: var(--shadow);
-    transition: transform 0.3s ease;
+.oracle-disc {
+    width: 108px;
+    height: 108px;
 }
 
-.piece.collected {
-    background: var(--secondary-color);
-    animation: collectPiece 0.5s ease;
+.oracle-rim {
+    fill: none;
+    stroke: var(--secondary-color);
+    stroke-width: 2;
+    opacity: 0.45;
+}
+
+.oracle-wedge {
+    fill: none;
+    stroke: var(--secondary-color);
+    stroke-width: 1.4;
+    stroke-dasharray: 3 4;
+    opacity: 0.5;
+}
+
+.oracle-wedge.filled {
+    fill: var(--secondary-color);
+    stroke: var(--secondary-color);
+    stroke-width: 1;
+    stroke-dasharray: none;
+    opacity: 1;
+    /* Scale from the disc center, not the wedge's own box, so the fragment
+       reads as locking into place rather than spinning in. */
+    transform-box: view-box;
+    transform-origin: 60px 60px;
+    animation: oracleLock 0.45s ease-out;
+}
+
+@keyframes oracleLock {
+    from { transform: scale(0.82); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .oracle-wedge.filled { animation: none; }
+}
+
+.oracle-hub {
+    fill: none;
+    stroke: var(--secondary-color);
+    stroke-width: 2;
+    opacity: 0.7;
+}
+
+.oracle-pin {
+    fill: var(--secondary-color);
 }
 
 @keyframes collectPiece {
@@ -1224,6 +1263,7 @@ body[data-civ="hindu-arabic"] {
 
         --scene-sky:    #241a12;
         --scene-ground: #1a1009;
+        --scrim: rgba(28, 17, 11, 0.62);
     }
 
     body {
@@ -1320,7 +1360,6 @@ body[data-civ="hindu-arabic"] {
     .civilization-card { background: #291d16; border-color: #52443c; }
     .civ-card-name     { color: var(--text-color); }
     .civ-best-score    { color: #9f8d84; }
-    .civ-locked-overlay { background: rgba(28, 17, 11, 0.6); }
 
     /* ── Main menu buttons ── */
     .menu-btn {
@@ -1569,6 +1608,27 @@ body[data-civ="hindu-arabic"] {
     line-height: 1.6;
 }
 
+/* ===== RESULT SCENE =====
+   The story screen opens with Hypatia asking; the results screen closes with
+   her holding what you recovered. */
+
+.result-scene {
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 14px;
+    background: var(--scene-sky);
+}
+
+.result-scene-art {
+    display: block;
+    width: 100%;
+}
+
+.result-oracle-halo {
+    fill: var(--secondary-color);
+    opacity: 0.16;
+}
+
 /* ===== ICONS =====
    Stroked in currentColor, so an icon takes the color of the text it sits in
    and needs no per-theme override. */
@@ -1812,7 +1872,11 @@ body[data-civ="hindu-arabic"] {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.1rem;
+    font-family: 'Literata', Georgia, serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--primary-color);
     z-index: 1;
     top: 10px;
 }
@@ -1920,6 +1984,10 @@ body[data-civ="hindu-arabic"] {
     .hypatia-scene-guidance { color: #f0ebe4; }
 
     .oracle-collected-box { background: #2a2415; border-color: #b8960a; }
+
+    /* These two carried light literals with no dark counterpart. */
+    .daily-completed-msg  { background: #16301f; color: #7fd8a0; border-color: #2f6b46; }
+    .timeline-proof       { background: #251912; color: #c2ab9d; }
 
     .codex-header         { border-bottom-color: #5a3e30; }
     .codex-section        { border-bottom-color: #3a2a20; }
@@ -2429,7 +2497,9 @@ body[data-civ="hindu-arabic"] {
     align-items: center;
     justify-content: center;
     padding: 20px 12px;
-    background: #FAEBD7;
+    /* Token, not a literal: a hardcoded light value here sits after the
+       dark-mode block and would win, leaving cream cards on a dark page. */
+    background: var(--card-bg);
     border: 1px solid var(--outline-variant);
     border-radius: 12px;
     box-shadow: var(--shadow);
@@ -2506,6 +2576,41 @@ body[data-civ="hindu-arabic"] {
     --scene-sky: #E2D8F2; --scene-ground: #C7B8E2;
 }
 
+/* At night the thumbnails take the same treatment as the story scene: a dark
+   sky with the silhouette lighter than the ground behind it. Without this the
+   cards read as lit windows punched into a dark page. */
+@media (prefers-color-scheme: dark) {
+    .civ-card-art[data-civ="roman"] {
+        --primary-color: #ffb68c; --secondary-color: #f6be3b;
+        --scene-sky: #2a1a12; --scene-ground: #1f120c;
+    }
+    .civ-card-art[data-civ="egyptian"] {
+        --primary-color: #ffb68c; --secondary-color: #f6be3b;
+        --scene-sky: #2e2410; --scene-ground: #241a0a;
+    }
+    .civ-card-art[data-civ="greek"] {
+        --primary-color: #ffb68c; --secondary-color: #f6be3b;
+        --scene-sky: #13202f; --scene-ground: #0d1722;
+    }
+    .civ-card-art[data-civ="babylonian"] {
+        --primary-color: #ffb68c; --secondary-color: #f6be3b;
+        --scene-sky: #2a1710; --scene-ground: #1e0f0a;
+    }
+    .civ-card-art[data-civ="chinese"] {
+        --primary-color: #ffb68c; --secondary-color: #f6be3b;
+        --scene-sky: #2a1212; --scene-ground: #1e0c0c;
+    }
+    .civ-card-art[data-civ="mayan"] {
+        --primary-color: #ffb68c; --secondary-color: #f6be3b;
+        --scene-sky: #12251a; --scene-ground: #0c1a10;
+    }
+    .civ-card-art[data-civ="hindu-arabic"] {
+        --primary-color: #ffb68c; --secondary-color: #f6be3b;
+        --scene-sky: #1c1430; --scene-ground: #130d22;
+    }
+}
+
+
 .civ-card-name {
     font-family: 'Literata', Georgia, serif;
     font-size: 1rem;
@@ -2574,14 +2679,11 @@ body[data-civ="hindu-arabic"] {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(250, 235, 215, 0.55);
+    /* Token, not a literal: the dark override for this sits earlier in the
+       file and a hardcoded light value here would win over it. */
+    background: var(--scrim);
     border-radius: 12px;
     z-index: 2;
-}
-
-.civ-locked-overlay-icon {
-    font-size: 2rem;
-    opacity: 0.6;
 }
 
 .btn-codex-card {

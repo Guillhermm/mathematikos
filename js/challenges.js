@@ -320,6 +320,11 @@ function endChallenge(completed) {
 
             ${gameState.mode === 'thematic' ? `
                 <div class="oracle-collected-box">
+                    ${oracleResultSceneMarkup(
+                        gameState.currentCivilization,
+                        gameState.oraclePieces.length,
+                        gameState.totalChallenges
+                    )}
                     <h3>Oracle Piece Collected!</h3>
                     <p>You have collected a fragment of the Oracle of Numbers from the ${civilizations[gameState.currentCivilization].name}!</p>
                     <p><em>"The wisdom of numbers transcends time..."</em></p>

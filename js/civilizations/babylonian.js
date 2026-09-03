@@ -106,7 +106,7 @@ function displayBabylonianChallenge() {
             <p style="margin-top: 10px;"><strong>How it works:</strong> Numbers are written in positions. Each position to the left is worth 60× more (like our base-10, but base-60!).</p>
             <p style="font-size: 0.9rem; margin-top: 8px;">Example: <span class="numeral-svg ref-svg-inline">${NUMERAL_SVGS.babylonian[1]}</span> <span class="numeral-svg ref-svg-inline">${NUMERAL_SVGS.babylonian[10]}</span><span class="numeral-svg ref-svg-inline">${NUMERAL_SVGS.babylonian[10]}</span> = (1 × 60) + 20 = 80</p>
         </div>
-        <p style="font-size: 0.9rem; margin-top: 8px;">💡 Tip: Count the wedges in each position, then multiply by powers of 60!</p>
+        <p style="font-size: 0.9rem; margin-top: 8px;">${icon('lamp')} Tip: Count the wedges in each position, then multiply by powers of 60!</p>
     `;
 
     document.getElementById('problem').innerHTML = `

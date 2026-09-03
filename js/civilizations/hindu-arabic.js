@@ -95,7 +95,7 @@ function displayHinduArabicChallenge() {
             <span class="hindu-arabic-numeral">٨</span>=8 &nbsp;
             <span class="hindu-arabic-numeral">٩</span>=9
         </p>
-        <p style="margin-top:8px; font-size:0.9rem;">💡 This positional system, with a true zero, is the ancestor of the numbers we use today.</p>
+        <p style="margin-top:8px; font-size:0.9rem;">${icon('lamp')} This positional system, with a true zero, is the ancestor of the numbers we use today.</p>
     `;
 
     document.getElementById('problem').innerHTML = `

@@ -3,56 +3,47 @@
 const TIMELINE_ENTRIES = [
     {
         date: 'Late 2024',
-        icon: '💬',
         title: 'The Idea Is Born',
         text: 'During a ChatGPT conversation titled <em>"Jogo de adição histórica"</em> (Portuguese: "Historical Addition Game"), the concept for Mathematikos takes shape: a browser game teaching ancient number systems through time-travel challenges. The name, the civilization list, and the two game modes (Thematic Scenes and Temporal Challenges) are all defined in this session.'
     },
     {
         date: 'October 19, 2024',
-        icon: '📁',
         title: 'Prototype Repository Created',
         text: 'The first commit to the prototype repository is made at 22:21 (UTC-3). Eighteen minutes later, a comprehensive design document is committed and pushed the next day, covering the complete game concept, story narrative, civilizations, mechanics, and technology plan. This document is cryptographically timestamped in Git history.',
         proof: 'Prototype first commit: <code>e78660e</code>, Oct 19, 2024, 22:21 UTC-3'
     },
     {
         date: 'October 21–November 6, 2024',
-        icon: '⚛️',
         title: 'First Prototype Built',
         text: 'A working prototype is developed using React, TypeScript, Vite, and Phaser 3. The theme selection system, WebGL shaders per civilization, and introduction scene are implemented. Development spans 19 days across the prototype repository.'
     },
     {
         date: '2025',
-        icon: '🎲',
         title: 'Mathematicus Board Game Released',
         text: 'A physical board game called <em>Mathematicus</em> is released, covering Babylonian, Egyptian, Chinese, Roman, Mayan, Arabic, and binary numeral systems, a convergent concept developed independently. Mathematikos predates this release by over a year, as evidenced by the 2024 Git history. The two products are complementary, not competitive: Mathematikus is digital and free; Mathematicus is physical and paid.'
     },
     {
         date: '2025',
-        icon: '🎓',
         title: 'Master\'s Degree in Applied Mathematics Begins',
         text: 'Development of Mathematikos is paused to focus on academic work. The project rests, but the idea does not disappear.'
     },
     {
         date: 'February 15, 2026',
-        icon: '🔄',
         title: 'Rebuilt as Pure HTML/CSS/JS',
         text: 'Mathematikos is rebuilt from scratch as a zero-dependency browser game in pure HTML, CSS, and ES6 JavaScript. The goal: instant play, no build step, works offline. Roman, Egyptian, Greek, Babylonian, and Chinese civilizations are implemented in a single evening.'
     },
     {
         date: 'March 23, 2026',
-        icon: '🌿',
         title: 'Maya Civilization &amp; Major Expansion',
         text: 'The Maya vigesimal (base-20) system is added, along with full SVG rendering for all numeral systems, a test suite per civilization, Practice Mode, and reverse challenges (write ancient numerals from Arabic numbers). The codebase is modularized into a clean file structure.'
     },
     {
         date: 'March 25, 2026',
-        icon: '🌙',
         title: 'Dark Mode &amp; Visual Polish',
         text: 'Comprehensive dark mode support is added, fixing all hardcoded light colors. Inline styles are refactored to CSS classes. The game now looks great in both light and dark themes.'
     },
     {
         date: 'March 25, 2026',
-        icon: '🕌',
         title: 'Hindu-Arabic Civilization &amp; Full Feature Expansion',
         text: 'The seventh and final civilization is added: Hindu-Arabic numerals from 9th-century Baghdad, the origin story of the number system we use today. The Daily Challenge, Codex (civilization encyclopedia), civilization visual themes, ambient sound, cross-civilization conversion challenges, and PWA (offline play) are all shipped in a single release.'
     }
@@ -90,7 +81,7 @@ function showAbout() {
         <div class="timeline">
             ${TIMELINE_ENTRIES.map((entry, i) => `
                 <div class="timeline-item ${i % 2 === 0 ? 'timeline-left' : 'timeline-right'}">
-                    <div class="timeline-dot">${entry.icon}</div>
+                    <div class="timeline-dot">${i + 1}</div>
                     <div class="timeline-card">
                         <div class="timeline-date">${entry.date}</div>
                         <h4 class="timeline-title">${entry.title}</h4>
