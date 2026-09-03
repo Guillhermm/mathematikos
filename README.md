@@ -40,10 +40,21 @@ Unlock historical fact cards as you play. Each civilization reveals its mathemat
 ### The briefing
 
 Every story screen opens with one speaking card rather than a stack of text blocks. On a first run
-the Oracle of Numbers narrates the frame story across three slides, then hands over to Hypatia for
-the guidance specific to that civilization. Once you hold a fragment the intro drops away and only
-Hypatia's slide remains. The card sizes itself to the slide you are reading, and supports arrows,
-dots and swipe.
+the Oracle of Numbers narrates the frame story across three slides, hands over to Hypatia for the
+guidance specific to that civilization, and closes on the person you are actually there to help.
+Once you hold a fragment the intro drops away. The card sizes itself to the slide you are reading,
+and supports arrows, dots and swipe.
+
+Each speaker gets their own register: the Oracle in brass because it stands outside any
+civilization, Hypatia in her constant violet, and the local character in the color of the place
+they belong to.
+
+### The dossier
+
+Below the briefing, the run's facts sit in one panel with hairline-separated rows: setting,
+objective, numerals, and any mode note such as the time limit. It replaced four stacked cards that
+spent most of their height on padding and borders, which cut the story screen from roughly 1700 px
+of scroll to about 700 px on a phone.
 
 ### The two characters
 
@@ -82,7 +93,7 @@ Ambient audio per civilization. Each historical setting has its own soundscape.
 
 - Pure HTML, CSS, and ES6 JavaScript, with no build step and no dependencies.
 - Progressive Web App (PWA): installable, offline-capable via service worker.
-- 639 automated tests covering the conversion functions, the scene system, the briefing slider, and a style contract that guards the artwork's CSS.
+- 646 automated tests covering the conversion functions, the scene system, the briefing slider, and a style contract that guards the artwork's CSS.
 - CI/CD via GitHub Actions: tests run on every push, deploy to GitHub Pages on version tags.
 
 ## Project Structure

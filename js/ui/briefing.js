@@ -4,6 +4,7 @@
 // guidance for this civilization. Collapsing them into one slider is what keeps
 // the story screen from running several screens tall.
 
+// The Oracle and Hypatia are fixed; a local speaker is named by the story.
 const BRIEFING_SPEAKERS = {
     oracle:  'The Oracle of Numbers',
     hypatia: 'Hypatia of Alexandria'
@@ -27,12 +28,26 @@ function buildBriefingSlides(mode, civId, showIntro) {
     }
 
     const story = modeStories && modeStories[civId];
-    if (story && story.hypatia && (mode === 'thematic' || mode === 'daily')) {
+    if (!story) return slides;
+
+    if (story.hypatia && (mode === 'thematic' || mode === 'daily')) {
         slides.push({
             speaker: 'hypatia',
             civId: civId,
             quote: story.hypatia.quote,
             text: story.hypatia.guidance
+        });
+    }
+
+    // The person you are actually there to help gets the last word, because the
+    // next thing on screen is the button that starts their problem.
+    if (story.speaker) {
+        slides.push({
+            speaker: 'local',
+            civId: civId,
+            name: story.speaker.name,
+            quote: story.speaker.line,
+            text: ''
         });
     }
 
@@ -45,16 +60,17 @@ function briefingMarkup(slides) {
     if (slides.length === 0) return '';
 
     const panels = slides.map((slide, i) => {
-        const art = slide.speaker === 'oracle'
-            ? oracleSceneMarkup()
-            : hypatiaSceneArtMarkup(slide.civId);
+        let art;
+        if (slide.speaker === 'oracle')      art = oracleSceneMarkup();
+        else if (slide.speaker === 'local')  art = placeSceneArtMarkup(slide.civId);
+        else                                 art = hypatiaSceneArtMarkup(slide.civId);
         return `
             <article class="briefing-slide" data-speaker="${slide.speaker}"
                      role="group" aria-roledescription="slide"
                      aria-label="${i + 1} of ${slides.length}">
                 <div class="briefing-art">${art}</div>
                 <div class="briefing-speech">
-                    <p class="briefing-name">${BRIEFING_SPEAKERS[slide.speaker]}</p>
+                    <p class="briefing-name"></p>
                     <blockquote class="briefing-quote"></blockquote>
                     <p class="briefing-text"></p>
                 </div>
@@ -92,10 +108,15 @@ function fillBriefingText(slides) {
     slides.forEach((slide, i) => {
         const panel = panels[i];
         if (!panel) return;
+        const name = panel.querySelector('.briefing-name');
         const quote = panel.querySelector('.briefing-quote');
         const text = panel.querySelector('.briefing-text');
+        if (name) name.textContent = BRIEFING_SPEAKERS[slide.speaker] || slide.name || '';
         if (quote) quote.textContent = slide.quote;
-        if (text) text.textContent = slide.text;
+        if (text) {
+            text.textContent = slide.text;
+            text.hidden = !slide.text;
+        }
     });
 }
 
@@ -111,8 +132,11 @@ function goToBriefingSlide(root, index) {
 
     // Height follows the visible slide. Without this the card is always as tall
     // as its longest slide, which leaves dead space under the shorter ones.
+    // A zero measurement means the screen is not laid out yet; leaving the
+    // height alone keeps the card at its natural size instead of collapsing it.
     const viewport = root.querySelector('.briefing-viewport');
-    if (viewport) viewport.style.height = `${slides[clamped].offsetHeight}px`;
+    const measured = slides[clamped].offsetHeight;
+    if (viewport && measured > 0) viewport.style.height = `${measured}px`;
 
     root.querySelectorAll('.briefing-dot').forEach((dot, i) => {
         dot.classList.toggle('active', i === clamped);

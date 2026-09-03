@@ -1146,17 +1146,54 @@ h1, h2, h3, h4 {
 
 /* ===== END NUMERAL SVG SYMBOLS ===== */
 
-/* Story intro boxes */
-.story-box {
-    padding: 15px;
-    border-radius: 8px;
-    margin: 15px 0;
+/* ===== STORY DOSSIER =====
+   The run's facts as one surface with hairline-separated rows. Four separate
+   cards spent most of their height on padding and borders rather than words. */
+
+.story-title {
+    font-family: 'Literata', Georgia, serif;
+    font-size: 1.15rem;
+    line-height: 1.35;
+    color: var(--primary-color);
+    margin: 0 0 12px 0;
+    text-wrap: balance;
 }
 
-.story-setting-box  { background: #f5ede0; border: 1px solid var(--outline-variant); }
-.story-objective-box { background: #fff1eb; border: 1px solid var(--outline-variant); }
-.story-character-box { background: #fff9e6; border: 1px solid rgba(218, 165, 32, 0.25); }
-.story-numsystem-box { background: var(--card-bg); border: 1px solid var(--outline-variant); }
+.dossier {
+    background: var(--card-bg);
+    border: 1px solid var(--outline-variant);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.dossier-row {
+    padding: 11px 14px;
+    border-top: 1px solid var(--outline-variant);
+}
+
+.dossier-row:first-child {
+    border-top: 0;
+}
+
+.dossier-label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin: 0 0 3px 0;
+    font-size: 0.66rem;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--accent-color);
+    line-height: 1.2;
+}
+
+.dossier-value {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--text-color);
+}
 
 .civ-best-score {
     margin-top: 8px;
@@ -1362,10 +1399,6 @@ body[data-civ="hindu-arabic"] {
     .oracle-collected-box { border-color: #f6be3b; }
 
     /* ── Story boxes ── */
-    .story-setting-box  { background: #291d16; border-color: #52443c; color: var(--text-color); }
-    .story-objective-box { background: #251912; border-color: #52443c; color: var(--text-color); }
-    .story-character-box { background: #342720; border-color: #52443c; color: var(--text-color); }
-    .story-numsystem-box { background: #1c110b; border-color: #52443c; color: var(--text-color); }
 
     /* ── Civilization cards ── */
     .civilization-card { background: #291d16; border-color: #52443c; }
@@ -1642,6 +1675,27 @@ body[data-civ="hindu-arabic"] {
 
 .briefing-slide[data-speaker="oracle"] .briefing-name {
     color: var(--oracle-line);
+}
+
+/* Three registers: the Oracle in brass from outside time, Hypatia in her own
+   violet everywhere, and the local character in the color of their own
+   civilization, because they belong to the place you just arrived in. */
+.briefing-slide[data-speaker="local"] .briefing-speech {
+    border-top-color: var(--primary-color);
+    /* bg-color, not surface-container: only the civilization tokens are themed
+       per civilization, and the panel has to sit in the same hue as the scene. */
+    background: var(--bg-color);
+}
+
+.briefing-slide[data-speaker="local"] .briefing-speech::before {
+    background: var(--bg-color);
+    border-left-color: var(--primary-color);
+    border-top-color: var(--primary-color);
+}
+
+.briefing-slide[data-speaker="local"] .briefing-name,
+.briefing-slide[data-speaker="local"] .briefing-quote {
+    color: var(--primary-color);
 }
 
 .briefing-quote {

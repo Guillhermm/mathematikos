@@ -97,33 +97,57 @@ function showStoryIntro() {
     const showIntro = mode !== 'practice' && gameState.oraclePieces.length === 0;
     const slides = buildBriefingSlides(mode, gameState.currentCivilization, showIntro);
 
+    // The facts about this run, as one dense list rather than four stacked cards.
+    const rows = [
+        { icon: 'pin',    label: 'Setting',   value: story.setting },
+        { icon: 'target', label: 'Objective', value: story.objective },
+        { icon: 'book',   label: 'Numerals',  value: civ.numberSystem }
+    ];
+    if (story.note) {
+        rows.push({ icon: 'clock', label: story.note.label, value: story.note.text });
+    }
+
     document.getElementById('story-content').innerHTML = `
         ${briefingMarkup(slides)}
 
-        <h3>${story.title}</h3>
+        <h3 class="story-title">${story.title}</h3>
 
-        <div class="story-box story-setting-box">
-            <strong>${icon('pin')} Setting:</strong>
-            <p>${story.setting}</p>
-        </div>
-
-        <div class="story-box story-objective-box">
-            <strong>${icon('target')} Objective:</strong>
-            <p>${story.objective}</p>
-        </div>
-
-        <div class="story-box story-character-box">
-            ${story.character}
-        </div>
-
-        <div class="story-box story-numsystem-box">
-            <strong>${icon('book')} Number System:</strong> ${civ.numberSystem}
-        </div>
+        ${dossierMarkup(rows)}
     `;
 
     // Authored copy goes in as text, never through innerHTML.
+    fillDossier(rows);
     fillBriefingText(slides);
-    initBriefing();
 
+    // The screen has to be visible before the briefing measures its slides;
+    // a hidden element reports zero height and the card collapses.
     showScreen('story-intro');
+    initBriefing();
+}
+
+// ===== STORY DOSSIER =====
+// Setting, objective, numerals and any mode note, as hairline-separated rows
+// on one surface. Four separate cards cost roughly twice the height for the
+// same words.
+
+function dossierMarkup(rows) {
+    if (rows.length === 0) return '';
+    const items = rows.map(row => `
+        <div class="dossier-row">
+            <p class="dossier-label">${icon(row.icon)}<span></span></p>
+            <p class="dossier-value"></p>
+        </div>`).join('');
+    return `<section class="dossier">${items}</section>`;
+}
+
+function fillDossier(rows) {
+    const nodes = document.querySelectorAll('.dossier-row');
+    rows.forEach((row, i) => {
+        const node = nodes[i];
+        if (!node) return;
+        const label = node.querySelector('.dossier-label span');
+        const value = node.querySelector('.dossier-value');
+        if (label) label.textContent = row.label;
+        if (value) value.textContent = row.value;
+    });
 }

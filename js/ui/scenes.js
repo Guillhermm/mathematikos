@@ -374,6 +374,19 @@ function oracleResultSceneMarkup(civId, collected, total) {
     `;
 }
 
+// The place itself, with nobody in it. Used when a local character speaks:
+// you are looking at where you just arrived, and they address you from it.
+function placeSceneArtMarkup(civId) {
+    return `
+        <svg class="briefing-art-svg" viewBox="0 0 400 200" role="img"
+             aria-label="The place you have arrived in">
+            <rect width="400" height="200" fill="var(--scene-sky)"/>
+            <use href="#${sceneBackdropId(civId)}" width="400" height="200"/>
+            <rect y="168" width="400" height="32" fill="var(--scene-ground)"/>
+        </svg>
+    `;
+}
+
 // The Oracle speaks from outside any civilization: no backdrop, just the
 // instrument suspended in the dark between eras.
 function oracleSceneMarkup() {

@@ -3,20 +3,26 @@
 describe('buildBriefingSlides', () => {
     it('opens with the Oracle on a first thematic run', () => {
         const slides = buildBriefingSlides('thematic', 'roman', true);
-        assertEqual(slides.length, stories.thematic.intro.length + 1);
+        // Oracle narration, then Hypatia, then the person you are helping.
+        assertEqual(slides.length, stories.thematic.intro.length + 2);
         assertEqual(slides[0].speaker, 'oracle');
     });
 
-    it('always closes on Hypatia', () => {
+    // The local speaker goes last because the next thing on screen is the
+    // button that starts their problem.
+    it('closes on the local character', () => {
         const slides = buildBriefingSlides('thematic', 'roman', true);
-        assertEqual(slides[slides.length - 1].speaker, 'hypatia');
+        const last = slides[slides.length - 1];
+        assertEqual(last.speaker, 'local');
+        assertEqual(last.name, stories.thematic.roman.speaker.name);
+        assertEqual(slides[slides.length - 2].speaker, 'hypatia');
     });
 
     // Returning players have already heard the frame story.
     it('drops the intro once a fragment is held', () => {
         const slides = buildBriefingSlides('thematic', 'greek', false);
-        assertEqual(slides.length, 1);
-        assertEqual(slides[0].speaker, 'hypatia');
+        assertEqual(slides.length, 2);
+        assertEqual(slides.map(s => s.speaker).join(','), 'hypatia,local');
     });
 
     it('carries the civilization onto the Hypatia slide', () => {
@@ -26,8 +32,7 @@ describe('buildBriefingSlides', () => {
 
     it('gives daily mode the thematic briefing', () => {
         const daily = buildBriefingSlides('daily', 'chinese', false);
-        assertEqual(daily.length, 1);
-        assertEqual(daily[0].speaker, 'hypatia');
+        assertEqual(daily.map(s => s.speaker).join(','), 'hypatia,local');
     });
 
     // Temporal has its own Oracle intro but no Hypatia guidance.
@@ -41,12 +46,23 @@ describe('buildBriefingSlides', () => {
         assertEqual(buildBriefingSlides('practice', 'roman', false).length, 0);
     });
 
-    it('builds a slide for every civilization', () => {
+    it('builds both speaker slides for every civilization', () => {
         Object.keys(civilizations).forEach(civId => {
             const slides = buildBriefingSlides('thematic', civId, false);
-            assertEqual(slides.length, 1, `${civId} produced ${slides.length} slides`);
-            assertTrue(slides[0].quote.length > 0, `${civId} has no quote`);
+            assertEqual(slides.length, 2, `${civId} produced ${slides.length} slides`);
+            assertTrue(slides[0].quote.length > 0, `${civId} has no Hypatia quote`);
             assertTrue(slides[0].text.length > 0, `${civId} has no guidance`);
+            assertTrue(slides[1].name.length > 0, `${civId} has no named local speaker`);
+            assertTrue(slides[1].quote.length > 0, `${civId} local speaker says nothing`);
+        });
+    });
+
+    // Temporal and practice reuse the same slot for a status note, not a person.
+    it('treats the mode note as a note, never as a speaker', () => {
+        ['temporal', 'practice'].forEach(mode => {
+            const slides = buildBriefingSlides(mode, 'roman', false);
+            assertTrue(!slides.some(s => s.speaker === 'local'), `${mode} produced a local speaker`);
+            assertTrue(!!stories[mode].roman.note.label, `${mode} note has no label`);
         });
     });
 });
@@ -64,7 +80,7 @@ describe('briefingMarkup', () => {
     });
 
     it('hides the controls for a single slide', () => {
-        const markup = briefingMarkup(buildBriefingSlides('thematic', 'roman', false));
+        const markup = briefingMarkup([{ speaker: 'hypatia', civId: 'roman', quote: 'q', text: 't' }]);
         assertTrue(markup.includes('briefing-single'));
         assertTrue(!markup.includes('briefing-nav'));
     });
@@ -82,14 +98,27 @@ describe('briefingMarkup', () => {
         assertTrue(markup.includes('<p class="briefing-text"></p>'));
         slides.forEach(slide => {
             assertTrue(!markup.includes(slide.quote), 'a quote leaked into the markup');
-            assertTrue(!markup.includes(slide.text), 'guidance leaked into the markup');
+            if (slide.text) {
+                assertTrue(!markup.includes(slide.text), 'guidance leaked into the markup');
+            }
+            if (slide.name) {
+                assertTrue(!markup.includes(slide.name), 'a speaker name leaked into the markup');
+            }
         });
     });
 
     it('gives each speaker their own artwork', () => {
         const markup = briefingMarkup(buildBriefingSlides('thematic', 'greek', true));
-        assertTrue(markup.includes('href="#oracle-character"'));
-        assertTrue(markup.includes('href="#hypatia"'));
-        assertTrue(markup.includes('href="#bd-greek"'));
+        assertTrue(markup.includes('href="#oracle-character"'), 'Oracle art missing');
+        assertTrue(markup.includes('href="#hypatia"'), 'Hypatia art missing');
+        assertTrue(markup.includes('href="#bd-greek"'), 'civilization backdrop missing');
+    });
+
+    // The local speaker stands in the place, not beside Hypatia.
+    it('shows the place alone on the local speaker slide', () => {
+        const local = buildBriefingSlides('thematic', 'greek', false).filter(s => s.speaker === 'local');
+        const markup = briefingMarkup(local);
+        assertTrue(markup.includes('href="#bd-greek"'), 'backdrop missing');
+        assertTrue(!markup.includes('href="#hypatia"'), 'Hypatia must not appear on the local slide');
     });
 });

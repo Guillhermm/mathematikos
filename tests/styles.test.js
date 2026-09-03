@@ -17,7 +17,8 @@ const REQUIRED_CLASSES = [
     'briefing-text', 'briefing-nav', 'briefing-arrow', 'briefing-dot',
     'oracle-disc', 'oracle-rim', 'oracle-wedge', 'oracle-hub', 'oracle-pin',
     'result-scene', 'result-scene-art', 'result-oracle-halo',
-    'civ-card-art', 'daily-civ-art'
+    'civ-card-art', 'daily-civ-art',
+    'story-title', 'dossier', 'dossier-row', 'dossier-label', 'dossier-value'
 ];
 
 describe('style contract', () => {
