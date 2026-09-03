@@ -49,7 +49,7 @@ function toggleChip(name) {
 function toggleAmbient() {
     const enabled = setAmbientEnabled(!isAmbientEnabled());
     const btn = document.getElementById('sound-toggle');
-    if (btn) btn.textContent = enabled ? '🔊' : '🔇';
+    if (btn) btn.innerHTML = icon(enabled ? 'sound-on' : 'sound-off');
 }
 
 function updateProgress() {
@@ -73,15 +73,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const progress = updateProgress();
     if (progress.completed > 0) {
-        console.log(`📊 Progress: ${progress.completed}/${progress.total} civilizations completed!`);
+        console.log(`Progress: ${progress.completed}/${progress.total} civilizations completed!`);
     }
 
     // Scene artwork: one sprite the story screen's <use> elements point at
+    injectIconSprite();
     injectSceneSprite();
 
     // Restore ambient preference
     const soundBtn = document.getElementById('sound-toggle');
-    if (soundBtn) soundBtn.textContent = isAmbientEnabled() ? '🔊' : '🔇';
+    if (soundBtn) soundBtn.innerHTML = icon(isAmbientEnabled() ? 'sound-on' : 'sound-off');
 
     // Keyboard shortcuts (game screen only)
     document.addEventListener('keydown', e => {
@@ -103,5 +104,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    console.log('🎮 Mathematikos loaded! Travel through time and explore ancient number systems.');
+    console.log('Mathematikos loaded! Travel through time and explore ancient number systems.');
 });

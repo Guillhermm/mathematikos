@@ -7,7 +7,7 @@ function showDailyChallenge() {
     const streak     = getDailyStreak();
     const today      = getTodayKey();
     const streakText = streak > 0
-        ? `🔥 <strong>${streak}-day streak!</strong>`
+        ? `${icon('flame')} <strong>${streak}-day streak!</strong>`
         : 'Start your streak today!';
 
     document.getElementById('daily-content').innerHTML = `
@@ -17,7 +17,13 @@ function showDailyChallenge() {
         </div>
 
         <div class="daily-civ-card">
-            <div class="daily-civ-icon">${civ.icon}</div>
+            <div class="civ-card-art daily-civ-art" data-civ="${civId}">
+                <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                    <rect width="400" height="200" fill="var(--scene-sky)"/>
+                    <use href="#${sceneBackdropId(civId)}" width="400" height="200"/>
+                    <rect y="168" width="400" height="32" fill="var(--scene-ground)"/>
+                </svg>
+            </div>
             <div class="daily-civ-name">${civ.name}</div>
             <div class="daily-civ-system">${civ.numberSystem}</div>
             <div class="daily-civ-difficulty">${civ.difficulty}</div>
@@ -25,7 +31,7 @@ function showDailyChallenge() {
 
         ${completed ? `
             <div class="daily-completed-msg">
-                <p>✅ You've already completed today's challenge!</p>
+                <p>${icon('check')} You've already completed today's challenge!</p>
                 <p>Come back tomorrow for a new civilization.</p>
             </div>
         ` : `

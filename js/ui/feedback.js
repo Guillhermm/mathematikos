@@ -26,22 +26,23 @@ function updateOraclePiecesDisplay() {
         piece.className = 'piece';
         if (i < gameState.oraclePieces.length) {
             piece.classList.add('collected');
-            piece.textContent = '✨';
+            piece.innerHTML = icon('oracle');
         } else {
-            piece.textContent = '❓';
+            piece.innerHTML = '';
         }
         container.appendChild(piece);
     }
 
     const badge = document.getElementById('oracle-badge');
-    if (badge) badge.textContent = `✨ ${gameState.oraclePieces.length}`;
+    const count = document.getElementById('oracle-count');
+    if (count) count.textContent = String(gameState.oraclePieces.length);
 }
 
 function showAchievement(title, message) {
     const popup = document.createElement('div');
     popup.className = 'achievement-popup';
     popup.innerHTML = `
-        <h4 style="margin: 0 0 10px 0;">🏆 ${title}</h4>
+        <h4 style="margin: 0 0 10px 0;">${icon('trophy')} ${title}</h4>
         <p style="margin: 0; font-size: 0.9rem;">${message}</p>
     `;
     document.body.appendChild(popup);

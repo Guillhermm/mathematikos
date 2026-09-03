@@ -204,7 +204,7 @@ function handleCorrectAnswer() {
     const points = gameState.hintsUsed === 0 ? 150 : 100;
     gameState.score += points;
 
-    showFeedback(`🎉 Correct! +${points} points`, 'correct');
+    showFeedback(`Correct! +${points} points`, 'correct');
     playSound('correct');
     celebrateSuccess(document.getElementById('score'));
 
@@ -230,16 +230,16 @@ function handleIncorrectAnswer() {
 
     if (gameState.mode === 'temporal') {
         gameState.timeLimit -= 10;
-        showFeedback('❌ Incorrect. Try again! (-10s)', 'incorrect');
+        showFeedback('Incorrect. Try again! (-10s)', 'incorrect');
         showAchievement('Time Penalty!', '-10 seconds');
     } else if (gameState.mode === 'practice' || gameState.mode === 'daily') {
         const civ       = gameState.currentCivilization;
         const problem   = gameState.currentProblem;
         const key       = civ.replace('-', '') + 'Answer'; // e.g. hinduArabicAnswer
         const civAnswer = problem[key] !== undefined ? problem[key] : problem.answer;
-        showFeedback(`❌ Not quite! Answer: ${problem.answer} = ${civAnswer}`, 'incorrect');
+        showFeedback(`Not quite! Answer: ${problem.answer} = ${civAnswer}`, 'incorrect');
     } else {
-        showFeedback('❌ Incorrect. Try again!', 'incorrect');
+        showFeedback('Incorrect. Try again!', 'incorrect');
     }
 }
 
@@ -255,14 +255,14 @@ function endChallenge(completed) {
     const resultsContent = document.getElementById('results-content');
 
     if (completed) {
-        resultsTitle.textContent = '🎊 Challenge Complete!';
+        resultsTitle.textContent = 'Challenge Complete!';
         playSound('complete');
 
         // Record daily completion and update streak
         if (gameState.mode === 'daily') {
             const streak = recordDailyComplete();
             if (streak > 1) {
-                showAchievement(`🔥 ${streak}-Day Streak!`, 'Come back tomorrow to keep it going!');
+                showAchievement(`${streak}-Day Streak!`, 'Come back tomorrow to keep it going!');
             } else {
                 showAchievement('Daily Challenge Complete!', 'Come back tomorrow for a new civilization!');
             }
@@ -290,7 +290,7 @@ function endChallenge(completed) {
                 showAchievement('New Civilization Unlocked!',
                     `You can now explore ${civilizations[nextId].name}!`);
             } else {
-                showAchievement('🏆 Master of Numbers!',
+                showAchievement('Master of Numbers!',
                     'You have completed all civilizations! You are a true Guardian of Numbers!');
             }
         }
@@ -320,7 +320,7 @@ function endChallenge(completed) {
 
             ${gameState.mode === 'thematic' ? `
                 <div class="oracle-collected-box">
-                    <h3>✨ Oracle Piece Collected!</h3>
+                    <h3>Oracle Piece Collected!</h3>
                     <p>You have collected a fragment of the Oracle of Numbers from the ${civilizations[gameState.currentCivilization].name}!</p>
                     <p><em>"The wisdom of numbers transcends time..."</em></p>
                 </div>
@@ -337,7 +337,7 @@ function endChallenge(completed) {
         const codexBtn = document.getElementById('codex-btn');
         if (codexBtn) codexBtn.style.display = 'none';
 
-        resultsTitle.textContent = '⏰ Time\'s Up!';
+        resultsTitle.textContent = 'Time\'s Up!';
         resultsContent.innerHTML = `
             <p class="results-timeout-msg">The Children of Time have destroyed the records!</p>
 

@@ -44,22 +44,28 @@ function renderCivilizationSelect() {
 
         const lockedOverlay = !civ.unlocked ? `
             <div class="civ-locked-overlay">
-                <span class="civ-locked-overlay-icon">🔒</span>
+                ${icon('lock', 'icon-locked')}
             </div>` : '';
 
         const completionRow = isCompleted ? `
             <div class="civ-completion-badge">
-                <span>✓</span><span>Best: ${stats ? stats.score : 0}</span>
+                ${icon('check')}<span>Best: ${stats ? stats.score : 0}</span>
             </div>` : (stats && civ.unlocked ? `
             <p class="civ-best-score">Best: ${stats.score}</p>` : '');
 
         const codexBtn = isCompleted ? `
-            <button class="btn-codex-card" onclick="event.stopPropagation(); openCodex('${civ.id}')" title="Open Codex">📚</button>` : '';
+            <button class="btn-codex-card" onclick="event.stopPropagation(); openCodex('${civ.id}')" title="Open Codex">${icon('book')}</button>` : '';
 
         card.innerHTML = `
             ${lockedOverlay}
             ${codexBtn}
-            <div class="civ-card-icon">${civ.icon}</div>
+            <div class="civ-card-art" data-civ="${civ.id}">
+                <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                    <rect width="400" height="200" fill="var(--scene-sky)"/>
+                    <use href="#${sceneBackdropId(civ.id)}" width="400" height="200"/>
+                    <rect y="168" width="400" height="32" fill="var(--scene-ground)"/>
+                </svg>
+            </div>
             <div class="civ-card-name">${civ.name}</div>
             <span class="civ-difficulty-badge ${diffClass}">${civ.difficulty}</span>
             ${completionRow}
@@ -100,12 +106,12 @@ function showStoryIntro() {
         <h3>${story.title}</h3>
 
         <div class="story-box story-setting-box">
-            <strong>📍 Setting:</strong>
+            <strong>${icon('pin')} Setting:</strong>
             <p>${story.setting}</p>
         </div>
 
         <div class="story-box story-objective-box">
-            <strong>🎯 Objective:</strong>
+            <strong>${icon('target')} Objective:</strong>
             <p>${story.objective}</p>
         </div>
 
@@ -114,7 +120,7 @@ function showStoryIntro() {
         </div>
 
         <div class="story-box story-numsystem-box">
-            <strong>📚 Number System:</strong> ${civ.numberSystem}
+            <strong>${icon('book')} Number System:</strong> ${civ.numberSystem}
         </div>
     `;
 

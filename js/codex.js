@@ -179,7 +179,7 @@ function openCodex(civId) {
 
     document.getElementById('codex-content').innerHTML = `
         <div class="codex-header">
-            <span class="codex-icon">${civ.icon}</span>
+            <span class="codex-icon">${icon('book')}</span>
             <div>
                 <h2 class="codex-title">${entry.title}</h2>
                 <p class="codex-meta">${entry.period} · ${entry.region}</p>
