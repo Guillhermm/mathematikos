@@ -75,7 +75,7 @@ describe('briefingMarkup', () => {
     it('renders one panel per slide', () => {
         const slides = buildBriefingSlides('thematic', 'roman', true);
         const markup = briefingMarkup(slides);
-        assertEqual((markup.match(/class="briefing-slide"/g) || []).length, slides.length);
+        assertEqual((markup.match(/class="briefing-speech"/g) || []).length, slides.length);
         assertEqual((markup.match(/data-goto="/g) || []).length, slides.length);
     });
 
@@ -120,5 +120,58 @@ describe('briefingMarkup', () => {
         const markup = briefingMarkup(local);
         assertTrue(markup.includes('href="#bd-greek"'), 'backdrop missing');
         assertTrue(!markup.includes('href="#hypatia"'), 'Hypatia must not appear on the local slide');
+    });
+});
+
+describe('briefing artwork layers', () => {
+    // The Oracle's three slides show the same instrument. Sliding that image is
+    // motion carrying no information, so they share one layer and it holds still.
+    it('gives the Oracle slides a single shared layer', () => {
+        const slides = buildBriefingSlides('thematic', 'roman', true);
+        const oracle = slides.filter(s => s.speaker === 'oracle');
+        assertTrue(oracle.length > 1, 'expected several Oracle slides');
+        const keys = new Set(oracle.map(briefingArtKey));
+        assertEqual(keys.size, 1, `Oracle slides produced ${keys.size} art keys`);
+    });
+
+    it('renders one layer per distinct image, not one per slide', () => {
+        const slides = buildBriefingSlides('thematic', 'roman', true);
+        const markup = briefingMarkup(slides);
+        const layers = (markup.match(/class="briefing-art[ "]/g) || []).length;
+        const distinct = new Set(slides.map(briefingArtKey)).size;
+        assertEqual(layers, distinct, `${layers} layers for ${distinct} distinct images`);
+        assertTrue(layers < slides.length, 'layers should be fewer than slides here');
+    });
+
+    it('separates the three speakers into three images', () => {
+        const slides = buildBriefingSlides('thematic', 'greek', true);
+        assertEqual(new Set(slides.map(briefingArtKey)).size, 3);
+    });
+
+    it('keeps Hypatia and the local place apart in the same civilization', () => {
+        const slides = buildBriefingSlides('thematic', 'greek', false);
+        assertNotEqual(briefingArtKey(slides[0]), briefingArtKey(slides[1]));
+    });
+
+    it('does not share artwork across civilizations', () => {
+        assertNotEqual(
+            briefingArtKey({ speaker: 'hypatia', civId: 'greek' }),
+            briefingArtKey({ speaker: 'hypatia', civId: 'mayan' })
+        );
+    });
+
+    it('points every panel at a layer that exists', () => {
+        const markup = briefingMarkup(buildBriefingSlides('thematic', 'roman', true));
+        const layerKeys = [...markup.matchAll(/class="briefing-art[^"]*"\s*data-art="([^"]+)"/g)].map(m => m[1]);
+        const panelKeys = [...markup.matchAll(/class="briefing-speech"[^>]*data-art="([^"]+)"/g)].map(m => m[1]);
+        assertTrue(panelKeys.length > 0, 'no panels found');
+        panelKeys.forEach(key => {
+            assertTrue(layerKeys.includes(key), `panel references missing layer ${key}`);
+        });
+    });
+
+    it('marks exactly one layer active at the start', () => {
+        const markup = briefingMarkup(buildBriefingSlides('thematic', 'roman', true));
+        assertEqual((markup.match(/class="briefing-art active"/g) || []).length, 1);
     });
 });

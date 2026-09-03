@@ -97,26 +97,30 @@ function showStoryIntro() {
     const showIntro = mode !== 'practice' && gameState.oraclePieces.length === 0;
     const slides = buildBriefingSlides(mode, gameState.currentCivilization, showIntro);
 
-    // The facts about this run, as one dense list rather than four stacked cards.
-    const rows = [
-        { icon: 'pin',    label: 'Setting',   value: story.setting },
-        { icon: 'target', label: 'Objective', value: story.objective },
-        { icon: 'book',   label: 'Numerals',  value: civ.numberSystem }
-    ];
-    if (story.note) {
-        rows.push({ icon: 'clock', label: story.note.label, value: story.note.text });
-    }
+    // What you are doing, the facts you might check, and the flavor you can
+    // open if you want it. The scene text is closed by default because the
+    // briefing above already showed you the place.
+    const mission = {
+        objective: story.objective,
+        scene: story.setting,
+        facts: [
+            { icon: 'book',   text: civ.numberSystem },
+            { icon: null,     text: civ.difficulty },
+            { icon: null,     text: `${gameState.totalChallenges} challenges` }
+        ],
+        alert: story.note ? `${story.note.label}: ${story.note.text}` : null
+    };
 
     document.getElementById('story-content').innerHTML = `
         ${briefingMarkup(slides)}
 
         <h3 class="story-title">${story.title}</h3>
 
-        ${dossierMarkup(rows)}
+        ${missionMarkup(mission)}
     `;
 
     // Authored copy goes in as text, never through innerHTML.
-    fillDossier(rows);
+    fillMission(mission);
     fillBriefingText(slides);
 
     // The screen has to be visible before the briefing measures its slides;
@@ -125,29 +129,44 @@ function showStoryIntro() {
     initBriefing();
 }
 
-// ===== STORY DOSSIER =====
-// Setting, objective, numerals and any mode note, as hairline-separated rows
-// on one surface. Four separate cards cost roughly twice the height for the
-// same words.
+// ===== MISSION PANEL =====
+// The objective is the one thing you act on, so it leads. The rest are facts
+// you glance at, as chips. The scene prose sits behind a disclosure because the
+// briefing already established where you are, and four stacked cards of it cost
+// more height than the whole briefing did.
 
-function dossierMarkup(rows) {
-    if (rows.length === 0) return '';
-    const items = rows.map(row => `
-        <div class="dossier-row">
-            <p class="dossier-label">${icon(row.icon)}<span></span></p>
-            <p class="dossier-value"></p>
-        </div>`).join('');
-    return `<section class="dossier">${items}</section>`;
+function missionMarkup(mission) {
+    const facts = mission.facts.map(fact => `
+            <li class="fact">${fact.icon ? icon(fact.icon) : ''}<span></span></li>`).join('');
+
+    const alert = mission.alert
+        ? `<p class="mission-alert">${icon('clock')}<span></span></p>`
+        : '';
+
+    return `
+        <section class="mission">
+            <p class="mission-objective">${icon('target')}<span></span></p>
+            <ul class="mission-facts">${facts}</ul>
+            ${alert}
+            <details class="mission-scene">
+                <summary class="mission-scene-summary">The scene</summary>
+                <p class="mission-scene-text"></p>
+            </details>
+        </section>
+    `;
 }
 
-function fillDossier(rows) {
-    const nodes = document.querySelectorAll('.dossier-row');
-    rows.forEach((row, i) => {
-        const node = nodes[i];
-        if (!node) return;
-        const label = node.querySelector('.dossier-label span');
-        const value = node.querySelector('.dossier-value');
-        if (label) label.textContent = row.label;
-        if (value) value.textContent = row.value;
+function fillMission(mission) {
+    const objective = document.querySelector('.mission-objective span');
+    if (objective) objective.textContent = mission.objective;
+
+    document.querySelectorAll('.mission-facts .fact span').forEach((node, i) => {
+        if (mission.facts[i]) node.textContent = mission.facts[i].text;
     });
+
+    const alert = document.querySelector('.mission-alert span');
+    if (alert && mission.alert) alert.textContent = mission.alert;
+
+    const scene = document.querySelector('.mission-scene-text');
+    if (scene) scene.textContent = mission.scene;
 }

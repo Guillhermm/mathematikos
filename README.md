@@ -49,12 +49,16 @@ Each speaker gets their own register: the Oracle in brass because it stands outs
 civilization, Hypatia in her constant violet, and the local character in the color of the place
 they belong to.
 
-### The dossier
+The artwork and the words are separate layers. Slides that show the same image share one layer, so
+the Oracle's three slides move only the text while the instrument holds still; the image crossfades
+only when the speaker actually changes.
 
-Below the briefing, the run's facts sit in one panel with hairline-separated rows: setting,
-objective, numerals, and any mode note such as the time limit. It replaced four stacked cards that
-spent most of their height on padding and borders, which cut the story screen from roughly 1700 px
-of scroll to about 700 px on a phone.
+### The mission panel
+
+Below the briefing sits the objective, the one line you act on, then the facts you might glance at
+as chips (numerals, difficulty, challenge count, and the time limit in timed mode). The scene prose
+is folded behind a disclosure, since the briefing has already shown you the place. It replaced four
+stacked cards and cut the story screen from roughly 1700 px of scroll to under 800 px on a phone.
 
 ### The two characters
 
@@ -93,7 +97,7 @@ Ambient audio per civilization. Each historical setting has its own soundscape.
 
 - Pure HTML, CSS, and ES6 JavaScript, with no build step and no dependencies.
 - Progressive Web App (PWA): installable, offline-capable via service worker.
-- 646 automated tests covering the conversion functions, the scene system, the briefing slider, and a style contract that guards the artwork's CSS.
+- 658 automated tests covering the conversion functions, the scene system, the briefing slider, and a style contract that guards the artwork's CSS.
 - CI/CD via GitHub Actions: tests run on every push, deploy to GitHub Pages on version tags.
 
 ## Project Structure

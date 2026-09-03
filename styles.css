@@ -1146,9 +1146,10 @@ h1, h2, h3, h4 {
 
 /* ===== END NUMERAL SVG SYMBOLS ===== */
 
-/* ===== STORY DOSSIER =====
-   The run's facts as one surface with hairline-separated rows. Four separate
-   cards spent most of their height on padding and borders rather than words. */
+/* ===== MISSION PANEL =====
+   Objective first because it is the only line you act on, facts as chips
+   because they are glanced at, and the scene prose folded away because the
+   briefing above already showed you the place. */
 
 .story-title {
     font-family: 'Literata', Georgia, serif;
@@ -1159,40 +1160,128 @@ h1, h2, h3, h4 {
     text-wrap: balance;
 }
 
-.dossier {
+.mission {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.mission-objective {
+    display: flex;
+    gap: 9px;
+    align-items: flex-start;
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--text-color);
+}
+
+.mission-objective .icon {
+    width: 1.1em;
+    height: 1.1em;
+    margin-top: 0.25em;
+    color: var(--accent-color);
+}
+
+.mission-facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.fact {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 11px;
+    border-radius: 999px;
     background: var(--card-bg);
     border: 1px solid var(--outline-variant);
-    border-radius: 12px;
-    overflow: hidden;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--on-surface-variant);
+    white-space: nowrap;
 }
 
-.dossier-row {
-    padding: 11px 14px;
-    border-top: 1px solid var(--outline-variant);
+.fact .icon {
+    width: 1em;
+    height: 1em;
+    color: var(--accent-color);
 }
 
-.dossier-row:first-child {
-    border-top: 0;
-}
-
-.dossier-label {
+.mission-alert {
     display: flex;
     align-items: center;
-    gap: 7px;
-    margin: 0 0 3px 0;
-    font-size: 0.66rem;
+    gap: 8px;
+    margin: 0;
+    padding: 9px 12px;
+    border-radius: 8px;
+    background: var(--card-bg);
+    border-left: 3px solid var(--accent-color);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.mission-alert .icon {
+    color: var(--accent-color);
+}
+
+.mission-scene {
+    border-top: 1px solid var(--outline-variant);
+    padding-top: 10px;
+}
+
+.mission-scene-summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    font-size: 0.7rem;
     letter-spacing: 0.11em;
     text-transform: uppercase;
     font-weight: 700;
     color: var(--accent-color);
-    line-height: 1.2;
+    list-style: none;
 }
 
-.dossier-value {
-    margin: 0;
-    font-size: 0.9rem;
-    line-height: 1.55;
-    color: var(--text-color);
+.mission-scene-summary::-webkit-details-marker {
+    display: none;
+}
+
+/* Chevron drawn in CSS so the summary needs no extra markup */
+.mission-scene-summary::after {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg) translate(-2px, -2px);
+    transition: transform 0.2s ease;
+}
+
+.mission-scene[open] .mission-scene-summary::after {
+    transform: rotate(-135deg) translate(-2px, -2px);
+}
+
+.mission-scene-summary:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 3px;
+    border-radius: 3px;
+}
+
+.mission-scene-text {
+    margin: 8px 0 0 0;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--on-surface-variant);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mission-scene-summary::after { transition: none; }
 }
 
 .civ-best-score {
@@ -1600,38 +1689,54 @@ body[data-civ="hindu-arabic"] {
     background: var(--card-bg);
 }
 
+/* No overflow clipping here: the speech tail sits 11px above this box and has
+   to paint over the artwork. The .briefing card clips instead, which handles
+   both the horizontal track and the tail. */
 .briefing-viewport {
-    overflow: hidden;
     transition: height 0.35s ease;
 }
 
-.briefing-track {
-    display: flex;
-    /* Slides keep their natural height so the viewport can size to the active
-       one, rather than every slide stretching to match the tallest. */
-    align-items: flex-start;
-    transition: transform 0.35s ease;
-}
-
-.briefing-slide {
-    flex: 0 0 100%;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
+/* Art layers stack in one fixed frame. The active one is opaque; the rest are
+   transparent. Slides that share artwork share a layer, so moving between them
+   changes nothing here and the image simply stays put. */
+.briefing-stage {
+    position: relative;
+    aspect-ratio: 2 / 1;
+    background: var(--card-bg);
 }
 
 .briefing-art {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.35s ease;
     line-height: 0;
+    pointer-events: none;
+}
+
+.briefing-art.active {
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .briefing-art-svg {
     display: block;
     width: 100%;
+    height: 100%;
+}
+
+.briefing-track {
+    display: flex;
+    /* Panels keep their natural height so the viewport can size to the active
+       one, rather than every panel stretching to match the tallest. */
+    align-items: flex-start;
+    transition: transform 0.35s ease;
 }
 
 .briefing-speech {
     position: relative;
-    flex: 1;
+    flex: 0 0 100%;
+    min-width: 0;
     padding: 16px 18px 15px;
     border-top: 3px solid var(--hypatia-line);
     background: var(--hypatia-tint);
@@ -1651,17 +1756,33 @@ body[data-civ="hindu-arabic"] {
     transform: rotate(45deg);
 }
 
-.briefing-slide[data-speaker="oracle"] .briefing-speech {
+.briefing-speech[data-speaker="oracle"] {
     border-top-color: var(--oracle-line);
     background: var(--oracle-tint);
 }
 
-.briefing-slide[data-speaker="oracle"] .briefing-speech::before {
+.briefing-speech[data-speaker="oracle"]::before {
     background: var(--oracle-tint);
     border-left-color: var(--oracle-line);
     border-top-color: var(--oracle-line);
     left: 50%;
     margin-left: -9px;
+}
+
+/* Three registers: the Oracle in brass from outside time, Hypatia in her own
+   violet everywhere, and the local character in the color of their own
+   civilization, because they belong to the place you just arrived in. */
+.briefing-speech[data-speaker="local"] {
+    border-top-color: var(--primary-color);
+    /* bg-color, not surface-container: only the civilization tokens are themed
+       per civilization, and the panel has to sit in the same hue as the scene. */
+    background: var(--bg-color);
+}
+
+.briefing-speech[data-speaker="local"]::before {
+    background: var(--bg-color);
+    border-left-color: var(--primary-color);
+    border-top-color: var(--primary-color);
 }
 
 .briefing-name {
@@ -1673,28 +1794,12 @@ body[data-civ="hindu-arabic"] {
     margin: 0 0 6px 0;
 }
 
-.briefing-slide[data-speaker="oracle"] .briefing-name {
+.briefing-speech[data-speaker="oracle"] .briefing-name {
     color: var(--oracle-line);
 }
 
-/* Three registers: the Oracle in brass from outside time, Hypatia in her own
-   violet everywhere, and the local character in the color of their own
-   civilization, because they belong to the place you just arrived in. */
-.briefing-slide[data-speaker="local"] .briefing-speech {
-    border-top-color: var(--primary-color);
-    /* bg-color, not surface-container: only the civilization tokens are themed
-       per civilization, and the panel has to sit in the same hue as the scene. */
-    background: var(--bg-color);
-}
-
-.briefing-slide[data-speaker="local"] .briefing-speech::before {
-    background: var(--bg-color);
-    border-left-color: var(--primary-color);
-    border-top-color: var(--primary-color);
-}
-
-.briefing-slide[data-speaker="local"] .briefing-name,
-.briefing-slide[data-speaker="local"] .briefing-quote {
+.briefing-speech[data-speaker="local"] .briefing-name,
+.briefing-speech[data-speaker="local"] .briefing-quote {
     color: var(--primary-color);
 }
 
@@ -1709,7 +1814,7 @@ body[data-civ="hindu-arabic"] {
     padding: 0;
 }
 
-.briefing-slide[data-speaker="oracle"] .briefing-quote {
+.briefing-speech[data-speaker="oracle"] .briefing-quote {
     color: var(--oracle-quote);
 }
 
@@ -1774,13 +1879,14 @@ body[data-civ="hindu-arabic"] {
     transform: scale(1.2);
 }
 
-.briefing-slide[aria-hidden="true"] {
+.briefing-speech[aria-hidden="true"] {
     visibility: hidden;
 }
 
 @media (prefers-reduced-motion: reduce) {
     .briefing-track,
-    .briefing-viewport { transition: none; }
+    .briefing-viewport,
+    .briefing-art { transition: none; }
 }
 
 /* ===== RESULT SCENE =====

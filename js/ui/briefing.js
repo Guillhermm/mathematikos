@@ -10,6 +10,20 @@ const BRIEFING_SPEAKERS = {
     hypatia: 'Hypatia of Alexandria'
 };
 
+// Identifies the artwork a slide shows. Consecutive slides with the same key
+// share one art layer, so the image holds still while only the words move.
+function briefingArtKey(slide) {
+    if (slide.speaker === 'oracle') return 'oracle';
+    if (slide.speaker === 'local')  return `place:${slide.civId}`;
+    return `hypatia:${slide.civId}`;
+}
+
+function briefingArtMarkup(key, civId) {
+    if (key === 'oracle') return oracleSceneMarkup();
+    if (key.startsWith('place:')) return placeSceneArtMarkup(civId);
+    return hypatiaSceneArtMarkup(civId);
+}
+
 // Returns the slides for a run, in order. The intro appears only before the
 // first fragment is recovered, so returning players go straight to Hypatia.
 function buildBriefingSlides(mode, civId, showIntro) {
@@ -59,23 +73,28 @@ function buildBriefingSlides(mode, civId, showIntro) {
 function briefingMarkup(slides) {
     if (slides.length === 0) return '';
 
-    const panels = slides.map((slide, i) => {
-        let art;
-        if (slide.speaker === 'oracle')      art = oracleSceneMarkup();
-        else if (slide.speaker === 'local')  art = placeSceneArtMarkup(slide.civId);
-        else                                 art = hypatiaSceneArtMarkup(slide.civId);
-        return `
-            <article class="briefing-slide" data-speaker="${slide.speaker}"
+    // Distinct artwork only. Three Oracle slides in a row share one layer.
+    const artKeys = [];
+    slides.forEach(slide => {
+        const key = briefingArtKey(slide);
+        if (!artKeys.includes(key)) artKeys.push(key);
+    });
+
+    const layers = artKeys.map((key, i) => {
+        const slide = slides.find(s => briefingArtKey(s) === key);
+        return `<div class="briefing-art${i === 0 ? ' active' : ''}" data-art="${key}"
+                     aria-hidden="${i === 0 ? 'false' : 'true'}">${briefingArtMarkup(key, slide.civId)}</div>`;
+    }).join('');
+
+    const panels = slides.map((slide, i) => `
+            <article class="briefing-speech" data-speaker="${slide.speaker}"
+                     data-art="${briefingArtKey(slide)}"
                      role="group" aria-roledescription="slide"
                      aria-label="${i + 1} of ${slides.length}">
-                <div class="briefing-art">${art}</div>
-                <div class="briefing-speech">
-                    <p class="briefing-name"></p>
-                    <blockquote class="briefing-quote"></blockquote>
-                    <p class="briefing-text"></p>
-                </div>
-            </article>`;
-    }).join('');
+                <p class="briefing-name"></p>
+                <blockquote class="briefing-quote"></blockquote>
+                <p class="briefing-text"></p>
+            </article>`).join('');
 
     const isSingle = slides.length === 1;
     const dots = slides.map((slide, i) =>
@@ -95,6 +114,7 @@ function briefingMarkup(slides) {
     return `
         <section class="briefing${isSingle ? ' briefing-single' : ''}" data-slide="0"
                  aria-roledescription="carousel" aria-label="Mission briefing">
+            <div class="briefing-stage">${layers}</div>
             <div class="briefing-viewport">
                 <div class="briefing-track">${panels}</div>
             </div>
@@ -104,7 +124,7 @@ function briefingMarkup(slides) {
 }
 
 function fillBriefingText(slides) {
-    const panels = document.querySelectorAll('.briefing-slide');
+    const panels = document.querySelectorAll('.briefing-speech');
     slides.forEach((slide, i) => {
         const panel = panels[i];
         if (!panel) return;
@@ -121,21 +141,29 @@ function fillBriefingText(slides) {
 }
 
 function goToBriefingSlide(root, index) {
-    const slides = root.querySelectorAll('.briefing-slide');
-    if (slides.length === 0) return;
+    const panels = root.querySelectorAll('.briefing-speech');
+    if (panels.length === 0) return;
 
-    const clamped = Math.max(0, Math.min(index, slides.length - 1));
+    const clamped = Math.max(0, Math.min(index, panels.length - 1));
     root.dataset.slide = String(clamped);
 
     const track = root.querySelector('.briefing-track');
     if (track) track.style.transform = `translateX(-${clamped * 100}%)`;
 
-    // Height follows the visible slide. Without this the card is always as tall
-    // as its longest slide, which leaves dead space under the shorter ones.
+    // Only swap the image when the next slide actually shows a different one.
+    // Across the Oracle's three slides this is a no-op and the art holds still.
+    const wanted = panels[clamped].dataset.art;
+    root.querySelectorAll('.briefing-art').forEach(layer => {
+        const isActive = layer.dataset.art === wanted;
+        layer.classList.toggle('active', isActive);
+        layer.setAttribute('aria-hidden', String(!isActive));
+    });
+
+    // Height follows the visible panel, so shorter slides leave no dead space.
     // A zero measurement means the screen is not laid out yet; leaving the
     // height alone keeps the card at its natural size instead of collapsing it.
     const viewport = root.querySelector('.briefing-viewport');
-    const measured = slides[clamped].offsetHeight;
+    const measured = panels[clamped].offsetHeight;
     if (viewport && measured > 0) viewport.style.height = `${measured}px`;
 
     root.querySelectorAll('.briefing-dot').forEach((dot, i) => {
@@ -144,12 +172,12 @@ function goToBriefingSlide(root, index) {
 
     root.querySelectorAll('.briefing-arrow').forEach(arrow => {
         const step = Number(arrow.dataset.step);
-        arrow.disabled = step < 0 ? clamped === 0 : clamped === slides.length - 1;
+        arrow.disabled = step < 0 ? clamped === 0 : clamped === panels.length - 1;
     });
 
-    // Only the visible slide should be reachable by keyboard or screen reader.
-    slides.forEach((slide, i) => {
-        slide.setAttribute('aria-hidden', String(i !== clamped));
+    // Only the visible panel should be reachable by keyboard or screen reader.
+    panels.forEach((panel, i) => {
+        panel.setAttribute('aria-hidden', String(i !== clamped));
     });
 }
 

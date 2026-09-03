@@ -12,13 +12,14 @@ const CSS = fs.readFileSync(path.resolve(__dirname, '..', 'styles.css'), 'utf8')
 const REQUIRED_CLASSES = [
     'icon', 'icon-menu', 'icon-heading', 'icon-locked',
     'scene-sprite-holder',
-    'briefing', 'briefing-viewport', 'briefing-track', 'briefing-slide',
-    'briefing-art-svg', 'briefing-speech', 'briefing-name', 'briefing-quote',
+    'briefing', 'briefing-viewport', 'briefing-track', 'briefing-stage',
+    'briefing-art', 'briefing-art-svg', 'briefing-speech', 'briefing-name', 'briefing-quote',
     'briefing-text', 'briefing-nav', 'briefing-arrow', 'briefing-dot',
     'oracle-disc', 'oracle-rim', 'oracle-wedge', 'oracle-hub', 'oracle-pin',
     'result-scene', 'result-scene-art', 'result-oracle-halo',
     'civ-card-art', 'daily-civ-art',
-    'story-title', 'dossier', 'dossier-row', 'dossier-label', 'dossier-value'
+    'story-title', 'mission', 'mission-objective', 'mission-facts', 'fact',
+    'mission-alert', 'mission-scene', 'mission-scene-summary', 'mission-scene-text'
 ];
 
 describe('style contract', () => {
