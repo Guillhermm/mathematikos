@@ -86,7 +86,7 @@ function showStoryIntro() {
     const civTitleEl = document.getElementById('story-intro-civ-title');
     if (civTitleEl) civTitleEl.textContent = civ.name;
 
-    // Hypatia scene — shown in thematic and daily modes
+    // Hypatia scene: shown in thematic and daily modes
     const showHypatia = (mode === 'thematic' || mode === 'daily') && story.hypatia;
     const hypatiaBlock = showHypatia
         ? hypatiaSceneMarkup(gameState.currentCivilization)

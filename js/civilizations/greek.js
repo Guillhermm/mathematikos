@@ -52,7 +52,7 @@ function generateGreekProblem(difficulty) {
 
     let operation = Math.random() > 0.5 ? '+' : '-';
 
-    // Greek system tops out at 999 — force subtraction if addition would overflow.
+    // Greek system tops out at 999, so force subtraction if addition would overflow.
     if (operation === '+' && num1 + num2 > 999) {
         operation = '-';
     }

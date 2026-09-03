@@ -54,10 +54,10 @@ describe('generateEgyptianProblem', () => {
     });
 });
 
-describe('numberToEgyptian — higher powers', () => {
+describe('numberToEgyptian: higher powers', () => {
     it('converts 10000',  () => assertEqual(numberToEgyptian(10000),  '𓂭'));
     it('converts 100000', () => assertEqual(numberToEgyptian(100000), '𓆏'));
-    it('converts 999999 — valid non-Invalid result with 100000 symbol', () => {
+    it('converts 999999: valid non-Invalid result with 100000 symbol', () => {
         const s = numberToEgyptian(999999);
         assertTrue(s !== 'Invalid', 'should not be Invalid');
         assertTrue(s.includes('𓆏'), '100000 tadpole symbol missing');  // 9 tadpoles
@@ -74,7 +74,7 @@ describe('numberToEgyptian — higher powers', () => {
     });
 });
 
-describe('egyptianToNumber — edge cases', () => {
+describe('egyptianToNumber: edge cases', () => {
     it('returns 0 for empty string', () => assertEqual(egyptianToNumber(''), 0));
     it('returns 0 for non-hieroglyph chars', () => assertEqual(egyptianToNumber('ABC123'), 0));
     it('parses 𓂭 → 10000',  () => assertEqual(egyptianToNumber('𓂭'), 10000));
@@ -83,13 +83,13 @@ describe('egyptianToNumber — edge cases', () => {
     it('parses 𓎆𓎆𓎆 → 30', () => assertEqual(egyptianToNumber('𓎆𓎆𓎆'), 30));
 });
 
-describe('Egyptian round-trip — extended', () => {
+describe('Egyptian round-trip: extended', () => {
     [10000, 100000, 22222, 99999, 111111, 999999].forEach(n => {
         it(`round-trips ${n}`, () => assertEqual(egyptianToNumber(numberToEgyptian(n)), n));
     });
 });
 
-describe('generateEgyptianProblem — all difficulties', () => {
+describe('generateEgyptianProblem: all difficulties', () => {
     [1, 2, 3, 4, 5].forEach(diff => {
         it(`difficulty ${diff}: answer > 0, egyptianAnswer round-trips`, () => {
             for (let i = 0; i < 10; i++) {

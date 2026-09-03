@@ -82,7 +82,7 @@ const civilizations = {
         icon: '🕌',
         difficulty: 'Expert',
         unlocked: false,
-        description: 'Discover the number system that unified all others — 9th-century Baghdad.',
+        description: 'Discover the number system that unified all others, in 9th-century Baghdad.',
         numberSystem: 'Hindu-Arabic Numerals (٠١٢٣٤٥٦٧٨٩)',
         base: 10
     }
@@ -103,7 +103,7 @@ const stories = {
             character: '<strong>Marcus the Merchant:</strong> "Welcome, traveler! The Forum is busy today, and I need help with my calculations. Can you assist me with these transactions?"',
             hypatia: {
                 quote: 'Reserve your right to think, for even to think wrongly is better than not to think at all.',
-                guidance: 'The Romans built their empire on order — and order begins with counting. Notice how their numerals reflect their values: repetition for accumulation, subtraction for elegance. Begin here, and the rest of history will open to you.'
+                guidance: 'The Romans built their empire on order, and order begins with counting. Notice how their numerals reflect their values: repetition for accumulation, subtraction for elegance. Begin here, and the rest of history will open to you.'
             }
         },
 
@@ -114,7 +114,7 @@ const stories = {
             character: '<strong>Imhotep the Scribe:</strong> "Great mathematician! The pharaoh\'s banquet approaches, and I must ensure our calculations are perfect. The hieroglyphs hold the answers - can you decipher them?"',
             hypatia: {
                 quote: 'All formal dogmatic religions are fallacious and must never be accepted by self-respecting persons as final.',
-                guidance: 'Egypt\'s number system predates Rome by millennia. Each symbol is a power of ten — count the hieroglyphs and sum their values. The Egyptians were the first to write numbers large enough to build wonders. Walk among their symbols with reverence.'
+                guidance: 'Egypt\'s number system predates Rome by millennia. Each symbol is a power of ten: count the hieroglyphs and sum their values. The Egyptians were the first to write numbers large enough to build wonders. Walk among their symbols with reverence.'
             }
         },
 
@@ -125,7 +125,7 @@ const stories = {
             character: '<strong>Archimedes:</strong> "Ah, a fellow lover of mathematics! The golden ratio must guide our construction. These calculations require precision - will you help me solve them using our sacred numerals?"',
             hypatia: {
                 quote: 'Fables should be taught as fables, myths as myths, and miracles as poetic fantasies. To teach superstitions as truth is a most terrible thing.',
-                guidance: 'I was born into this Greek tradition — alphabetic numerals, each letter carrying a numerical soul. My own work built on Diophantus, Ptolemy, and Euclid. In this civilization you will think as the Greeks did: every symbol is also a letter, and every calculation, a kind of poetry.'
+                guidance: 'I was born into this Greek tradition of alphabetic numerals, each letter carrying a numerical soul. My own work built on Diophantus, Ptolemy, and Euclid. In this civilization you will think as the Greeks did: every symbol is also a letter, and every calculation, a kind of poetry.'
             }
         },
 
@@ -135,8 +135,8 @@ const stories = {
             objective: 'Use the sophisticated Babylonian base-60 (sexagesimal) system to calculate water distribution and resources for maintaining the gardens.',
             character: '<strong>Chief Engineer Nabu-rimanni:</strong> "Welcome, mathematician! Our ancestors developed the most advanced number system - base 60! Help us calculate the precise measurements needed for the gardens\' irrigation."',
             hypatia: {
-                quote: 'In fact, men will fight for a superstition quite as quickly as for a living truth — often more so, since a superstition is so intangible you cannot get at it to refute it.',
-                guidance: 'Babylon gave us the sixty-second minute and the three-hundred-sixty-degree circle. When you use a clock or a compass, you think in Babylonian. Their base-60 system emerges from the most divisible number the ancient world knew. Watch for groupings of sixty — they are the skeleton of this civilization\'s thought.'
+                quote: 'In fact, men will fight for a superstition quite as quickly as for a living truth, often more so, since a superstition is so intangible you cannot get at it to refute it.',
+                guidance: 'Babylon gave us the sixty-second minute and the three-hundred-sixty-degree circle. When you use a clock or a compass, you think in Babylonian. Their base-60 system emerges from the most divisible number the ancient world knew. Watch for groupings of sixty. They are the skeleton of this civilization\'s thought.'
             }
         },
 
@@ -147,7 +147,7 @@ const stories = {
             character: '<strong>Master Liu the Abacus Expert:</strong> "Welcome, honored calculator! Our markets are alive with commerce. Use the ancient art of rod numerals to solve these merchant\'s calculations. Every transaction must be precise!"',
             hypatia: {
                 quote: 'Life is an unfoldment, and the further we travel the more truth we can comprehend.',
-                guidance: 'The Chinese developed a positional decimal system entirely independently of the West — and their suanpan (abacus) could outperform European pen-and-paper arithmetic for centuries. Read the characters from left to right: each named unit — ten, hundred, thousand — anchors the digit before it. The structure is strict but beautiful.'
+                guidance: 'The Chinese developed a positional decimal system entirely independently of the West, and their suanpan (abacus) could outperform European pen-and-paper arithmetic for centuries. Read the characters from left to right: each named unit (ten, hundred, thousand) anchors the digit before it. The structure is strict but beautiful.'
             }
         },
 
@@ -155,21 +155,21 @@ const stories = {
             title: '🌿 Maya Civilization - Secrets of the Pyramid',
             setting: 'You arrive at the magnificent pyramid of Chichen Itza at dawn. A Maya astronomer is studying the stars, using their remarkable vigesimal number system to track celestial cycles with extraordinary precision.',
             objective: 'Help the astronomer Itzamná calculate offerings and astronomical cycles using the Maya base-20 numeral system of dots, bars, and shells.',
-            character: '<strong>Astronomer Itzamná:</strong> "Welcome, seeker of knowledge! Our vigesimal system — base 20 — holds secrets of the cosmos. Dots represent one, bars represent five, and the shell represents zero. Can you master our numbers?"',
+            character: '<strong>Astronomer Itzamná:</strong> "Welcome, seeker of knowledge! Our vigesimal system, base 20, holds secrets of the cosmos. Dots represent one, bars represent five, and the shell represents zero. Can you master our numbers?"',
             hypatia: {
                 quote: 'The first step to wisdom is silence; the second is listening.',
-                guidance: 'Of all the number systems you have encountered, the Maya stands apart. They invented zero independently — not as a placeholder, but as a number. Their calendar calculations rival our best astronomical software. Read from top to bottom; each layer multiplies by twenty. The shell is not nothing. It is everything.'
+                guidance: 'Of all the number systems you have encountered, the Maya stands apart. They invented zero independently, not as a placeholder but as a number. Their calendar calculations rival our best astronomical software. Read from top to bottom; each layer multiplies by twenty. The shell is not nothing. It is everything.'
             }
         },
 
         'hindu-arabic': {
             title: '🕌 House of Wisdom - The Origin of Our Numbers',
-            setting: 'You arrive at the Bayt al-Hikma — the House of Wisdom — in 9th-century Baghdad. Scholars from across the known world fill its halls: Greek, Persian, Indian, and Arab mathematicians working side by side, translating and extending human knowledge. Al-Khwarizmi himself invites you to his writing table.',
-            objective: 'Work alongside Al-Khwarizmi to verify calculations using the Hindu-Arabic positional numeral system — the system that will one day become the universal language of mathematics.',
-            character: '<strong>Al-Khwarizmi:</strong> "Welcome to the House of Wisdom. The Indian scholars brought us a gift: nine symbols and a zero. Together, they can represent any number in the universe. This is not merely arithmetic — it is a new way of thinking. Can you master these symbols?"',
+            setting: 'You arrive at the Bayt al-Hikma, the House of Wisdom, in 9th-century Baghdad. Scholars from across the known world fill its halls: Greek, Persian, Indian, and Arab mathematicians working side by side, translating and extending human knowledge. Al-Khwarizmi himself invites you to his writing table.',
+            objective: 'Work alongside Al-Khwarizmi to verify calculations using the Hindu-Arabic positional numeral system, the system that will one day become the universal language of mathematics.',
+            character: '<strong>Al-Khwarizmi:</strong> "Welcome to the House of Wisdom. The Indian scholars brought us a gift: nine symbols and a zero. Together, they can represent any number in the universe. This is not merely arithmetic. It is a new way of thinking. Can you master these symbols?"',
             hypatia: {
                 quote: 'To rule by fettering the mind through fear of punishment in another world is just as base as to use force.',
-                guidance: 'You have traveled far, young mathematician. You have seen repetition in Egypt, subtraction in Rome, base-60 in Babylon, alphabets as numbers in Greece, rods in China, and shells in the Americas. All of them are answers to the same question: how do we represent the infinite with the finite? Here, in Baghdad, human civilization found its most elegant answer. These nine symbols and a zero — you already know them. But now you will understand where they came from.'
+                guidance: 'You have traveled far, young mathematician. You have seen repetition in Egypt, subtraction in Rome, base-60 in Babylon, alphabets as numbers in Greece, rods in China, and shells in the Americas. All of them are answers to the same question: how do we represent the infinite with the finite? Here, in Baghdad, human civilization found its most elegant answer. These nine symbols and a zero: you already know them. But now you will understand where they came from.'
             }
         }
     },
@@ -224,7 +224,7 @@ const stories = {
 
         'hindu-arabic': {
             title: '📜 House of Wisdom - The Library Under Siege',
-            setting: 'The Mongol advance threatens Baghdad! Scholars frantically copy manuscripts before the city falls. The Hindu-Arabic numeral system — the most powerful mathematical tool humanity has ever created — must be preserved.',
+            setting: 'The Mongol advance threatens Baghdad! Scholars frantically copy manuscripts before the city falls. The Hindu-Arabic numeral system, the most powerful mathematical tool humanity has ever created, must be preserved.',
             objective: 'Solve calculations using Hindu-Arabic numerals to verify and save the most critical mathematical manuscripts before time runs out!',
             character: '<strong>Time Remaining:</strong> You have 2 minutes to save the knowledge of the House of Wisdom!'
         }
@@ -233,7 +233,7 @@ const stories = {
     practice: {
         roman: {
             title: '🏛️ Practice - Roman Numerals',
-            setting: 'Practice the Roman numeral system at your own pace. No time limit — focus on understanding.',
+            setting: 'Practice the Roman numeral system at your own pace. No time limit, so focus on understanding.',
             objective: 'Solve problems using Roman numerals. Hints are available and show the correct answer on mistakes.',
             character: '<strong>Practice Mode:</strong> Take your time. Hints are free and mistakes show the correct answer.',
             hypatia: null

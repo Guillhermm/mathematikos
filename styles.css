@@ -958,7 +958,7 @@ h1, h2, h3, h4 {
 
 /* ===== NUMERAL SVG SYMBOLS ===== */
 
-/* Inline SVG wrapper — sizes the SVG relative to surrounding text */
+/* Inline SVG wrapper: sizes the SVG relative to surrounding text */
 .numeral-svg {
     display: inline-flex;
     align-items: center;
@@ -1216,7 +1216,7 @@ body[data-civ="hindu-arabic"] {
 }
 
 /* Dark mode */
-/* ===== DARK MODE — Nocturnal Codex palette ===== */
+/* ===== DARK MODE: Nocturnal Codex palette ===== */
 @media (prefers-color-scheme: dark) {
     :root {
         --text-color: #f5ded3;
@@ -1877,7 +1877,7 @@ body[data-civ="hindu-arabic"] {
     font-style: italic;
 }
 
-/* Responsive timeline — single column on mobile */
+/* Responsive timeline: single column on mobile */
 @media (max-width: 640px) {
     .timeline::before {
         left: 18px;
@@ -1900,7 +1900,7 @@ body[data-civ="hindu-arabic"] {
     }
 }
 
-/* ===== DARK MODE — late component overrides =====
+/* ===== DARK MODE: late component overrides =====
    Must appear AFTER all base component rules to win the cascade. */
 @media (prefers-color-scheme: dark) {
     .hypatia-scene-guidance { color: #f0ebe4; }
@@ -1945,7 +1945,7 @@ body[data-civ="hindu-arabic"] {
 
 /* ── Mobile (≤768px): fixed full-screen flex column ── */
 @media (max-width: 768px) {
-    /* game-columns: transparent wrapper — children flow in the flex column */
+    /* game-columns: transparent wrapper: children flow in the flex column */
     .game-columns {
         display: contents;
     }
@@ -2031,7 +2031,7 @@ body[data-civ="hindu-arabic"] {
         -webkit-overflow-scrolling: touch;
     }
 
-    /* Strip card styling from panels on mobile — they're inline slices */
+    /* Strip card styling from panels on mobile: they're inline slices */
     .chip-panel .scene-box,
     .chip-panel .info-box {
         border-radius: 0;
@@ -2088,7 +2088,7 @@ body[data-civ="hindu-arabic"] {
         white-space: nowrap;
     }
 
-    /* Hide full oracle section — badge handles it */
+    /* Hide full oracle section: badge handles it */
     #game-play .oracle-pieces {
         display: none;
     }
@@ -2165,7 +2165,7 @@ body[data-civ="hindu-arabic"] {
         padding: 8px 28px;
     }
 
-    /* Hide chips on desktop — panels always visible in sidebar */
+    /* Hide chips on desktop: panels always visible in sidebar */
     .context-chips { display: none; }
 
     /* Two-column body */
@@ -2240,7 +2240,7 @@ body[data-civ="hindu-arabic"] {
     .game-action-row .btn { margin: 0 4px; }
 }
 
-/* ===== DARK MODE — game-play additions ===== */
+/* ===== DARK MODE: game-play additions ===== */
 @media (prefers-color-scheme: dark) {
     @media (max-width: 768px) {
         .context-chips {
@@ -2261,7 +2261,7 @@ body[data-civ="hindu-arabic"] {
     }
 }
 
-/* ===== MAIN MENU — row-style buttons ===== */
+/* ===== MAIN MENU: row-style buttons ===== */
 
 .menu-options {
     display: flex;
@@ -2324,7 +2324,7 @@ body[data-civ="hindu-arabic"] {
     transform: translateX(3px);
 }
 
-/* Mode buttons — solid fills on light mode */
+/* Mode buttons: solid fills on light mode */
 .menu-btn-thematic {
     background: var(--primary-container);
     color: white;
@@ -2393,7 +2393,7 @@ body[data-civ="hindu-arabic"] {
     opacity: 0.7;
 }
 
-/* ===== CIVILIZATION SELECT — subtitle + updated cards ===== */
+/* ===== CIVILIZATION SELECT: subtitle + updated cards ===== */
 
 .civ-select-subtitle {
     font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
@@ -2552,7 +2552,7 @@ body[data-civ="hindu-arabic"] {
     }
 }
 
-/* ===== STORY INTRO — fixed full-screen layout ===== */
+/* ===== STORY INTRO: fixed full-screen layout ===== */
 
 #story-intro.active {
     display: flex;
@@ -2659,7 +2659,7 @@ body[data-civ="hindu-arabic"] {
     flex-shrink: 0;
 }
 
-/* ===== GAME HEADER — new inner elements ===== */
+/* ===== GAME HEADER: new inner elements ===== */
 
 .game-header {
     display: flex;
@@ -2703,7 +2703,7 @@ body[data-civ="hindu-arabic"] {
     font-size: 1.1rem;
 }
 
-/* ===== ANSWER SECTION — label ===== */
+/* ===== ANSWER SECTION: label ===== */
 
 .answer-label {
     display: block;
@@ -2760,7 +2760,7 @@ body[data-civ="hindu-arabic"] {
     display: none;
 }
 
-/* ===== DARK MODE — desktop sidebar ===== */
+/* ===== DARK MODE: desktop sidebar ===== */
 @media (prefers-color-scheme: dark) {
     @media (min-width: 769px) {
         .game-sidebar {
@@ -2784,7 +2784,7 @@ body[data-civ="hindu-arabic"] {
     }
 }
 
-/* ===== DARK MODE — action row button overrides ===== */
+/* ===== DARK MODE: action row button overrides ===== */
 @media (prefers-color-scheme: dark) {
     .game-action-row .btn-clear,
     .game-action-row .btn-backspace {
@@ -2807,7 +2807,7 @@ body[data-civ="hindu-arabic"] {
     }
 }
 
-/* ===== DESKTOP — civilization grid 3 columns ===== */
+/* ===== DESKTOP: civilization grid 3 columns ===== */
 @media (min-width: 769px) {
     .civilization-grid {
         grid-template-columns: repeat(3, 1fr);

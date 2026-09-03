@@ -31,7 +31,7 @@ function showDailyChallenge() {
         ` : `
             <p class="daily-description">
                 Today's challenge uses the <strong>${civ.name}</strong> number system.
-                5 questions, no time limit — just show what you've learned!
+                5 questions, no time limit. Just show what you've learned!
             </p>
         `}
     `;

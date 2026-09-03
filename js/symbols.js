@@ -141,7 +141,7 @@ function getSymbolSvg(civ, char) {
     } else if (civ === 'mayan') {
         if (NUMERAL_SVGS.mayan[char]) return NUMERAL_SVGS.mayan[char];
     }
-    return null; // no SVG available — caller falls back to Unicode
+    return null; // no SVG available; caller falls back to Unicode
 }
 
 // ── Numeral string → displayable HTML ────────────────────────────────────────

@@ -106,7 +106,7 @@ function renderSymbolPad() {
         button.setAttribute('aria-label', label);
         button.onclick = () => addSymbol(symbol);
 
-        // Space (Babylonian) and '|' (Maya) are positional group separators — show a visual dash.
+        // Space (Babylonian) and '|' (Maya) are positional group separators, so show a visual dash.
         const isSeparator = symbol === ' ' || symbol === '|';
         const iconHtml = isSeparator
             ? '<span class="sep-icon">╌</span>'

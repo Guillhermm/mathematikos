@@ -70,7 +70,7 @@ describe('generateMayanProblem', () => {
     });
 });
 
-describe('numberToMayan — full digit range 0–19', () => {
+describe('numberToMayan: full digit range 0–19', () => {
     const expected = {
         0:'○', 1:'●', 2:'●●', 3:'●●●', 4:'●●●●',
         5:'━', 6:'━●', 7:'━●●', 8:'━●●●', 9:'━●●●●',
@@ -82,7 +82,7 @@ describe('numberToMayan — full digit range 0–19', () => {
     });
 });
 
-describe('numberToMayan — positional values', () => {
+describe('numberToMayan: positional values', () => {
     it('converts 60 → ●●●|○',    () => assertEqual(numberToMayan(60),  '●●●|○'));
     it('converts 100 → ━|○',     () => assertEqual(numberToMayan(100), '━|○'));
     it('converts 380 → ━━━●●●●●|○', () => {
@@ -91,13 +91,13 @@ describe('numberToMayan — positional values', () => {
     });
 });
 
-describe('mayanToNumber — edge cases', () => {
+describe('mayanToNumber: edge cases', () => {
     it('returns NaN for empty string', () => assertTrue(isNaN(mayanToNumber(''))));
     it('returns NaN for whitespace only', () => assertTrue(isNaN(mayanToNumber('   '))));
     it('returns 0 for whitespace-padded ○', () => assertEqual(mayanToNumber(' ○ '), 0));
 });
 
-describe('Maya — all digits 0–19 round-trip', () => {
+describe('Maya: all digits 0–19 round-trip', () => {
     for (let d = 0; d <= 19; d++) {
         it(`round-trips digit ${d}`, () => {
             assertEqual(mayanToNumber(numberToMayan(d)), d);
@@ -105,7 +105,7 @@ describe('Maya — all digits 0–19 round-trip', () => {
     }
 });
 
-describe('generateMayanProblem — all difficulties', () => {
+describe('generateMayanProblem: all difficulties', () => {
     [1, 2, 3, 4, 5].forEach(diff => {
         it(`difficulty ${diff}: answer in [1, 399], mayanAnswer round-trips`, () => {
             for (let i = 0; i < 10; i++) {

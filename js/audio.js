@@ -80,49 +80,49 @@ function playSound(type) {
 // Scale definitions: frequencies in Hz for short melodic phrases
 const AMBIENT_PROFILES = {
     roman: {
-        // Dorian mode on D — martial, ordered
+        // Dorian mode on D: martial, ordered
         drone:    { freq: 146.83, type: 'sine' }, // D3
         melody:   [293.66, 329.63, 369.99, 329.63, 293.66, 246.94], // D4 E4 F#4 ...
         interval: 1800,
         gain:     0.035
     },
     egyptian: {
-        // Phrygian mode on E — ancient, mysterious
+        // Phrygian mode on E: ancient, mysterious
         drone:    { freq: 130.81, type: 'sine' }, // C3
         melody:   [261.63, 277.18, 311.13, 349.23, 311.13, 277.18], // C4 C#4 Eb4 F4 ...
         interval: 2400,
         gain:     0.03
     },
     greek: {
-        // Ancient Greek Dorian tetrachord: E F G A — noble, philosophical
+        // Ancient Greek Dorian tetrachord: E F G A: noble, philosophical
         drone:    { freq: 164.81, type: 'sine' }, // E3
         melody:   [329.63, 349.23, 392.00, 440.00, 392.00, 349.23, 329.63],
         interval: 2000,
         gain:     0.032
     },
     babylonian: {
-        // Tritone-heavy — complex, otherworldly; reflects base-60 complexity
+        // Tritone-heavy: complex and otherworldly, reflecting base-60 complexity
         drone:    { freq: 110.00, type: 'sine' }, // A2
         melody:   [220.00, 246.94, 311.13, 369.99, 311.13, 246.94],
         interval: 2200,
         gain:     0.03
     },
     chinese: {
-        // Pentatonic scale — graceful, meditative
+        // Pentatonic scale: graceful, meditative
         drone:    { freq: 146.83, type: 'sine' }, // D3
         melody:   [293.66, 329.63, 392.00, 440.00, 523.25, 440.00, 392.00, 329.63],
         interval: 1600,
         gain:     0.03
     },
     mayan: {
-        // Minor pentatonic — rhythmic, tropical
+        // Minor pentatonic: rhythmic, tropical
         drone:    { freq: 123.47, type: 'sine' }, // B2
         melody:   [246.94, 293.66, 329.63, 369.99, 440.00, 369.99, 329.63],
         interval: 1900,
         gain:     0.032
     },
     'hindu-arabic': {
-        // Maqam Rast — flattened 3rd, raised 7th; evokes 9th-century Baghdad
+        // Maqam Rast: flattened 3rd, raised 7th, evoking 9th-century Baghdad
         drone:    { freq: 130.81, type: 'sine' }, // C3
         melody:   [261.63, 293.66, 311.13, 349.23, 392.00, 440.00, 466.16, 523.25],
         interval: 1700,
@@ -183,7 +183,7 @@ function startAmbient(civId) {
         // Slow tremolo LFO on the drone gain
         const lfoOsc  = ctx.createOscillator();
         const lfoGain = ctx.createGain();
-        lfoOsc.frequency.value = 0.25; // 0.25 Hz — slow, breathing pulse
+        lfoOsc.frequency.value = 0.25; // 0.25 Hz, a slow breathing pulse
         lfoGain.gain.value     = 0.15;
         lfoOsc.connect(lfoGain);
         lfoGain.connect(droneGain.gain);

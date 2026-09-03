@@ -94,7 +94,7 @@ function chineseToNumber(chinese) {
             total += (current || 1) * 10;
             current = 0;
         } else if (char === CHINESE_NUMERALS[0]) {
-            // Zero placeholder — skip
+            // Zero placeholder, skip
         } else {
             current = CHINESE_DIGIT_VALUES[char] || 0;
         }

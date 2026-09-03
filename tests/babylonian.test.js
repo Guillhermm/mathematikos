@@ -89,7 +89,7 @@ describe('generateBabylonianProblem', () => {
     });
 });
 
-describe('convertBabylonianDigit — extended', () => {
+describe('convertBabylonianDigit: extended', () => {
     [2, 3, 4, 5, 6, 7, 8, 9].forEach(n => {
         it(`digit ${n} has exactly ${n} ones and 0 tens`, () => {
             const result = convertBabylonianDigit(n);
@@ -114,7 +114,7 @@ describe('convertBabylonianDigit — extended', () => {
     });
 });
 
-describe('parseBabylonianDigit — round-trips with convertBabylonianDigit', () => {
+describe('parseBabylonianDigit: round-trips with convertBabylonianDigit', () => {
     [0, 1, 5, 10, 19, 23, 45, 59].forEach(n => {
         it(`round-trips digit ${n}`, () => {
             assertEqual(parseBabylonianDigit(convertBabylonianDigit(n)), n);
@@ -122,7 +122,7 @@ describe('parseBabylonianDigit — round-trips with convertBabylonianDigit', () 
     });
 });
 
-describe('babylonianToNumber — extended', () => {
+describe('babylonianToNumber: extended', () => {
     it('parses single zero ⊙ → 0', () => assertEqual(babylonianToNumber('⊙'), 0));
     it('parses 3599 correctly', () => {
         assertEqual(babylonianToNumber(numberToBabylonian(3599)), 3599);
@@ -132,7 +132,7 @@ describe('babylonianToNumber — extended', () => {
     });
 });
 
-describe('generateBabylonianProblem — babylonianAnswer round-trips', () => {
+describe('generateBabylonianProblem: babylonianAnswer round-trips', () => {
     it('babylonianAnswer round-trips correctly (50 runs)', () => {
         for (let i = 0; i < 50; i++) {
             const p = generateBabylonianProblem(rand(1, 5));

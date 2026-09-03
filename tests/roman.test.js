@@ -73,7 +73,7 @@ describe('generateRomanProblem', () => {
     });
 });
 
-describe('numberToRoman — additional values', () => {
+describe('numberToRoman: additional values', () => {
     it('converts 2 → II',    () => assertEqual(numberToRoman(2),    'II'));
     it('converts 3 → III',   () => assertEqual(numberToRoman(3),    'III'));
     it('converts 8 → VIII',  () => assertEqual(numberToRoman(8),    'VIII'));
@@ -84,7 +84,7 @@ describe('numberToRoman — additional values', () => {
     it('converts 3000 → MMM', () => assertEqual(numberToRoman(3000), 'MMM'));
 });
 
-describe('romanToNumber — edge cases', () => {
+describe('romanToNumber: edge cases', () => {
     it('returns 0 for unknown character Z', () => assertEqual(romanToNumber('Z'), 0));
     it('returns 0 for null',     () => assertEqual(romanToNumber(null),      0));
     it('returns 0 for undefined',() => assertEqual(romanToNumber(undefined), 0));
@@ -97,7 +97,7 @@ describe('romanToNumber — edge cases', () => {
     it('parses CDXCIX → 499', () => assertEqual(romanToNumber('CDXCIX'), 499));
 });
 
-describe('generateRomanProblem — all difficulties', () => {
+describe('generateRomanProblem: all difficulties', () => {
     [1, 2, 3, 4, 5].forEach(diff => {
         it(`difficulty ${diff}: answer > 0, ≤ 3999, romanAnswer round-trips`, () => {
             for (let i = 0; i < 10; i++) {

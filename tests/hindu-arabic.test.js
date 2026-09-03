@@ -65,14 +65,14 @@ describe('generateHinduArabicProblem', () => {
     });
 });
 
-describe('numberToHinduArabic — all individual digits', () => {
+describe('numberToHinduArabic: all individual digits', () => {
     const digits = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
     digits.forEach((d, i) => {
         it(`converts ${i} → ${d}`, () => assertEqual(numberToHinduArabic(i), d));
     });
 });
 
-describe('numberToHinduArabic — multi-digit values', () => {
+describe('numberToHinduArabic: multi-digit values', () => {
     it('converts 11 → ١١',   () => assertEqual(numberToHinduArabic(11),   '١١'));
     it('converts 55 → ٥٥',   () => assertEqual(numberToHinduArabic(55),   '٥٥'));
     it('converts 123 → ١٢٣', () => assertEqual(numberToHinduArabic(123),  '١٢٣'));
@@ -81,21 +81,21 @@ describe('numberToHinduArabic — multi-digit values', () => {
     it('returns Invalid for float 2.5', () => assertEqual(numberToHinduArabic(2.5), 'Invalid'));
 });
 
-describe('hinduArabicToNumber — all individual Eastern Arabic digits', () => {
+describe('hinduArabicToNumber: all individual Eastern Arabic digits', () => {
     const digits = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
     digits.forEach((d, i) => {
         it(`parses ${d} → ${i}`, () => assertEqual(hinduArabicToNumber(d), i));
     });
 });
 
-describe('hinduArabicToNumber — edge cases', () => {
+describe('hinduArabicToNumber: edge cases', () => {
     it('returns NaN for Latin digits', () => assertTrue(isNaN(hinduArabicToNumber('123'))));
     it('returns NaN for mixed valid/invalid', () => assertTrue(isNaN(hinduArabicToNumber('١23'))));
     it('parses ١٢٣ → 123', () => assertEqual(hinduArabicToNumber('١٢٣'), 123));
     it('parses ٥٠٠٠ → 5000', () => assertEqual(hinduArabicToNumber('٥٠٠٠'), 5000));
 });
 
-describe('generateHinduArabicProblem — all difficulties', () => {
+describe('generateHinduArabicProblem: all difficulties', () => {
     [1, 2, 3, 4, 5].forEach(diff => {
         it(`difficulty ${diff}: answer > 0, hinduArabicAnswer round-trips`, () => {
             for (let i = 0; i < 10; i++) {

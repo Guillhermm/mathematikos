@@ -66,7 +66,7 @@ describe('generateGreekProblem', () => {
     });
 });
 
-describe('numberToGreek — all 27 standard values', () => {
+describe('numberToGreek: all 27 standard values', () => {
     // Units 1–9
     const expected = {
         1:'α', 2:'β', 3:'γ', 4:'δ', 5:'ε', 6:'ϛ', 7:'ζ', 8:'η', 9:'θ',
@@ -80,14 +80,14 @@ describe('numberToGreek — all 27 standard values', () => {
     });
 });
 
-describe('numberToGreek — composite values', () => {
+describe('numberToGreek: composite values', () => {
     it('converts 55 → νε',   () => assertEqual(numberToGreek(55),  'νε'));
     it('converts 444 → υμδ', () => assertEqual(numberToGreek(444), 'υμδ'));
     it('converts 888 → ωπη', () => assertEqual(numberToGreek(888), 'ωπη'));
     it('converts 506 → φϛ',  () => assertEqual(numberToGreek(506), 'φϛ'));
 });
 
-describe('greekToNumber — all 27 standard letters', () => {
+describe('greekToNumber: all 27 standard letters', () => {
     const pairs = [
         ['α',1],['β',2],['γ',3],['δ',4],['ε',5],['ϛ',6],['ζ',7],['η',8],['θ',9],
         ['ι',10],['κ',20],['λ',30],['μ',40],['ν',50],['ξ',60],['ο',70],['π',80],['ϙ',90],
@@ -98,13 +98,13 @@ describe('greekToNumber — all 27 standard letters', () => {
     });
 });
 
-describe('greekToNumber — edge cases', () => {
+describe('greekToNumber: edge cases', () => {
     it('returns 0 for empty string', () => assertEqual(greekToNumber(''), 0));
     it('returns 0 for non-Greek chars', () => assertEqual(greekToNumber('ABC'), 0));
     it('ignores unknown chars in mixed string', () => assertEqual(greekToNumber('ιZα'), 11));
 });
 
-describe('generateGreekProblem — all difficulties', () => {
+describe('generateGreekProblem: all difficulties', () => {
     [1, 2, 3, 4, 5].forEach(diff => {
         it(`difficulty ${diff}: answer in range, greekAnswer round-trips`, () => {
             for (let i = 0; i < 10; i++) {

@@ -17,11 +17,11 @@ const CODEX = {
             },
             {
                 heading: 'Limitations',
-                text: 'Roman numerals have no zero and no concept of place value. Multiplication and division were extraordinarily difficult — a likely reason why the Romans adopted the abacus for serious calculation. Large numbers like 1,000,000 required invented symbols not in common use.'
+                text: 'Roman numerals have no zero and no concept of place value. Multiplication and division were extraordinarily difficult, a likely reason why the Romans adopted the abacus for serious calculation. Large numbers like 1,000,000 required invented symbols not in common use.'
             },
             {
                 heading: 'Legacy',
-                text: 'Roman numerals persist in chapter headings, clock faces, film credits, and the names of monarchs and popes. Super Bowl numbers, Olympic Games, and building cornerstones still use them — a 2,000-year presence in daily life.'
+                text: 'Roman numerals persist in chapter headings, clock faces, film credits, and the names of monarchs and popes. Super Bowl numbers, Olympic Games, and building cornerstones still use them, a 2,000-year presence in daily life.'
             }
         ]
     },
@@ -33,7 +33,7 @@ const CODEX = {
         sections: [
             {
                 heading: 'A Purely Additive System',
-                text: 'Egyptian numerals used distinct hieroglyphs for each power of ten: a stroke (1), heel bone (10), coil of rope (100), lotus flower (1,000), bent finger (10,000), tadpole (100,000), and a god with raised arms (1,000,000). Numbers were formed by repeating and combining these — purely additive, no subtraction or positional value.'
+                text: 'Egyptian numerals used distinct hieroglyphs for each power of ten: a stroke (1), heel bone (10), coil of rope (100), lotus flower (1,000), bent finger (10,000), tadpole (100,000), and a god with raised arms (1,000,000). Numbers were formed by repeating and combining these: purely additive, with no subtraction or positional value.'
             },
             {
                 heading: 'The Rhind Papyrus',
@@ -41,11 +41,11 @@ const CODEX = {
             },
             {
                 heading: 'Pi and the Pyramid',
-                text: 'Egyptian engineers approximated π as (16/9)² ≈ 3.16 — accurate to within 0.6%. The dimensions of the Great Pyramid of Giza encode this value, though whether this was deliberate or coincidental has been debated for centuries.'
+                text: 'Egyptian engineers approximated π as (16/9)² ≈ 3.16, accurate to within 0.6%. The dimensions of the Great Pyramid of Giza encode this value, though whether this was deliberate or coincidental has been debated for centuries.'
             },
             {
                 heading: 'Hieratic Script',
-                text: 'For everyday writing, Egyptians used "hieratic" numerals — a cursive shorthand version of the hieroglyphs that allowed faster writing on papyrus. The hieratic system used different symbols for 1–9 (not just repeated strokes), making it significantly more compact.'
+                text: 'For everyday writing, Egyptians used "hieratic" numerals, a cursive shorthand version of the hieroglyphs that allowed faster writing on papyrus. The hieratic system used different symbols for 1–9 (not just repeated strokes), making it significantly more compact.'
             }
         ]
     },
@@ -65,11 +65,11 @@ const CODEX = {
             },
             {
                 heading: 'Diophantus and Algebra',
-                text: 'Diophantus of Alexandria (c. 3rd century CE) wrote the Arithmetica — 13 books of algebraic problems that laid the foundation for what Al-Khwarizmi would later formalize. His notation used Greek alphabetic numerals and proto-algebraic symbols, making him one of the first algebraists in history.'
+                text: 'Diophantus of Alexandria (c. 3rd century CE) wrote the Arithmetica, 13 books of algebraic problems that laid the foundation for what Al-Khwarizmi would later formalize. His notation used Greek alphabetic numerals and proto-algebraic symbols, making him one of the first algebraists in history.'
             },
             {
                 heading: 'The Antikythera Mechanism',
-                text: 'The Antikythera mechanism (c. 100 BCE), an ancient Greek astronomical calculator, used geared wheels to predict celestial events. Its inscriptions use alphabetic numerals for degrees and calendar divisions — demonstrating how these symbols were embedded in sophisticated scientific instruments.'
+                text: 'The Antikythera mechanism (c. 100 BCE), an ancient Greek astronomical calculator, used geared wheels to predict celestial events. Its inscriptions use alphabetic numerals for degrees and calendar divisions, demonstrating how these symbols were embedded in sophisticated scientific instruments.'
             }
         ]
     },
@@ -81,7 +81,7 @@ const CODEX = {
         sections: [
             {
                 heading: 'Base-60: The Sexagesimal System',
-                text: 'The Babylonians used a base-60 (sexagesimal) positional system — the most sophisticated numerical system in the ancient world. Why 60? It divides evenly by 1, 2, 3, 4, 5, 6, 10, 12, 15, 20, and 30 — more divisors than any smaller number. This made fractions simpler in daily life.'
+                text: 'The Babylonians used a base-60 (sexagesimal) positional system, the most sophisticated numerical system in the ancient world. Why 60? It divides evenly by 1, 2, 3, 4, 5, 6, 10, 12, 15, 20, and 30, more divisors than any smaller number. This made fractions simpler in daily life.'
             },
             {
                 heading: 'The Legacy You Use Every Day',
@@ -89,11 +89,11 @@ const CODEX = {
             },
             {
                 heading: 'Plimpton 322',
-                text: 'Plimpton 322 is a clay tablet dated to c. 1800 BCE that lists Pythagorean triples — integer solutions to a² + b² = c² — over 1,000 years before Pythagoras. Babylonian mathematicians had a deep understanding of right triangles and quadratic equations.'
+                text: 'Plimpton 322 is a clay tablet dated to c. 1800 BCE that lists Pythagorean triples (integer solutions to a² + b² = c²) over 1,000 years before Pythagoras. Babylonian mathematicians had a deep understanding of right triangles and quadratic equations.'
             },
             {
                 heading: 'Positional Notation and Zero',
-                text: 'The Babylonians invented positional notation — meaning the value of a symbol depends on its position. They also invented a placeholder symbol (⊙) to indicate an empty positional group, making it the earliest precursor to zero. However, they never used zero as a number in calculations — only as a separator.'
+                text: 'The Babylonians invented positional notation, meaning the value of a symbol depends on its position. They also invented a placeholder symbol (⊙) to indicate an empty positional group, making it the earliest precursor to zero. However, they never used zero as a number in calculations, only as a separator.'
             }
         ]
     },
@@ -105,7 +105,7 @@ const CODEX = {
         sections: [
             {
                 heading: 'Counting Rods',
-                text: 'Chinese mathematicians used physical bamboo or ivory rods laid on a counting board to represent numbers. Vertical rods (⌶) represented units 1–5; a single horizontal rod (一) lay perpendicular for 6. Alternating orientations between columns (vertical, then horizontal) prevented confusion between adjacent digits — a precursor to binary thinking.'
+                text: 'Chinese mathematicians used physical bamboo or ivory rods laid on a counting board to represent numbers. Vertical rods (⌶) represented units 1–5; a single horizontal rod (一) lay perpendicular for 6. Alternating orientations between columns (vertical, then horizontal) prevented confusion between adjacent digits, a precursor to binary thinking.'
             },
             {
                 heading: 'The Suanpan (Abacus)',
@@ -113,11 +113,11 @@ const CODEX = {
             },
             {
                 heading: 'Negative Numbers',
-                text: 'Chinese mathematicians used red rods for positive numbers and black rods for negative numbers — the earliest known use of negative numbers in calculation. The Nine Chapters on the Mathematical Art (c. 1st century CE) contains rules for arithmetic with negative quantities, over a thousand years before European mathematics accepted them.'
+                text: 'Chinese mathematicians used red rods for positive numbers and black rods for negative numbers, the earliest known use of negative numbers in calculation. The Nine Chapters on the Mathematical Art (c. 1st century CE) contains rules for arithmetic with negative quantities, over a thousand years before European mathematics accepted them.'
             },
             {
                 heading: 'The Nine Chapters',
-                text: 'The Jiuzhang Suanshu (Nine Chapters on the Mathematical Art) is a foundational Chinese mathematical text covering practical problems: land measurement, crop distribution, civil engineering, and taxation. It describes Gaussian elimination (row reduction) for solving systems of equations — 1,800 years before Gauss.'
+                text: 'The Jiuzhang Suanshu (Nine Chapters on the Mathematical Art) is a foundational Chinese mathematical text covering practical problems: land measurement, crop distribution, civil engineering, and taxation. It describes Gaussian elimination (row reduction) for solving systems of equations, 1,800 years before Gauss.'
             }
         ]
     },
@@ -129,11 +129,11 @@ const CODEX = {
         sections: [
             {
                 heading: 'Base-20 and an Independent Zero',
-                text: 'The Maya developed a vigesimal (base-20) positional number system, written vertically from bottom to top. Their zero — a shell symbol — was one of only two independent inventions of zero in history (the other being in South Asia). The Maya zero was not just a placeholder; it was a number used in calculations.'
+                text: 'The Maya developed a vigesimal (base-20) positional number system, written vertically from bottom to top. Their zero, a shell symbol, was one of only two independent inventions of zero in history (the other being in South Asia). The Maya zero was not just a placeholder; it was a number used in calculations.'
             },
             {
                 heading: 'The Maya Calendar System',
-                text: 'The Maya Long Count calendar could specify any date within a 5,125-year cycle (approximately 3114 BCE to 2012 CE) with a five-digit notation. Their astronomical calculations — particularly for Venus cycles (584 days) and lunar months — were accurate to within minutes of arc, without telescopes.'
+                text: 'The Maya Long Count calendar could specify any date within a 5,125-year cycle (approximately 3114 BCE to 2012 CE) with a five-digit notation. Their astronomical calculations, particularly for Venus cycles (584 days) and lunar months, were accurate to within minutes of arc, without telescopes.'
             },
             {
                 heading: 'The Dresden Codex',
@@ -141,7 +141,7 @@ const CODEX = {
             },
             {
                 heading: 'Dots, Bars, and Shells',
-                text: 'Three symbols encode all Maya numbers: a dot (●) for 1, a bar (━) for 5, and a shell (○) for 0. The elegance of this system — three symbols for any number, arranged positionally — is a mathematical achievement of the highest order, and it emerged completely independently of Old World mathematics.'
+                text: 'Three symbols encode all Maya numbers: a dot (●) for 1, a bar (━) for 5, and a shell (○) for 0. The elegance of this system, three symbols for any number arranged positionally, is a mathematical achievement of the highest order, and it emerged completely independently of Old World mathematics.'
             }
         ]
     },
@@ -153,7 +153,7 @@ const CODEX = {
         sections: [
             {
                 heading: 'The Greatest Mathematical Invention',
-                text: 'The Hindu-Arabic numeral system — ten symbols (0–9) in a positional base-10 system with a true zero — is arguably the single most impactful invention in the history of mathematics. Every number in science, finance, engineering, and computing today uses this system, directly descended from the Brahmi numerals of ancient India.'
+                text: 'The Hindu-Arabic numeral system, ten symbols (0–9) in a positional base-10 system with a true zero, is arguably the single most impactful invention in the history of mathematics. Every number in science, finance, engineering, and computing today uses this system, directly descended from the Brahmi numerals of ancient India.'
             },
             {
                 heading: 'Al-Khwarizmi and the House of Wisdom',
@@ -161,7 +161,7 @@ const CODEX = {
             },
             {
                 heading: 'The Word "Algorithm"',
-                text: 'The word "algorithm" derives from "Algoritmi" — the Latinized form of Al-Khwarizmi\'s name. When Latin translators described his methods for arithmetic using Indian numerals, they titled their works "Algoritmi dixit..." ("Al-Khwarizmi said..."). His name became a term for any step-by-step calculation procedure — and eventually the foundation concept of computer science.'
+                text: 'The word "algorithm" derives from "Algoritmi", the Latinized form of Al-Khwarizmi\'s name. When Latin translators described his methods for arithmetic using Indian numerals, they titled their works "Algoritmi dixit..." ("Al-Khwarizmi said..."). His name became a term for any step-by-step calculation procedure, and eventually the foundation concept of computer science.'
             },
             {
                 heading: 'Europe\'s Long Resistance',

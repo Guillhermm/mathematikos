@@ -1,10 +1,10 @@
-# Mathematikos — Journey Through Ancient Numbers
+# Mathematikos: Journey Through Ancient Numbers
 
 **Mathematikos** is an educational browser game that takes players on a journey through time, exploring the great civilizations of antiquity by solving mathematical challenges using their unique number systems. Travel through history, meet Hypatia as your guide, and master seven ancient numeral systems in a rich, narrative-driven experience.
 
 ## Play
 
-> Live at **[guillhermm.github.io/mathematikos](https://guillhermm.github.io/mathematikos)** — no install required. Also installable as a Progressive Web App (PWA) for offline play.
+> Live at **[guillhermm.github.io/mathematikos](https://guillhermm.github.io/mathematikos)**, no install required. Also installable as a Progressive Web App (PWA) for offline play.
 
 ## Features
 
@@ -24,14 +24,14 @@ Plus **Cross-Civilization** challenges that mix systems in a single round.
 
 ### Game Modes
 
-- **Timed mode** — Solve challenges against the clock; wrong answers cost time.
-- **Practice mode** — No timer, no pressure. Hints available for learning.
-- **Daily Challenge** — One fixed challenge per day across civilizations. Returns daily for a persistent habit.
+- **Timed mode**: Solve challenges against the clock; wrong answers cost time.
+- **Practice mode**: No timer, no pressure. Hints available for learning.
+- **Daily Challenge**: One fixed challenge per day across civilizations. Returns daily for a persistent habit.
 
 ### Challenge Types
 
-- **Classic** — Read the ancient numeral and enter the Arabic answer.
-- **Reverse** — Given an Arabic number, write it in the ancient system using the symbol pad.
+- **Classic**: Read the ancient numeral and enter the Arabic answer.
+- **Reverse**: Given an Arabic number, write it in the ancient system using the symbol pad.
 
 ### Codex
 
@@ -54,7 +54,7 @@ Ambient audio per civilization. Each historical setting has its own soundscape.
 
 ## Technical
 
-- Pure HTML, CSS, and ES6 JavaScript — no build step, no dependencies.
+- Pure HTML, CSS, and ES6 JavaScript, with no build step and no dependencies.
 - Progressive Web App (PWA): installable, offline-capable via service worker.
 - 578 automated tests covering the conversion functions and the scene system across all seven civilizations.
 - CI/CD via GitHub Actions: tests run on every push, deploy to GitHub Pages on version tags.
@@ -103,7 +103,7 @@ node run_tests.js
 
 Mathematikos was conceived in 2024 through discussions about combining mathematics education with historical civilizations in an engaging game format. The About screen in the game includes a full provenance timeline and the creator's background.
 
-Created by **Guilherme Zeni** — senior software engineer and lifelong math enthusiast.
+Created by **Guilherme Zeni**, senior software engineer and lifelong math enthusiast.
 
 ## Roadmap
 

@@ -5,14 +5,14 @@ const TIMELINE_ENTRIES = [
         date: 'Late 2024',
         icon: '💬',
         title: 'The Idea Is Born',
-        text: 'During a ChatGPT conversation titled <em>"Jogo de adição histórica"</em> (Portuguese: "Historical Addition Game"), the concept for Mathematikos takes shape — a browser game teaching ancient number systems through time-travel challenges. The name, the civilization list, and the two game modes (Thematic Scenes and Temporal Challenges) are all defined in this session.'
+        text: 'During a ChatGPT conversation titled <em>"Jogo de adição histórica"</em> (Portuguese: "Historical Addition Game"), the concept for Mathematikos takes shape: a browser game teaching ancient number systems through time-travel challenges. The name, the civilization list, and the two game modes (Thematic Scenes and Temporal Challenges) are all defined in this session.'
     },
     {
         date: 'October 19, 2024',
         icon: '📁',
         title: 'Prototype Repository Created',
-        text: 'The first commit to the prototype repository is made at 22:21 (UTC-3). Eighteen minutes later, a comprehensive design document is committed and pushed the next day — the complete game concept, story narrative, civilizations, mechanics, and technology plan. This document is cryptographically timestamped in Git history.',
-        proof: 'Prototype first commit: <code>e78660e</code> — Oct 19, 2024, 22:21 UTC-3'
+        text: 'The first commit to the prototype repository is made at 22:21 (UTC-3). Eighteen minutes later, a comprehensive design document is committed and pushed the next day, covering the complete game concept, story narrative, civilizations, mechanics, and technology plan. This document is cryptographically timestamped in Git history.',
+        proof: 'Prototype first commit: <code>e78660e</code>, Oct 19, 2024, 22:21 UTC-3'
     },
     {
         date: 'October 21–November 6, 2024',
@@ -24,7 +24,7 @@ const TIMELINE_ENTRIES = [
         date: '2025',
         icon: '🎲',
         title: 'Mathematicus Board Game Released',
-        text: 'A physical board game called <em>Mathematicus</em> is released, covering Babylonian, Egyptian, Chinese, Roman, Mayan, Arabic, and binary numeral systems — a convergent concept developed independently. Mathematikos predates this release by over a year, as evidenced by the 2024 Git history. The two products are complementary, not competitive: Mathematikus is digital and free; Mathematicus is physical and paid.'
+        text: 'A physical board game called <em>Mathematicus</em> is released, covering Babylonian, Egyptian, Chinese, Roman, Mayan, Arabic, and binary numeral systems, a convergent concept developed independently. Mathematikos predates this release by over a year, as evidenced by the 2024 Git history. The two products are complementary, not competitive: Mathematikus is digital and free; Mathematicus is physical and paid.'
     },
     {
         date: '2025',
@@ -36,7 +36,7 @@ const TIMELINE_ENTRIES = [
         date: 'February 15, 2026',
         icon: '🔄',
         title: 'Rebuilt as Pure HTML/CSS/JS',
-        text: 'Mathematikos is rebuilt from scratch as a zero-dependency browser game — pure HTML, CSS, and ES6 JavaScript. The goal: instant play, no build step, works offline. Roman, Egyptian, Greek, Babylonian, and Chinese civilizations are implemented in a single evening.'
+        text: 'Mathematikos is rebuilt from scratch as a zero-dependency browser game in pure HTML, CSS, and ES6 JavaScript. The goal: instant play, no build step, works offline. Roman, Egyptian, Greek, Babylonian, and Chinese civilizations are implemented in a single evening.'
     },
     {
         date: 'March 23, 2026',
@@ -54,7 +54,7 @@ const TIMELINE_ENTRIES = [
         date: 'March 25, 2026',
         icon: '🕌',
         title: 'Hindu-Arabic Civilization &amp; Full Feature Expansion',
-        text: 'The seventh and final civilization is added: Hindu-Arabic numerals from 9th-century Baghdad — the origin story of the number system we use today. The Daily Challenge, Codex (civilization encyclopedia), civilization visual themes, ambient sound, cross-civilization conversion challenges, and PWA (offline play) are all shipped in a single release.'
+        text: 'The seventh and final civilization is added: Hindu-Arabic numerals from 9th-century Baghdad, the origin story of the number system we use today. The Daily Challenge, Codex (civilization encyclopedia), civilization visual themes, ambient sound, cross-civilization conversion challenges, and PWA (offline play) are all shipped in a single release.'
     }
 ];
 
@@ -63,7 +63,7 @@ function showAbout() {
 
     container.innerHTML = `
         <div class="about-intro">
-            <p>Mathematikos is a free, open educational game created by <strong>Guilherme Almeida Zeni</strong>. This page documents the project's origin — including timestamps predating all known similar products — and the philosophy behind it.</p>
+            <p>Mathematikos is a free, open educational game created by <strong>Guilherme Almeida Zeni</strong>. This page documents the project's origin (including timestamps predating all known similar products) and the philosophy behind it.</p>
         </div>
 
         <div class="about-creator">
@@ -76,13 +76,13 @@ function showAbout() {
             <h3>Why These Civilizations?</h3>
             <p>Each civilization was chosen for its mathematical distinctiveness and cultural significance:</p>
             <ul>
-                <li><strong>Roman</strong> — The most familiar ancient system; a gentle entry point</li>
-                <li><strong>Egyptian</strong> — Base-10 but fully additive; visual hieroglyphs make it memorable</li>
-                <li><strong>Greek</strong> — Alphabetic numerals; a unique bridge between language and number</li>
-                <li><strong>Babylonian</strong> — Base-60, sexagesimal; the origin of our 60-second minute and 360-degree circle</li>
-                <li><strong>Chinese</strong> — Rod numerals and suanpan (abacus); a sophisticated positional system</li>
-                <li><strong>Maya</strong> — Base-20, vigesimal; one of the few independent inventions of zero</li>
-                <li><strong>Hindu-Arabic</strong> — The grand finale: the system that unified all others and became our modern numerals</li>
+                <li><strong>Roman</strong>: The most familiar ancient system; a gentle entry point</li>
+                <li><strong>Egyptian</strong>: Base-10 but fully additive; visual hieroglyphs make it memorable</li>
+                <li><strong>Greek</strong>: Alphabetic numerals; a unique bridge between language and number</li>
+                <li><strong>Babylonian</strong>: Base-60, sexagesimal; the origin of our 60-second minute and 360-degree circle</li>
+                <li><strong>Chinese</strong>: Rod numerals and suanpan (abacus); a sophisticated positional system</li>
+                <li><strong>Maya</strong>: Base-20, vigesimal; one of the few independent inventions of zero</li>
+                <li><strong>Hindu-Arabic</strong>: The grand finale, the system that unified all others and became our modern numerals</li>
             </ul>
         </div>
 
@@ -108,13 +108,13 @@ function showAbout() {
                 <img src="screenshots/screenshot-chatgpt-2024-october.png"
                      alt="ChatGPT conversation titled 'Jogo de adição histórica', October 2024"
                      class="screenshot-img">
-                <figcaption>ChatGPT conversation — <em>"Jogo de adição histórica"</em>, October 2024</figcaption>
+                <figcaption>ChatGPT conversation, <em>"Jogo de adição histórica"</em>, October 2024</figcaption>
             </figure>
             <figure class="screenshot-figure">
                 <img src="screenshots/screenshot-github-mathematikos-proto-readme-history.png"
                      alt="Prototype repository showing first commit on October 19, 2024"
                      class="screenshot-img">
-                <figcaption>Prototype repository — first commit October 19, 2024</figcaption>
+                <figcaption>Prototype repository, first commit October 19, 2024</figcaption>
             </figure>
         </div>
     `;
