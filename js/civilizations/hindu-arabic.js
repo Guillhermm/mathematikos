@@ -59,7 +59,7 @@ function generateHinduArabicProblem(difficulty) {
     const contexts = [
         `Al-Khwarizmi records two measurements from the observatory: ${num1} and ${num2}. What is their ${operation === '+' ? 'sum' : 'difference'}?`,
         `A merchant in the Baghdad bazaar has ${num1} dirhams and ${operation === '+' ? 'receives' : 'spends'} ${num2} more. How many remain?`,
-        `The House of Wisdom catalogues ${num1} Greek manuscripts and ${num2} Persian scrolls. ${operation === '+' ? 'How many in total?' : 'How many more Greek manuscripts are there?'}`,
+        `The House of Wisdom catalogs ${num1} Greek manuscripts and ${num2} Persian scrolls. ${operation === '+' ? 'How many in total?' : 'How many more Greek manuscripts are there?'}`,
         `An astronomer calculates ${num1} degrees for one arc and ${num2} for another. What is the ${operation === '+' ? 'total arc' : 'difference'}?`,
         `A translator completes ${num1} pages in the morning and ${num2} in the evening. What is the ${operation === '+' ? 'daily total' : 'difference'}?`
     ];

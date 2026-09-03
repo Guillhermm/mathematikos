@@ -1046,7 +1046,7 @@ h1, h2, h3, h4 {
     gap: 12px;
 }
 
-/* Chinese numerals — prioritise CJK fonts */
+/* Chinese numerals: prioritize CJK fonts */
 .chinese-numeral {
     font-family:
         'Noto Sans CJK SC', 'Noto Sans SC',
@@ -1056,7 +1056,7 @@ h1, h2, h3, h4 {
     font-size: inherit;
 }
 
-/* Greek alphabetic numerals — prioritise serif fonts with good Unicode coverage */
+/* Greek alphabetic numerals: prioritize serif fonts with good Unicode coverage */
 .greek-char {
     font-family:
         'Noto Serif', 'GFS Porson', 'Palatino Linotype',
@@ -2753,7 +2753,7 @@ body[data-civ="hindu-arabic"] {
     background: var(--outline-variant);
 }
 
-/* .numeric-key-spacer — intentionally empty grid cell, keeps 0 key centred in bottom row */
+/* .numeric-key-spacer: intentionally empty grid cell, keeps 0 key centered in bottom row */
 
 /* Hide numeric pad for reverse challenges (build ancient numeral) */
 #numeric-pad.is-reverse {
