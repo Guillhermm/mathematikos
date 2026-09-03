@@ -84,10 +84,21 @@ const civilizations = {
 // ===== STORY CONTENT =====
 const stories = {
     thematic: {
-        intro: `<h3>The Oracle of Numbers</h3>
-        <p>You are a young mathematician who has discovered a secret time machine hidden in an ancient temple. Upon activation, you are transported through time to different civilizations.</p>
-        <p>Your mission: Help people solve mathematical challenges using their unique number systems while collecting fragments of the mysterious <strong>Oracle of Numbers</strong> - an artifact broken and scattered through time.</p>
-        <p>Each civilization holds a piece of the Oracle. Only by completing all challenges can you unlock the ancient wisdom that reveals the true nature of numbers.</p>`,
+        // Spoken by the Oracle itself, one slide per line.
+        intro: [
+            {
+                quote: 'You found the machine in the temple. Good. I have been waiting a long time for someone to switch it on.',
+                text: 'I am the Oracle of Numbers. I was whole once, and I held every way that humankind has ever counted.'
+            },
+            {
+                quote: 'Then I broke, and my pieces fell backward through time.',
+                text: 'Each civilization you visit is holding one of my fragments, though none of them know it. They only know their own numerals, and they need them counted correctly.'
+            },
+            {
+                quote: 'Help them, and the fragment comes loose.',
+                text: 'Recover every piece and I will be whole again, and you will understand what I understand: that all these systems are one question asked in seven languages.'
+            }
+        ],
 
         roman: {
             title: 'Romans - Helping in the Roman Forum',
@@ -168,10 +179,20 @@ const stories = {
     },
 
     temporal: {
-        intro: `<h3>Guardian of Numbers</h3>
-        <p>You are a Guardian of Numbers, and you've discovered a terrible truth: a secret organization called "The Children of Time" is attempting to erase the knowledge of ancient number systems from history.</p>
-        <p>Your mission: Race against time to save the mathematical knowledge of ancient civilizations by solving numerical operations before the records are destroyed forever.</p>
-        <p>Time is running out. Every second counts!</p>`,
+        intro: [
+            {
+                quote: 'Something is eating the record, and it is working backward from today.',
+                text: 'They call themselves the Children of Time. They are removing the ancient number systems from history, one civilization at a time, starting with the oldest.'
+            },
+            {
+                quote: 'A system nobody can still read is a system that was never invented.',
+                text: 'That is how the erasure works. It does not burn anything. It simply waits until the last person who understood the notation is gone.'
+            },
+            {
+                quote: 'So read it back to me before the record closes.',
+                text: 'Every answer you get right restores a calculation they had already taken. You will be working against the clock, because they are.'
+            }
+        ],
 
         roman: {
             title: 'Romans - Emergency at the Forum',

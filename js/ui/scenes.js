@@ -106,6 +106,49 @@ const SCENE_SPRITE = `
       <path d="M96.5 65.5q3.5 4.5 7 0q-3.5 1.6-7 0z" fill="var(--skin-shade)"/>
     </symbol>
 
+
+    <symbol id="oracle-character" viewBox="0 0 200 200">
+      <!-- halo -->
+      <circle cx="100" cy="100" r="78" fill="var(--oracle-glow)" opacity=".14"/>
+      <circle cx="100" cy="100" r="60" fill="var(--oracle-glow)" opacity=".12"/>
+
+      <!-- detached fragments, still in orbit -->
+      <g fill="none" stroke="var(--brass)" stroke-width="2.4" opacity=".55">
+        <path d="M158 62a72 72 0 018 26"/>
+        <path d="M44 148a72 72 0 01-8-26"/>
+        <path d="M74 168a72 72 0 0032 6"/>
+      </g>
+
+      <!-- outer ring, with a gap where a piece is missing -->
+      <circle cx="100" cy="100" r="52" fill="none" stroke="var(--brass)"
+              stroke-width="5" stroke-dasharray="196 30" stroke-linecap="round"
+              transform="rotate(-24 100 100)"/>
+
+      <!-- graduation ticks -->
+      <g stroke="var(--brass-lt)" stroke-width="2" stroke-linecap="round" opacity=".75">
+        <path d="M100 44v-8"/><path d="M156 100h8"/><path d="M100 156v8"/><path d="M44 100h-8"/>
+        <path d="M139 61l6-6"/><path d="M139 139l6 6"/><path d="M61 139l-6 6"/><path d="M61 61l-6-6"/>
+      </g>
+
+      <!-- inner plate -->
+      <circle cx="100" cy="100" r="40" fill="var(--oracle-plate)"/>
+      <circle cx="100" cy="100" r="40" fill="none" stroke="var(--brass)" stroke-width="2.5"/>
+      <circle cx="100" cy="100" r="29" fill="none" stroke="var(--brass-lt)"
+              stroke-width="1.4" opacity=".6"/>
+
+      <!-- alidade -->
+      <path d="M100 100l30-22" stroke="var(--brass-lt)" stroke-width="3.5"
+            stroke-linecap="round" fill="none"/>
+
+      <!-- the eye: this is what makes it a character and not a dial -->
+      <ellipse cx="100" cy="100" rx="24" ry="15" fill="var(--oracle-void)"/>
+      <ellipse cx="100" cy="100" rx="24" ry="15" fill="none"
+               stroke="var(--brass)" stroke-width="2.2"/>
+      <circle cx="100" cy="100" r="10" fill="var(--brass)"/>
+      <circle cx="100" cy="100" r="4.5" fill="var(--oracle-void)"/>
+      <circle cx="96" cy="96" r="2.6" fill="var(--brass-lt)"/>
+    </symbol>
+
     <symbol id="bd-roman" viewBox="0 0 400 200">
       <circle cx="258" cy="50" r="24" fill="var(--secondary-color)" opacity=".22"/>
       <g fill="var(--primary-color)" opacity=".22">
@@ -240,26 +283,19 @@ function sceneBackdropId(civId) {
         : SCENE_BACKDROPS.greek;
 }
 
-// Structure only. The quote and guidance are filled in with textContent by the
-// caller, so authored copy never travels through innerHTML.
-function hypatiaSceneMarkup(civId) {
+// Just the artwork: Hypatia standing in the civilization she is introducing.
+// The caller supplies whatever speech panel goes with it.
+function hypatiaSceneArtMarkup(civId) {
     return `
-        <div class="hypatia-scene">
-            <svg class="hypatia-scene-art" viewBox="0 0 400 200" role="img"
-                 aria-label="Hypatia of Alexandria, speaking">
-                <rect width="400" height="200" fill="var(--scene-sky)"/>
-                <use href="#${sceneBackdropId(civId)}" width="400" height="200"/>
-                <rect y="168" width="400" height="32" fill="var(--scene-ground)"/>
-                <ellipse cx="204" cy="189" rx="54" ry="6"
-                         fill="var(--scene-shadow)" opacity=".2"/>
-                <use href="#hypatia" x="120" y="12" width="168" height="202"/>
-            </svg>
-            <div class="hypatia-scene-speech">
-                <p class="hypatia-scene-name">Hypatia of Alexandria</p>
-                <blockquote class="hypatia-scene-quote"></blockquote>
-                <p class="hypatia-scene-guidance"></p>
-            </div>
-        </div>
+        <svg class="briefing-art-svg" viewBox="0 0 400 200" role="img"
+             aria-label="Hypatia of Alexandria, speaking">
+            <rect width="400" height="200" fill="var(--scene-sky)"/>
+            <use href="#${sceneBackdropId(civId)}" width="400" height="200"/>
+            <rect y="168" width="400" height="32" fill="var(--scene-ground)"/>
+            <ellipse cx="204" cy="189" rx="54" ry="6"
+                     fill="var(--scene-shadow)" opacity=".2"/>
+            <use href="#hypatia" x="120" y="12" width="168" height="202"/>
+        </svg>
     `;
 }
 
@@ -335,6 +371,23 @@ function oracleResultSceneMarkup(civId, collected, total) {
                 </g>
             </svg>
         </div>
+    `;
+}
+
+// The Oracle speaks from outside any civilization: no backdrop, just the
+// instrument suspended in the dark between eras.
+function oracleSceneMarkup() {
+    return `
+        <svg class="briefing-art-svg" viewBox="0 0 400 200" role="img"
+             aria-label="The Oracle of Numbers, a broken astrolabe">
+            <rect width="400" height="200" fill="var(--oracle-void)"/>
+            <g fill="var(--brass-lt)" opacity=".5">
+                <circle cx="52" cy="42" r="1.8"/><circle cx="330" cy="54" r="2.2"/>
+                <circle cx="86" cy="150" r="1.5"/><circle cx="352" cy="146" r="1.7"/>
+                <circle cx="286" cy="30" r="1.4"/><circle cx="126" cy="36" r="1.6"/>
+            </g>
+            <use href="#oracle-character" x="100" y="0" width="200" height="200"/>
+        </svg>
     `;
 }
 

@@ -92,16 +92,13 @@ function showStoryIntro() {
     const civTitleEl = document.getElementById('story-intro-civ-title');
     if (civTitleEl) civTitleEl.textContent = civ.name;
 
-    // Hypatia scene: shown in thematic and daily modes
-    const showHypatia = (mode === 'thematic' || mode === 'daily') && story.hypatia;
-    const hypatiaBlock = showHypatia
-        ? hypatiaSceneMarkup(gameState.currentCivilization)
-        : '';
+    // Briefing: the Oracle narrates the frame story on first arrival, Hypatia
+    // always closes with the guidance for this civilization.
+    const showIntro = mode !== 'practice' && gameState.oraclePieces.length === 0;
+    const slides = buildBriefingSlides(mode, gameState.currentCivilization, showIntro);
 
     document.getElementById('story-content').innerHTML = `
-        ${mode === 'thematic' && gameState.oraclePieces.length === 0 ? stories['thematic'].intro : ''}
-
-        ${hypatiaBlock}
+        ${briefingMarkup(slides)}
 
         <h3>${story.title}</h3>
 
@@ -125,12 +122,8 @@ function showStoryIntro() {
     `;
 
     // Authored copy goes in as text, never through innerHTML.
-    if (showHypatia) {
-        const quoteEl = document.querySelector('.hypatia-scene-quote');
-        const guidanceEl = document.querySelector('.hypatia-scene-guidance');
-        if (quoteEl) quoteEl.textContent = story.hypatia.quote;
-        if (guidanceEl) guidanceEl.textContent = story.hypatia.guidance;
-    }
+    fillBriefingText(slides);
+    initBriefing();
 
     showScreen('story-intro');
 }

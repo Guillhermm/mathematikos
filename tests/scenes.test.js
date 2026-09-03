@@ -47,9 +47,14 @@ describe('scene sprite', () => {
         assertEqual(open, close, `${open} <symbol> vs ${close} </symbol>`);
     });
 
-    it('defines one symbol per civilization plus the figure', () => {
+    it('defines the Oracle character exactly once', () => {
+        const matches = SCENE_SPRITE.match(/<symbol id="oracle-character"/g) || [];
+        assertEqual(matches.length, 1);
+    });
+
+    it('defines one symbol per civilization plus both characters', () => {
         const open = (SCENE_SPRITE.match(/<symbol\b/g) || []).length;
-        assertEqual(open, SCENE_CIV_IDS.length + 1);
+        assertEqual(open, SCENE_CIV_IDS.length + 2);
     });
 
     // Every color must be a variable, or the art stops following the civilization
@@ -60,28 +65,23 @@ describe('scene sprite', () => {
     });
 });
 
-describe('hypatiaSceneMarkup', () => {
+describe('hypatiaSceneArtMarkup', () => {
     SCENE_CIV_IDS.forEach(civId => {
         it(`points at the ${civId} backdrop`, () => {
             assertTrue(
-                hypatiaSceneMarkup(civId).includes(`href="#bd-${civId}"`),
+                hypatiaSceneArtMarkup(civId).includes(`href="#bd-${civId}"`),
                 `expected href="#bd-${civId}"`
             );
         });
     });
 
     it('references the shared figure', () => {
-        assertTrue(hypatiaSceneMarkup('greek').includes('href="#hypatia"'));
+        assertTrue(hypatiaSceneArtMarkup('greek').includes('href="#hypatia"'));
     });
 
-    it('leaves the quote and guidance empty for textContent', () => {
-        const markup = hypatiaSceneMarkup('greek');
-        assertTrue(markup.includes('<blockquote class="hypatia-scene-quote"></blockquote>'));
-        assertTrue(markup.includes('<p class="hypatia-scene-guidance"></p>'));
-    });
-
-    it('carries no story text, so nothing authored goes through innerHTML', () => {
-        const markup = hypatiaSceneMarkup('greek');
+    it('carries artwork only, leaving the speech panel to the caller', () => {
+        const markup = hypatiaSceneArtMarkup('greek');
+        assertTrue(!markup.includes('blockquote'), 'art markup must not carry a quote element');
         assertTrue(
             !markup.includes(stories.thematic.greek.hypatia.quote),
             'quote must not be interpolated into the markup'

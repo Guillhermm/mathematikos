@@ -36,6 +36,15 @@
     --scene-ground: #D8C8B0;
     --scene-shadow: #5E4482;
     --scrim: rgba(250, 235, 215, 0.55);
+
+    /* The Oracle speaks from outside any civilization, in brass on dark */
+    --oracle-void:  #241a10;
+    --oracle-plate: #33240f;
+    --oracle-glow:  #F0CE7A;
+    --oracle-tint:  #FBF1DC;
+    --oracle-line:  #9A7420;
+    --oracle-quote: #6F5312;
+    --oracle-box:   #FFF9E6;
 }
 
 /* Reset and Base Styles */
@@ -287,14 +296,11 @@ h1, h2, h3, h4 {
 }
 
 /* Story Content */
+/* Deliberately not a card. The briefing and the story boxes inside it are the
+   cards; wrapping them in another one nested every scene inside a panel. */
 #story-content {
-    background: var(--card-bg);
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: var(--shadow);
     line-height: 1.8;
     margin-bottom: 20px;
-    border-left: 5px solid var(--secondary-color);
 }
 
 #story-content h3 {
@@ -1264,6 +1270,11 @@ body[data-civ="hindu-arabic"] {
         --scene-sky:    #241a12;
         --scene-ground: #1a1009;
         --scrim: rgba(28, 17, 11, 0.62);
+
+        --oracle-tint:  #241a0c;
+        --oracle-line:  #d2a640;
+        --oracle-quote: #f0ce7a;
+        --oracle-box:   #2a2415;
     }
 
     body {
@@ -1348,7 +1359,7 @@ body[data-civ="hindu-arabic"] {
     /* ── Results & stats ── */
     .results-box .stat-item { background: #342720; border-color: #52443c; }
     .final-score { color: #ffb68c; }
-    .oracle-collected-box { background: #251912; border-color: #f6be3b; }
+    .oracle-collected-box { border-color: #f6be3b; }
 
     /* ── Story boxes ── */
     .story-setting-box  { background: #291d16; border-color: #52443c; color: var(--text-color); }
@@ -1522,7 +1533,7 @@ body[data-civ="hindu-arabic"] {
 }
 
 .oracle-collected-box {
-    background: #FFF9E6;
+    background: var(--oracle-box);
     padding: 20px;
     border-radius: 10px;
     margin-top: 20px;
@@ -1543,32 +1554,58 @@ body[data-civ="hindu-arabic"] {
     transform: translateY(-2px);
 }
 
-/* ===== HYPATIA SCENE =====
-   The figure and backdrop are one injected SVG sprite; these rules only frame
-   it and set the speech panel. Her violet is deliberately not a civilization
-   variable: it is her identity, and stays constant across all seven. */
+/* ===== BRIEFING SLIDER =====
+   One speaking card carrying the Oracle's narration and Hypatia's guidance,
+   instead of a stack of blocks. Each speaker keeps a fixed identity color that
+   does not follow the civilization theme. */
 
-.hypatia-scene {
-    border-radius: 12px;
+.briefing {
+    border-radius: 14px;
     overflow: hidden;
-    background: var(--card-bg);
+    box-shadow: var(--shadow-lg);
     margin-bottom: 20px;
+    background: var(--card-bg);
 }
 
-.hypatia-scene-art {
+.briefing-viewport {
+    overflow: hidden;
+    transition: height 0.35s ease;
+}
+
+.briefing-track {
+    display: flex;
+    /* Slides keep their natural height so the viewport can size to the active
+       one, rather than every slide stretching to match the tallest. */
+    align-items: flex-start;
+    transition: transform 0.35s ease;
+}
+
+.briefing-slide {
+    flex: 0 0 100%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.briefing-art {
+    line-height: 0;
+}
+
+.briefing-art-svg {
     display: block;
     width: 100%;
 }
 
-.hypatia-scene-speech {
+.briefing-speech {
     position: relative;
-    background: var(--hypatia-tint);
-    border-top: 3px solid var(--hypatia-line);
+    flex: 1;
     padding: 16px 18px 15px;
+    border-top: 3px solid var(--hypatia-line);
+    background: var(--hypatia-tint);
 }
 
-/* Tail pointing back at the figure's shoulder */
-.hypatia-scene-speech::before {
+/* Tail pointing back at the figure who is speaking */
+.briefing-speech::before {
     content: "";
     position: absolute;
     top: -11px;
@@ -1581,7 +1618,20 @@ body[data-civ="hindu-arabic"] {
     transform: rotate(45deg);
 }
 
-.hypatia-scene-name {
+.briefing-slide[data-speaker="oracle"] .briefing-speech {
+    border-top-color: var(--oracle-line);
+    background: var(--oracle-tint);
+}
+
+.briefing-slide[data-speaker="oracle"] .briefing-speech::before {
+    background: var(--oracle-tint);
+    border-left-color: var(--oracle-line);
+    border-top-color: var(--oracle-line);
+    left: 50%;
+    margin-left: -9px;
+}
+
+.briefing-name {
     font-size: 0.68rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -1590,7 +1640,11 @@ body[data-civ="hindu-arabic"] {
     margin: 0 0 6px 0;
 }
 
-.hypatia-scene-quote {
+.briefing-slide[data-speaker="oracle"] .briefing-name {
+    color: var(--oracle-line);
+}
+
+.briefing-quote {
     font-family: 'Literata', Georgia, serif;
     font-style: italic;
     font-size: 1rem;
@@ -1601,11 +1655,78 @@ body[data-civ="hindu-arabic"] {
     padding: 0;
 }
 
-.hypatia-scene-guidance {
+.briefing-slide[data-speaker="oracle"] .briefing-quote {
+    color: var(--oracle-quote);
+}
+
+.briefing-text {
     font-size: 0.87rem;
     color: var(--text-color);
     margin: 0;
     line-height: 1.6;
+}
+
+.briefing-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 14px;
+    background: var(--card-bg);
+    border-top: 1px solid var(--outline-variant);
+}
+
+.briefing-arrow {
+    background: none;
+    border: 0;
+    font: inherit;
+    font-size: 1.1rem;
+    line-height: 1;
+    padding: 6px 10px;
+    border-radius: 6px;
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+.briefing-arrow:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+
+.briefing-arrow:not(:disabled):hover {
+    background: var(--surface-container);
+}
+
+.briefing-dots {
+    display: flex;
+    gap: 8px;
+}
+
+.briefing-dot {
+    width: 9px;
+    height: 9px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: var(--outline);
+    opacity: 0.4;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.briefing-dot.active {
+    opacity: 1;
+    background: var(--primary-color);
+    transform: scale(1.2);
+}
+
+.briefing-slide[aria-hidden="true"] {
+    visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .briefing-track,
+    .briefing-viewport { transition: none; }
 }
 
 /* ===== RESULT SCENE =====
@@ -1981,9 +2102,9 @@ body[data-civ="hindu-arabic"] {
 /* ===== DARK MODE: late component overrides =====
    Must appear AFTER all base component rules to win the cascade. */
 @media (prefers-color-scheme: dark) {
-    .hypatia-scene-guidance { color: #f0ebe4; }
+    .briefing-text { color: #f0ebe4; }
 
-    .oracle-collected-box { background: #2a2415; border-color: #b8960a; }
+    .oracle-collected-box { border-color: #b8960a; }
 
     /* These two carried light literals with no dark counterpart. */
     .daily-completed-msg  { background: #16301f; color: #7fd8a0; border-color: #2f6b46; }

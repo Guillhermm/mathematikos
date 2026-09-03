@@ -37,18 +37,30 @@ Plus **Cross-Civilization** challenges that mix systems in a single round.
 
 Unlock historical fact cards as you play. Each civilization reveals its mathematical legacy, cultural context, and notation rules.
 
-### Hypatia
+### The briefing
 
-Your guide through time. On the story screen of every civilization she appears in an illustrated
-scene, standing in front of that culture's architecture and introducing its number system in her
-own words. The figure is one authored SVG reused everywhere, so she looks the same in Rome and in
-Baghdad; only the backdrop and the palette change. She appears again on the results screen, holding
-the Oracle fragments you recovered.
+Every story screen opens with one speaking card rather than a stack of text blocks. On a first run
+the Oracle of Numbers narrates the frame story across three slides, then hands over to Hypatia for
+the guidance specific to that civilization. Once you hold a fragment the intro drops away and only
+Hypatia's slide remains. The card sizes itself to the slide you are reading, and supports arrows,
+dots and swipe.
+
+### The two characters
+
+**The Oracle of Numbers** is the artifact you are reassembling, drawn as a broken astrolabe with an
+eye at its center, suspended in the dark between eras. It speaks from outside any civilization, in
+brass.
+
+**Hypatia of Alexandria** is your guide inside them. She appears in an illustrated scene standing in
+front of that culture's architecture, and again on the results screen holding the fragments you
+recovered. The figure is one authored SVG reused everywhere, so she looks the same in Rome and in
+Baghdad; only the backdrop and the palette change. Her violet stays constant across all seven
+civilizations and in dark mode, because it is her identity rather than a theme color.
 
 ### Artwork
 
 All artwork is inline SVG drawn against CSS custom properties: seven civilization backdrops, the
-Hypatia figure, the Oracle disc, and a line-icon set. Nothing is a raster image, so every asset
+Hypatia figure, the Oracle character and disc, and a line-icon set. Nothing is a raster image, so every asset
 recolors itself for each civilization and for dark mode without a second copy, and the complete
 offline install stays around 445 KB, most of which is the PWA icons and the provenance screenshots
 rather than the artwork.
@@ -70,7 +82,7 @@ Ambient audio per civilization. Each historical setting has its own soundscape.
 
 - Pure HTML, CSS, and ES6 JavaScript, with no build step and no dependencies.
 - Progressive Web App (PWA): installable, offline-capable via service worker.
-- 592 automated tests covering the conversion functions, the scene system, and the Oracle across all seven civilizations.
+- 639 automated tests covering the conversion functions, the scene system, the briefing slider, and a style contract that guards the artwork's CSS.
 - CI/CD via GitHub Actions: tests run on every push, deploy to GitHub Pages on version tags.
 
 ## Project Structure
@@ -92,7 +104,7 @@ mathematikos/
 │   ├── themes.js          # Theme management
 │   ├── storage.js         # Local persistence
 │   ├── civilizations/     # One module per civilization
-│   └── ui/                # Screens, scenes, icons, timer, symbol-pad, feedback
+│   └── ui/                # Screens, briefing, scenes, icons, timer, symbol-pad, feedback
 ├── tests/                 # Test suite
 ├── screenshots/           # Provenance screenshots
 └── icons/                 # PWA icons (SVG, PNG, favicon)
