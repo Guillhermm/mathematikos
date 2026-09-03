@@ -86,20 +86,11 @@ function showStoryIntro() {
     const civTitleEl = document.getElementById('story-intro-civ-title');
     if (civTitleEl) civTitleEl.textContent = civ.name;
 
-    // Hypatia guide block — shown in thematic and daily modes
-    const hypatiaBlock = (mode === 'thematic' || mode === 'daily') && story.hypatia ? `
-        <div class="hypatia-guide">
-            <div class="hypatia-header">
-                <span class="hypatia-avatar">🔭</span>
-                <strong class="hypatia-name">Hypatia of Alexandria</strong>
-                <button class="hypatia-toggle" onclick="toggleHypatia()" title="Show/hide guidance">▼</button>
-            </div>
-            <div class="hypatia-body" id="hypatia-body">
-                <blockquote class="hypatia-quote">"${story.hypatia.quote}"</blockquote>
-                <p class="hypatia-guidance">${story.hypatia.guidance}</p>
-            </div>
-        </div>
-    ` : '';
+    // Hypatia scene — shown in thematic and daily modes
+    const showHypatia = (mode === 'thematic' || mode === 'daily') && story.hypatia;
+    const hypatiaBlock = showHypatia
+        ? hypatiaSceneMarkup(gameState.currentCivilization)
+        : '';
 
     document.getElementById('story-content').innerHTML = `
         ${mode === 'thematic' && gameState.oraclePieces.length === 0 ? stories['thematic'].intro : ''}
@@ -126,6 +117,14 @@ function showStoryIntro() {
             <strong>📚 Number System:</strong> ${civ.numberSystem}
         </div>
     `;
+
+    // Authored copy goes in as text, never through innerHTML.
+    if (showHypatia) {
+        const quoteEl = document.querySelector('.hypatia-scene-quote');
+        const guidanceEl = document.querySelector('.hypatia-scene-guidance');
+        if (quoteEl) quoteEl.textContent = story.hypatia.quote;
+        if (guidanceEl) guidanceEl.textContent = story.hypatia.guidance;
+    }
 
     showScreen('story-intro');
 }

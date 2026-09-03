@@ -16,6 +16,25 @@
     --surface-container-low: #fff1eb;
     --shadow: 0 2px 8px rgba(44, 24, 16, 0.12);
     --shadow-lg: 0 8px 24px rgba(44, 24, 16, 0.18);
+
+    /* Hypatia: constant across every civilization, so she stays recognizable */
+    --hypatia-tint:  #f5eeff;
+    --hypatia-line:  #7B5EA7;
+    --hypatia-quote: #6B4E96;
+    --robe:       #7B5EA7;
+    --robe-shade: #5E4482;
+    --robe-light: #9C7FC4;
+    --sash:       #E8D9F5;
+    --skin:       #E8BE96;
+    --skin-shade: #CE9E77;
+    --hair:       #3B2A1C;
+    --brass:      #C99A2E;
+    --brass-lt:   #F0CE7A;
+
+    /* Scene backdrop, overridden per civilization below */
+    --scene-sky:    #EDE3D2;
+    --scene-ground: #D8C8B0;
+    --scene-shadow: #5E4482;
 }
 
 /* Reset and Base Styles */
@@ -1129,6 +1148,8 @@ body[data-civ="roman"] {
     --accent-color:    #A0522D;
     --bg-color:        #FAF0E6;
     --card-bg:         #F0E8D8;
+    --scene-sky:    #F2E4D2;
+    --scene-ground: #DCC7AC;
 }
 body[data-civ="roman"] body {
     background: linear-gradient(135deg, #FAF0E6 0%, #E8D8C0 100%);
@@ -1140,6 +1161,8 @@ body[data-civ="egyptian"] {
     --accent-color:    #2C7873;
     --bg-color:        #FFFACD;
     --card-bg:         #FFF0A0;
+    --scene-sky:    #F8EAB8;
+    --scene-ground: #E3CA84;
 }
 
 body[data-civ="greek"] {
@@ -1148,6 +1171,8 @@ body[data-civ="greek"] {
     --accent-color:    #1565C0;
     --bg-color:        #EFF6FF;
     --card-bg:         #DBEAFE;
+    --scene-sky:    #D6E6F8;
+    --scene-ground: #BACEE6;
 }
 
 body[data-civ="babylonian"] {
@@ -1156,6 +1181,8 @@ body[data-civ="babylonian"] {
     --accent-color:    #9C6B2A;
     --bg-color:        #FDF3E7;
     --card-bg:         #FAE5CC;
+    --scene-sky:    #F7E3CB;
+    --scene-ground: #E2C7A4;
 }
 
 body[data-civ="chinese"] {
@@ -1164,6 +1191,8 @@ body[data-civ="chinese"] {
     --accent-color:    #C41E3A;
     --bg-color:        #FFF5F5;
     --card-bg:         #FFE8E8;
+    --scene-sky:    #F8DEDE;
+    --scene-ground: #E8BEBE;
 }
 
 body[data-civ="mayan"] {
@@ -1172,6 +1201,8 @@ body[data-civ="mayan"] {
     --accent-color:    #8D4004;
     --bg-color:        #F1F8E9;
     --card-bg:         #DCEDC8;
+    --scene-sky:    #DCEBCC;
+    --scene-ground: #BCD3A4;
 }
 
 body[data-civ="hindu-arabic"] {
@@ -1180,6 +1211,8 @@ body[data-civ="hindu-arabic"] {
     --accent-color:    #8B6914;
     --bg-color:        #EDE7F6;
     --card-bg:         #D1C4E9;
+    --scene-sky:    #E2D8F2;
+    --scene-ground: #C7B8E2;
 }
 
 /* Dark mode */
@@ -1200,6 +1233,17 @@ body[data-civ="hindu-arabic"] {
         --accent-color: #CD853F;
         --shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
         --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+
+        /* Hypatia keeps her violet; only its lightness moves for the dark ground */
+        --hypatia-tint:  #1a1a2e;
+        --hypatia-line:  #9c85d0;
+        --hypatia-quote: #c4a0e8;
+        --sash:       #3A2B52;
+        --skin:       #C79A72;
+        --skin-shade: #A87B57;
+
+        --scene-sky:    #241a12;
+        --scene-ground: #1a1009;
     }
 
     body {
@@ -1342,13 +1386,13 @@ body[data-civ="hindu-arabic"] {
     .game-sidebar { border-right-color: #52443c; background: #251912; }
 
     /* ── Civilization theme dark variants (warm-dark, no cold colors) ── */
-    body[data-civ="roman"]        { --bg-color: #1a0808; --card-bg: #2a0f0f; }
-    body[data-civ="egyptian"]     { --bg-color: #1a1508; --card-bg: #2a2012; }
-    body[data-civ="greek"]        { --bg-color: #081018; --card-bg: #101a28; }
-    body[data-civ="babylonian"]   { --bg-color: #1a0c08; --card-bg: #2a1510; }
-    body[data-civ="chinese"]      { --bg-color: #1a0808; --card-bg: #2a1010; }
-    body[data-civ="mayan"]        { --bg-color: #081408; --card-bg: #101e10; }
-    body[data-civ="hindu-arabic"] { --bg-color: #0d0818; --card-bg: #181025; }
+    body[data-civ="roman"]        { --bg-color: #1a0808; --card-bg: #2a0f0f;  --scene-sky: #2a1a12; --scene-ground: #1f120c;}
+    body[data-civ="egyptian"]     { --bg-color: #1a1508; --card-bg: #2a2012;  --scene-sky: #2e2410; --scene-ground: #241a0a;}
+    body[data-civ="greek"]        { --bg-color: #081018; --card-bg: #101a28;  --scene-sky: #13202f; --scene-ground: #0d1722;}
+    body[data-civ="babylonian"]   { --bg-color: #1a0c08; --card-bg: #2a1510;  --scene-sky: #2a1710; --scene-ground: #1e0f0a;}
+    body[data-civ="chinese"]      { --bg-color: #1a0808; --card-bg: #2a1010;  --scene-sky: #2a1212; --scene-ground: #1e0c0c;}
+    body[data-civ="mayan"]        { --bg-color: #081408; --card-bg: #101e10;  --scene-sky: #12251a; --scene-ground: #0c1a10;}
+    body[data-civ="hindu-arabic"] { --bg-color: #0d0818; --card-bg: #181025;  --scene-sky: #1c1430; --scene-ground: #130d22;}
 }
 
 /* ===== MAIN MENU NEW ELEMENTS ===== */
@@ -1480,47 +1524,77 @@ body[data-civ="hindu-arabic"] {
     transform: translateY(-2px);
 }
 
-/* ===== HYPATIA GUIDE ===== */
+/* ===== HYPATIA SCENE =====
+   The figure and backdrop are one injected SVG sprite; these rules only frame
+   it and set the speech panel. Her violet is deliberately not a civilization
+   variable: it is her identity, and stays constant across all seven. */
 
-.hypatia-guide {
-    background: #f5eeff;
-    border-left: 4px solid #7B5EA7;
-    border-radius: 8px;
-    padding: 15px 20px;
+.hypatia-scene {
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--card-bg);
     margin-bottom: 20px;
 }
 
-.hypatia-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 8px;
-    justify-content: space-between;
+.hypatia-scene-art {
+    display: block;
+    width: 100%;
 }
 
-.hypatia-avatar {
-    font-size: 1.6rem;
+.hypatia-scene-speech {
+    position: relative;
+    background: var(--hypatia-tint);
+    border-top: 3px solid var(--hypatia-line);
+    padding: 16px 18px 15px;
 }
 
-.hypatia-name {
-    font-size: 1rem;
-    color: var(--primary-color);
+/* Tail pointing back at the figure's shoulder */
+.hypatia-scene-speech::before {
+    content: "";
+    position: absolute;
+    top: -11px;
+    left: 46px;
+    width: 18px;
+    height: 18px;
+    background: var(--hypatia-tint);
+    border-left: 3px solid var(--hypatia-line);
+    border-top: 3px solid var(--hypatia-line);
+    transform: rotate(45deg);
 }
 
-.hypatia-quote {
+.hypatia-scene-name {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--hypatia-line);
+    margin: 0 0 6px 0;
+}
+
+.hypatia-scene-quote {
+    font-family: 'Literata', Georgia, serif;
     font-style: italic;
-    color: #7B5EA7;
-    margin: 0 0 8px 0;
-    font-size: 0.95rem;
+    font-size: 1rem;
+    line-height: 1.45;
+    color: var(--hypatia-quote);
+    margin: 0 0 10px 0;
     border: none;
     padding: 0;
 }
 
-.hypatia-guidance {
-    font-size: 0.9rem;
+.hypatia-scene-guidance {
+    font-size: 0.87rem;
     color: var(--text-color);
     margin: 0;
     line-height: 1.6;
+}
+
+/* The sprite itself never renders; only its symbols do, through <use>. */
+.scene-sprite-holder {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
 }
 
 /* ===== HINDU-ARABIC NUMERAL DISPLAY ===== */
@@ -1829,9 +1903,7 @@ body[data-civ="hindu-arabic"] {
 /* ===== DARK MODE — late component overrides =====
    Must appear AFTER all base component rules to win the cascade. */
 @media (prefers-color-scheme: dark) {
-    .hypatia-guide        { background: #1a1a2e; border-left-color: #9c85d0; }
-    .hypatia-quote        { color: #c4a0e8; }
-    .hypatia-guidance     { color: #f0ebe4; }
+    .hypatia-scene-guidance { color: #f0ebe4; }
 
     .oracle-collected-box { background: #2a2415; border-color: #b8960a; }
 
@@ -2166,34 +2238,6 @@ body[data-civ="hindu-arabic"] {
     }
 
     .game-action-row .btn { margin: 0 4px; }
-}
-
-/* ===== HYPATIA TOGGLE ===== */
-
-.hypatia-toggle {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--primary-color);
-    font-size: 0.8rem;
-    padding: 2px 6px;
-    opacity: 0.55;
-    transition: opacity 0.2s;
-    font-family: inherit;
-    margin-left: auto;
-    flex-shrink: 0;
-}
-
-.hypatia-toggle:hover {
-    opacity: 1;
-}
-
-.hypatia-body {
-    transition: none;
-}
-
-.hypatia-body.collapsed {
-    display: none;
 }
 
 /* ===== DARK MODE — game-play additions ===== */

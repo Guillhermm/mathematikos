@@ -46,14 +46,6 @@ function toggleChip(name) {
     }
 }
 
-function toggleHypatia() {
-    const body = document.getElementById('hypatia-body');
-    const btn = document.querySelector('.hypatia-toggle');
-    if (!body) return;
-    const isCollapsed = body.classList.toggle('collapsed');
-    if (btn) btn.textContent = isCollapsed ? '▶' : '▼';
-}
-
 function toggleAmbient() {
     const enabled = setAmbientEnabled(!isAmbientEnabled());
     const btn = document.getElementById('sound-toggle');
@@ -83,6 +75,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (progress.completed > 0) {
         console.log(`📊 Progress: ${progress.completed}/${progress.total} civilizations completed!`);
     }
+
+    // Scene artwork: one sprite the story screen's <use> elements point at
+    injectSceneSprite();
 
     // Restore ambient preference
     const soundBtn = document.getElementById('sound-toggle');

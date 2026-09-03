@@ -39,7 +39,10 @@ Unlock historical fact cards as you play. Each civilization reveals its mathemat
 
 ### Hypatia
 
-Your guide through time. Hypatia provides contextual hints, celebrates streaks, and appears at key moments in your journey.
+Your guide through time. On the story screen of every civilization she appears in an illustrated
+scene, standing in front of that culture's architecture and introducing its number system in her
+own words. The figure is one authored SVG reused everywhere, so she looks the same in Rome and in
+Baghdad; only the backdrop and the palette change.
 
 ### Themes
 
@@ -53,7 +56,7 @@ Ambient audio per civilization. Each historical setting has its own soundscape.
 
 - Pure HTML, CSS, and ES6 JavaScript — no build step, no dependencies.
 - Progressive Web App (PWA): installable, offline-capable via service worker.
-- 542 automated tests covering all conversion functions across all seven civilizations.
+- 578 automated tests covering the conversion functions and the scene system across all seven civilizations.
 - CI/CD via GitHub Actions: tests run on every push, deploy to GitHub Pages on version tags.
 
 ## Project Structure
@@ -75,7 +78,7 @@ mathematikos/
 │   ├── themes.js          # Theme management
 │   ├── storage.js         # Local persistence
 │   ├── civilizations/     # One module per civilization
-│   └── ui/                # Screen, timer, symbol-pad, feedback
+│   └── ui/                # Screens, scenes, timer, symbol-pad, feedback
 ├── tests/                 # Test suite
 ├── screenshots/           # Provenance screenshots
 └── icons/                 # PWA icons (SVG, PNG, favicon)

@@ -66,6 +66,7 @@ loadScript('js/civilizations/babylonian.js');
 loadScript('js/civilizations/chinese.js');
 loadScript('js/civilizations/mayan.js');
 loadScript('js/civilizations/hindu-arabic.js');
+loadScript('js/ui/scenes.js');           // scene sprite + backdrop lookup
 
 // ── Test suites ───────────────────────────────────────────────────────────────
 require('./roman.test.js');
@@ -75,6 +76,7 @@ require('./babylonian.test.js');
 require('./chinese.test.js');
 require('./mayan.test.js');
 require('./hindu-arabic.test.js');
+require('./scenes.test.js');
 
 // ── Summary ───────────────────────────────────────────────────────────────────
 const total = _passed + _failed;
