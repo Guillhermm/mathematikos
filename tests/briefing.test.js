@@ -50,7 +50,8 @@ describe('buildBriefingSlides', () => {
         Object.keys(civilizations).forEach(civId => {
             const slides = buildBriefingSlides('thematic', civId, false);
             assertEqual(slides.length, 2, `${civId} produced ${slides.length} slides`);
-            assertTrue(slides[0].quote.length > 0, `${civId} has no Hypatia quote`);
+            // Hypatia carries guidance only; the philosophical quotes were removed.
+            assertEqual(slides[0].quote, '', `${civId} still has a Hypatia quote`);
             assertTrue(slides[0].text.length > 0, `${civId} has no guidance`);
             assertTrue(slides[1].name.length > 0, `${civId} has no named local speaker`);
             assertTrue(slides[1].quote.length > 0, `${civId} local speaker says nothing`);
@@ -97,7 +98,9 @@ describe('briefingMarkup', () => {
         assertTrue(markup.includes('<blockquote class="briefing-quote"></blockquote>'));
         assertTrue(markup.includes('<p class="briefing-text"></p>'));
         slides.forEach(slide => {
-            assertTrue(!markup.includes(slide.quote), 'a quote leaked into the markup');
+            if (slide.quote) {
+                assertTrue(!markup.includes(slide.quote), 'a quote leaked into the markup');
+            }
             if (slide.text) {
                 assertTrue(!markup.includes(slide.text), 'guidance leaked into the markup');
             }
@@ -173,5 +176,30 @@ describe('briefing artwork layers', () => {
     it('marks exactly one layer active at the start', () => {
         const markup = briefingMarkup(buildBriefingSlides('thematic', 'roman', true));
         assertEqual((markup.match(/class="briefing-art active"/g) || []).length, 1);
+    });
+});
+
+describe('Hypatia carries guidance, not quotations', () => {
+    it('stores no quote for any civilization', () => {
+        Object.keys(civilizations).forEach(civId => {
+            const h = stories.thematic[civId] && stories.thematic[civId].hypatia;
+            assertTrue(!!h, `${civId} has no Hypatia entry`);
+            assertTrue(!('quote' in h), `${civId} still stores a Hypatia quote`);
+            assertTrue(h.guidance.length > 0, `${civId} lost its guidance`);
+        });
+    });
+
+    // The Oracle's narration is content, not decoration, so it keeps its lines.
+    it('leaves the Oracle narration intact', () => {
+        assertTrue(stories.thematic.intro.every(line => line.quote && line.quote.length > 0),
+            'the Oracle lost its narration');
+        assertTrue(stories.temporal.intro.every(line => line.quote && line.quote.length > 0),
+            'the temporal narration was lost');
+    });
+
+    it('still gives the local character their spoken line', () => {
+        const slides = buildBriefingSlides('thematic', 'roman', false);
+        const local = slides.find(s => s.speaker === 'local');
+        assertTrue(!!local && local.quote.length > 0, 'the local speaker lost their line');
     });
 });

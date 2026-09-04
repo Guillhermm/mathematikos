@@ -109,7 +109,6 @@ const stories = {
                 line: "Welcome, traveler! The Forum is busy today, and I need help with my calculations. Can you assist me with these transactions?"
             },
             hypatia: {
-                quote: 'Reserve your right to think, for even to think wrongly is better than not to think at all.',
                 guidance: 'The Romans built their empire on order, and order begins with counting. Notice how their numerals reflect their values: repetition for accumulation, subtraction for elegance. Begin here, and the rest of history will open to you.'
             }
         },
@@ -123,7 +122,6 @@ const stories = {
                 line: "Great mathematician! The pharaoh\'s banquet approaches, and I must ensure our calculations are perfect. The hieroglyphs hold the answers - can you decipher them?"
             },
             hypatia: {
-                quote: 'All formal dogmatic religions are fallacious and must never be accepted by self-respecting persons as final.',
                 guidance: 'Egypt\'s number system predates Rome by millennia. Each symbol is a power of ten: count the hieroglyphs and sum their values. The Egyptians were the first to write numbers large enough to build wonders. Walk among their symbols with reverence.'
             }
         },
@@ -137,7 +135,6 @@ const stories = {
                 line: "Ah, a fellow lover of mathematics! The golden ratio must guide our construction. These calculations require precision - will you help me solve them using our sacred numerals?"
             },
             hypatia: {
-                quote: 'Fables should be taught as fables, myths as myths, and miracles as poetic fantasies. To teach superstitions as truth is a most terrible thing.',
                 guidance: 'I was born into this Greek tradition of alphabetic numerals, each letter carrying a numerical soul. My own work built on Diophantus, Ptolemy, and Euclid. In this civilization you will think as the Greeks did: every symbol is also a letter, and every calculation, a kind of poetry.'
             }
         },
@@ -151,7 +148,6 @@ const stories = {
                 line: "Welcome, mathematician! Our ancestors developed the most advanced number system - base 60! Help us calculate the precise measurements needed for the gardens\' irrigation."
             },
             hypatia: {
-                quote: 'In fact, men will fight for a superstition quite as quickly as for a living truth, often more so, since a superstition is so intangible you cannot get at it to refute it.',
                 guidance: 'Babylon gave us the sixty-second minute and the three-hundred-sixty-degree circle. When you use a clock or a compass, you think in Babylonian. Their base-60 system emerges from the most divisible number the ancient world knew. Watch for groupings of sixty. They are the skeleton of this civilization\'s thought.'
             }
         },
@@ -165,7 +161,6 @@ const stories = {
                 line: "Welcome, honored calculator! Our markets are alive with commerce. Use the ancient art of rod numerals to solve these merchant\'s calculations. Every transaction must be precise!"
             },
             hypatia: {
-                quote: 'Life is an unfoldment, and the further we travel the more truth we can comprehend.',
                 guidance: 'The Chinese developed a positional decimal system entirely independently of the West, and their suanpan (abacus) could outperform European pen-and-paper arithmetic for centuries. Read the characters from left to right: each named unit (ten, hundred, thousand) anchors the digit before it. The structure is strict but beautiful.'
             }
         },
@@ -179,7 +174,6 @@ const stories = {
                 line: "Welcome, seeker of knowledge! Our vigesimal system, base 20, holds secrets of the cosmos. Dots represent one, bars represent five, and the shell represents zero. Can you master our numbers?"
             },
             hypatia: {
-                quote: 'The first step to wisdom is silence; the second is listening.',
                 guidance: 'Of all the number systems you have encountered, the Maya stands apart. They invented zero independently, not as a placeholder but as a number. Their calendar calculations rival our best astronomical software. Read from top to bottom; each layer multiplies by twenty. The shell is not nothing. It is everything.'
             }
         },
@@ -193,7 +187,6 @@ const stories = {
                 line: "Welcome to the House of Wisdom. The Indian scholars brought us a gift: nine symbols and a zero. Together, they can represent any number in the universe. This is not merely arithmetic. It is a new way of thinking. Can you master these symbols?"
             },
             hypatia: {
-                quote: 'To rule by fettering the mind through fear of punishment in another world is just as base as to use force.',
                 guidance: 'You have traveled far, young mathematician. You have seen repetition in Egypt, subtraction in Rome, base-60 in Babylon, alphabets as numbers in Greece, rods in China, and shells in the Americas. All of them are answers to the same question: how do we represent the infinite with the finite? Here, in Baghdad, human civilization found its most elegant answer. These nine symbols and a zero: you already know them. But now you will understand where they came from.'
             }
         }

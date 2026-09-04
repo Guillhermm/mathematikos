@@ -129,8 +129,16 @@ clip its top out of the scroll range.
 ### Themes
 
 Supports light and dark modes, with per-civilization color themes that adapt the UI to each culture's
-aesthetic. Each civilization defines a full palette in both themes, foreground colors included, and
-every text pairing in the game meets WCAG AA contrast (4.5:1 for body text, 3:1 for large). Touch
+aesthetic. Each civilization defines a full palette in both themes: surfaces, foreground colors, and
+its own ink, so a blue screen has blue-grey text and hairlines rather than the warm brown that used
+to run through every theme. Borders and shadows derive from that ink, so nothing has to be restated
+per civilization.
+
+Two colors deliberately ignore the theme, because they identify a character rather than a place:
+Hypatia's violet and the Oracle's brass stay constant everywhere. Everything else holds its
+civilization's hue, verified by sampling every rendered color on both screens in both modes.
+
+Every text pairing in the game meets WCAG AA contrast (4.5:1 for body text, 3:1 for large). Touch
 targets clear the 24 px WCAG floor, with 44 px on everything but the slider dots.
 
 ### Audio
@@ -141,7 +149,7 @@ Ambient audio per civilization. Each historical setting has its own soundscape.
 
 - Pure HTML, CSS, and ES6 JavaScript, with no build step and no dependencies.
 - Progressive Web App (PWA): installable, offline-capable via service worker.
-- 716 automated tests covering the conversion functions, the scene system, the briefing slider, and a style contract that guards the artwork's CSS.
+- 719 automated tests covering the conversion functions, the scene system, the briefing slider, and a style contract that guards the artwork's CSS.
 - CI/CD via GitHub Actions: tests run on every push, deploy to GitHub Pages on version tags.
 
 ## Project Structure

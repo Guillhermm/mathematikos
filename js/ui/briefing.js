@@ -48,7 +48,9 @@ function buildBriefingSlides(mode, civId, showIntro) {
         slides.push({
             speaker: 'hypatia',
             civId: civId,
-            quote: story.hypatia.quote,
+            // Her guidance is the whole slide. The philosophical quotes that
+            // used to sit above it were atmosphere, not instruction.
+            quote: '',
             text: story.hypatia.guidance
         });
     }
@@ -132,7 +134,10 @@ function fillBriefingText(slides) {
         const quote = panel.querySelector('.briefing-quote');
         const text = panel.querySelector('.briefing-text');
         if (name) name.textContent = BRIEFING_SPEAKERS[slide.speaker] || slide.name || '';
-        if (quote) quote.textContent = slide.quote;
+        if (quote) {
+            quote.textContent = slide.quote;
+            quote.hidden = !slide.quote;
+        }
         if (text) {
             text.textContent = slide.text;
             text.hidden = !slide.text;

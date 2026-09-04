@@ -9,13 +9,13 @@
     --text-color: #2C1810;
     --on-surface-variant: #54433a;
     --outline: #877369;
-    --outline-variant: #dac2b6;
+    --outline-variant: color-mix(in srgb, var(--text-color) 24%, transparent);
     --bg-color: #fff8f5;
     --card-bg: #FAEBD7;
     --surface-container: #fbebe3;
     --surface-container-low: #fff1eb;
-    --shadow: 0 2px 8px rgba(44, 24, 16, 0.12);
-    --shadow-lg: 0 8px 24px rgba(44, 24, 16, 0.18);
+    --shadow: 0 2px 8px color-mix(in srgb, var(--text-color) 14%, transparent);
+    --shadow-lg: 0 8px 24px color-mix(in srgb, var(--text-color) 20%, transparent);
 
     /* Hypatia: constant across every civilization, so she stays recognizable */
     --hypatia-tint:  #f5eeff;
@@ -1468,19 +1468,23 @@ body[data-civ="roman"] {
     --card-bg:         #F0E8D8;
     --scene-sky:    #F2E4D2;
     --scene-ground: #DCC7AC;
+    --text-color: #2b1512;
+    --on-surface-variant: #59413c;
 }
 body[data-civ="roman"] body {
     background: linear-gradient(135deg, #FAF0E6 0%, #E8D8C0 100%);
 }
 
 body[data-civ="egyptian"] {
-    --primary-color:   #7a5c11;
+    --primary-color:   #6b4f0d;
     --secondary-color: #DAA520;
-    --accent-color:    #2C7873;
+    --accent-color:    #7d5a12;
     --bg-color:        #FFFDF0;
     --card-bg:         #FFF0A0;
     --scene-sky:    #F8EAB8;
     --scene-ground: #E3CA84;
+    --text-color: #2C1810;
+    --on-surface-variant: #54433a;
 }
 
 body[data-civ="greek"] {
@@ -1491,6 +1495,8 @@ body[data-civ="greek"] {
     --card-bg:         #DBEAFE;
     --scene-sky:    #D6E6F8;
     --scene-ground: #BACEE6;
+    --text-color: #16202b;
+    --on-surface-variant: #47535f;
 }
 
 body[data-civ="babylonian"] {
@@ -1501,6 +1507,8 @@ body[data-civ="babylonian"] {
     --card-bg:         #FAE5CC;
     --scene-sky:    #F7E3CB;
     --scene-ground: #E2C7A4;
+    --text-color: #2C1810;
+    --on-surface-variant: #54433a;
 }
 
 body[data-civ="chinese"] {
@@ -1511,26 +1519,32 @@ body[data-civ="chinese"] {
     --card-bg:         #FFE8E8;
     --scene-sky:    #F8DEDE;
     --scene-ground: #E8BEBE;
+    --text-color: #2b1414;
+    --on-surface-variant: #58403f;
 }
 
 body[data-civ="mayan"] {
     --primary-color:   #1B5E20;
     --secondary-color: #558B2F;
-    --accent-color:    #8D4004;
+    --accent-color:    #3d6b28;
     --bg-color:        #FAFDF5;
     --card-bg:         #DCEDC8;
     --scene-sky:    #DCEBCC;
     --scene-ground: #BCD3A4;
+    --text-color: #16231a;
+    --on-surface-variant: #46554b;
 }
 
 body[data-civ="hindu-arabic"] {
     --primary-color:   #4527A0;
     --secondary-color: #7B5EA7;
-    --accent-color:    #6f5410;
+    --accent-color:    #59418f;
     --bg-color:        #F7F4FC;
     --card-bg:         #D1C4E9;
     --scene-sky:    #E2D8F2;
     --scene-ground: #C7B8E2;
+    --text-color: #1e1a2b;
+    --on-surface-variant: #4b4560;
 }
 
 /* Dark mode */
@@ -1541,7 +1555,7 @@ body[data-civ="hindu-arabic"] {
         --text-color: #f5ded3;
         --on-surface-variant: #d7c2b8;
         --outline: #9f8d84;
-        --outline-variant: #52443c;
+        --outline-variant: color-mix(in srgb, var(--text-color) 24%, transparent);
         --bg-color: #1c110b;
         --card-bg: #291d16;
         --surface-container: #342720;
@@ -1564,7 +1578,8 @@ body[data-civ="hindu-arabic"] {
         --scene-sky:    #241a12;
         --scene-ground: #1a1009;
         --scrim: rgba(28, 17, 11, 0.62);
-        --on-primary: #1a1008;
+        /* Neutral, not warm: this sits on a light primary in every theme. */
+        --on-primary: #121212;
 
         --oracle-tint:  #241a0c;
         --oracle-line:  #d2a640;
@@ -1581,24 +1596,24 @@ body[data-civ="hindu-arabic"] {
     html[data-dark] .game-header,
 html[data-dark] .story-intro-header,
 html[data-dark] .context-chips {
-        background: #2C1810;
-        border-color: #52443c;
+        background: var(--card-bg);
+        border-color: color-mix(in srgb, var(--text-color) 18%, transparent);
     }
 
     html[data-dark] .btn-game-back {
-        border-color: rgba(255, 182, 140, 0.3);
+        border-color: color-mix(in srgb, var(--primary-color) 30%, transparent);
         color: var(--text-color);
         min-width: 44px;
     min-height: 44px;
 }
 
-    html[data-dark] .btn-game-back:hover { background: rgba(255, 182, 140, 0.08); }
+    html[data-dark] .btn-game-back:hover { background: color-mix(in srgb, var(--primary-color) 10%, transparent); }
 
     /* ── Challenge area ── */
     html[data-dark] .problem-display {
-        background: #2C1810;
+        background: var(--card-bg);
         border-top-color: var(--primary-color);
-        border-color: #52443c;
+        border-color: color-mix(in srgb, var(--text-color) 18%, transparent);
     }
 
     html[data-dark] .number-display {
@@ -1610,12 +1625,12 @@ html[data-dark] .context-chips {
 
     html[data-dark] .scene-box,
 html[data-dark] .info-box {
-        background: #291d16;
-        border-left-color: #ffb68c;
+        background: var(--card-bg);
+        border-left-color: var(--primary-color);
         color: var(--text-color);
     }
 
-    html[data-dark] .info-box h4 { color: #ffb68c; }
+    html[data-dark] .info-box h4 { color: var(--primary-color); }
 
     html[data-dark] .hint-display {
         background: #251912;
@@ -1628,12 +1643,15 @@ html[data-dark] .info-box {
 
     /* ── Symbol pad ── */
     html[data-dark] .symbol-button {
-        background: #2C1810;
-        border-color: rgba(246, 190, 59, 0.4);
+        background: var(--card-bg);
+        border-color: color-mix(in srgb, var(--primary-color) 40%, transparent);
         color: var(--text-color);
     }
-    html[data-dark] .symbol-button:hover { background: #3C2820; border-color: #f6be3b; }
-    html[data-dark] .symbol-button .symbol-label { color: #9f8d84; }
+    html[data-dark] .symbol-button:hover {
+        background: color-mix(in srgb, var(--primary-color) 14%, var(--card-bg));
+        border-color: var(--primary-color);
+    }
+    html[data-dark] .symbol-button .symbol-label { color: var(--on-surface-variant); }
 
     /* ── Answer builder ── */
     html[data-dark] .built-answer {
@@ -1641,14 +1659,14 @@ html[data-dark] .info-box {
     }
 
     html[data-dark] .answer-slot {
-        background: #1c110b;
+        background: var(--bg-color);
         border-color: var(--primary-color);
     }
 
     html[data-dark] .answer-slot:not(.empty) {
-        background: #251912;
+        background: color-mix(in srgb, var(--primary-color) 12%, var(--bg-color));
     }
-    html[data-dark] .built-answer.empty::before { color: #9f8d84; }
+    html[data-dark] .built-answer.empty::before { color: var(--on-surface-variant); }
 
     /* ── Modals ── */
     html[data-dark] .modal-content {
@@ -1699,18 +1717,24 @@ html[data-dark] .menu-btn-daily    .menu-btn-arrow { color: #9f8d84; }
     html[data-dark] .menu-version { color: #b9a396; }
 
     /* ── Story intro ── */
-    html[data-dark] .story-cta { background: #251912; border-top-color: #52443c; }
-    html[data-dark] .story-intro-header-civ { color: #ffb68c; }
+    html[data-dark] .story-cta {
+        background: var(--card-bg);
+        border-top-color: color-mix(in srgb, var(--text-color) 18%, transparent);
+    }
+    html[data-dark] .story-intro-header-civ { color: var(--primary-color); }
 
     /* ── Game challenge strip ── */
-    html[data-dark] .game-progress-track { background: #52443c; }
+    html[data-dark] .game-progress-track { background: color-mix(in srgb, var(--text-color) 22%, transparent); }
     html[data-dark] .game-progress-fill { background: #ffb68c; box-shadow: 0 0 8px rgba(255, 182, 140, 0.35); }
-    html[data-dark] .game-challenge-label { color: #9f8d84; }
+    html[data-dark] .game-challenge-label { color: var(--on-surface-variant); }
 
     /* ── Answer section ── */
 
     /* ── Sidebar on desktop ── */
-    html[data-dark] .game-sidebar { border-right-color: #52443c; background: #251912; }
+    html[data-dark] .game-sidebar {
+        border-right-color: color-mix(in srgb, var(--text-color) 18%, transparent);
+        background: color-mix(in srgb, var(--card-bg) 60%, var(--bg-color));
+    }
 
     /* ── Civilization theme dark variants ──
        These MUST redefine primary, secondary and accent, not only the surfaces.
@@ -1723,37 +1747,51 @@ html[data-dark] .menu-btn-daily    .menu-btn-arrow { color: #9f8d84; }
         --bg-color: #1a0808; --card-bg: #2a0f0f;
         --scene-sky: #2a1a12; --scene-ground: #1f120c;
         --primary-color: #ff9d90; --secondary-color: #e8c06a; --accent-color: #f0a97e;
-    }
+            --text-color: #f5ded3;
+        --on-surface-variant: #d7c2b8;
+}
     html[data-dark] body[data-civ="egyptian"] {
         --bg-color: #1a1508; --card-bg: #2a2012;
         --scene-sky: #2e2410; --scene-ground: #241a0a;
         --primary-color: #f2ca70; --secondary-color: #ffd98c; --accent-color: #ecc463;
-    }
+            --text-color: #f5ded3;
+        --on-surface-variant: #d7c2b8;
+}
     html[data-dark] body[data-civ="greek"] {
         --bg-color: #081018; --card-bg: #101a28;
         --scene-sky: #13202f; --scene-ground: #0d1722;
         --primary-color: #86bcec; --secondary-color: #9fd0e2; --accent-color: #93c6f2;
-    }
+            --text-color: #dde9f4;
+        --on-surface-variant: #a9bccd;
+}
     html[data-dark] body[data-civ="babylonian"] {
         --bg-color: #1a0c08; --card-bg: #2a1510;
         --scene-sky: #2a1710; --scene-ground: #1e0f0a;
         --primary-color: #f0ab8c; --secondary-color: #f79b7d; --accent-color: #e6b878;
-    }
+            --text-color: #f5ded3;
+        --on-surface-variant: #d7c2b8;
+}
     html[data-dark] body[data-civ="chinese"] {
         --bg-color: #1a0808; --card-bg: #2a1010;
         --scene-sky: #2a1212; --scene-ground: #1e0c0c;
         --primary-color: #ff9f94; --secondary-color: #f0d472; --accent-color: #ff97a6;
-    }
+            --text-color: #f7dcd8;
+        --on-surface-variant: #d8bab6;
+}
     html[data-dark] body[data-civ="mayan"] {
         --bg-color: #081408; --card-bg: #101e10;
         --scene-sky: #12251a; --scene-ground: #0c1a10;
-        --primary-color: #8fd898; --secondary-color: #b0dd92; --accent-color: #e6ab6b;
-    }
+        --primary-color: #8fd898; --secondary-color: #b0dd92; --accent-color: #a8d98a;
+            --text-color: #dcefdf;
+        --on-surface-variant: #a7c3ac;
+}
     html[data-dark] body[data-civ="hindu-arabic"] {
         --bg-color: #0d0818; --card-bg: #181025;
         --scene-sky: #1c1430; --scene-ground: #130d22;
-        --primary-color: #bba5ec; --secondary-color: #ccb2ec; --accent-color: #eccd80;
-    }
+        --primary-color: #bba5ec; --secondary-color: #ccb2ec; --accent-color: #cbb6f0;
+            --text-color: #e5ddf6;
+        --on-surface-variant: #b2a8cb;
+}
 
 
 /* ===== MAIN MENU NEW ELEMENTS ===== */
@@ -2036,6 +2074,13 @@ html[data-dark] .menu-btn-daily    .menu-btn-arrow { color: #9f8d84; }
     line-height: 1.6;
 }
 
+/* With no quote above it the guidance carries the slide on its own, so it
+   takes the size the quote would have had. */
+.briefing-speech:has(.briefing-quote[hidden]) .briefing-text {
+    font-size: 0.95rem;
+    line-height: 1.55;
+}
+
 .briefing-nav {
     display: flex;
     align-items: center;
@@ -2075,27 +2120,28 @@ html[data-dark] .menu-btn-daily    .menu-btn-arrow { color: #9f8d84; }
 }
 
 .briefing-dot {
-    width: 9px;
-    height: 9px;
-    padding: 0;
-    border: 0;
-    border-radius: 50%;
-    background: var(--outline);
-    opacity: 0.4;
-    cursor: pointer;
-    transition: opacity 0.2s, transform 0.2s;
     /* Hit area 25px, dot still 9px: padding plus content-box clipping. This
        clears the 24px WCAG 2.5.8 floor. Full 44px targets for moving between
        slides are the arrows either side, plus swipe. */
     box-sizing: content-box;
     padding: 8px;
     background-clip: content-box;
+    width: 8px;
+    height: 8px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--outline);
+    opacity: 0.45;
+    cursor: pointer;
+    /* Width, not scale: a growing circle shifts its neighbours and reads as a
+       wobble. A pill keeps the row's rhythm and the same optical weight. */
+    transition: width 0.25s ease, opacity 0.25s ease, background-color 0.25s ease;
 }
 
 .briefing-dot.active {
+    width: 22px;
     opacity: 1;
     background: var(--primary-color);
-    transform: scale(1.2);
 }
 
 .briefing-speech[aria-hidden="true"] {
@@ -2105,7 +2151,8 @@ html[data-dark] .menu-btn-daily    .menu-btn-arrow { color: #9f8d84; }
 @media (prefers-reduced-motion: reduce) {
     .briefing-track,
     .briefing-viewport,
-    .briefing-art { transition: none; }
+    .briefing-art,
+    .briefing-dot { transition: none; }
 }
 
 /* ===== RESULT SCENE =====
@@ -2680,7 +2727,7 @@ html[data-dark] .about-why { background: #3C2820; }
         padding: 8px 14px;
         margin: 0;
         border-radius: 0;
-        border-bottom: 1px solid rgba(44, 24, 16, 0.1);
+        border-bottom: 1px solid color-mix(in srgb, var(--text-color) 12%, transparent);
         box-shadow: none;
     }
 
@@ -2691,7 +2738,7 @@ html[data-dark] .about-why { background: #3C2820; }
         gap: 8px;
         padding: 8px 14px;
         background: rgba(250, 235, 215, 0.6);
-        border-bottom: 1px solid rgba(44, 24, 16, 0.07);
+        border-bottom: 1px solid color-mix(in srgb, var(--text-color) 9%, transparent);
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
     }
@@ -2711,7 +2758,7 @@ html[data-dark] .about-why { background: #3C2820; }
         transition: background 0.2s, color 0.2s, border-color 0.2s;
         white-space: nowrap;
         min-height: 44px;
-        box-shadow: 0 2px 6px rgba(44, 24, 16, 0.1);
+        box-shadow: 0 2px 6px color-mix(in srgb, var(--text-color) 12%, transparent);
     }
 
     .chip-btn.active {
@@ -2766,8 +2813,8 @@ html[data-dark] .about-why { background: #3C2820; }
         gap: 6px;
         padding: 8px 12px;
         background: var(--card-bg);
-        border-top: 1px solid rgba(44, 24, 16, 0.1);
-        box-shadow: 0 -4px 16px rgba(44, 24, 16, 0.1);
+        border-top: 1px solid color-mix(in srgb, var(--text-color) 12%, transparent);
+        box-shadow: 0 -4px 16px color-mix(in srgb, var(--text-color) 12%, transparent);
     }
 
     .game-action-row .btn {
@@ -2782,7 +2829,7 @@ html[data-dark] .about-why { background: #3C2820; }
         display: inline-flex;
         align-items: center;
         padding: 2px 10px;
-        background: rgba(218, 165, 32, 0.15);
+        background: color-mix(in srgb, var(--primary-color) 10%, transparent);
         border: 1px solid var(--secondary-color);
         border-radius: 12px;
         font-size: 0.8rem;
@@ -2859,7 +2906,7 @@ html[data-dark] .about-why { background: #3C2820; }
         width: 100%;
         box-sizing: border-box;
         padding: 14px max(28px, calc((100% - 1200px) / 2 + 28px));
-        border-bottom: 1px solid rgba(44, 24, 16, 0.1);
+        border-bottom: 1px solid color-mix(in srgb, var(--text-color) 12%, transparent);
         box-shadow: var(--shadow);
     }
 
@@ -2934,9 +2981,9 @@ html[data-dark] .about-why { background: #3C2820; }
         width: 100%;
         box-sizing: border-box;
         padding: 12px max(28px, calc((100% - 1200px) / 2 + 28px)) 20px;
-        border-top: 1px solid rgba(44, 24, 16, 0.1);
+        border-top: 1px solid color-mix(in srgb, var(--text-color) 12%, transparent);
         background: var(--card-bg);
-        box-shadow: 0 -4px 16px rgba(44, 24, 16, 0.08);
+        box-shadow: 0 -4px 16px color-mix(in srgb, var(--text-color) 10%, transparent);
     }
 
     .game-action-row .btn { margin: 0 4px; }
@@ -2947,8 +2994,8 @@ html[data-dark] .about-why { background: #3C2820; }
     @media (max-width: 768px) {
 
         html[data-dark] .context-chips {
-            background: #251912;
-            border-bottom-color: #52443c;
+            background: var(--card-bg);
+            border-bottom-color: color-mix(in srgb, var(--text-color) 18%, transparent);
         }
 
         html[data-dark] .chip-panel .scene-box,
@@ -2957,8 +3004,8 @@ html[data-dark] .chip-panel .info-box {
         }
 
         html[data-dark] .game-action-row {
-            background: #2C1810;
-            border-top-color: #52443c;
+            background: var(--card-bg);
+            border-top-color: color-mix(in srgb, var(--text-color) 18%, transparent);
             box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.4);
         }
     
@@ -3036,28 +3083,28 @@ html[data-dark] .chip-panel .info-box {
     color: white;
     border: 1px solid var(--primary-container);
     border-left: 4px solid var(--primary-color);
-    box-shadow: 0 4px 12px rgba(44, 24, 16, 0.18);
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--text-color) 20%, transparent);
 }
 .menu-btn-temporal {
     background: var(--secondary-color);
     color: var(--text-color);
     border: 1px solid var(--secondary-color);
     border-left: 4px solid #B8860B;
-    box-shadow: 0 4px 12px rgba(44, 24, 16, 0.18);
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--text-color) 20%, transparent);
 }
 .menu-btn-practice {
     background: #256b46;
     color: white;
     border: 1px solid #256b46;
     border-left: 4px solid #1d6b3f;
-    box-shadow: 0 4px 12px rgba(44, 24, 16, 0.18);
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--text-color) 20%, transparent);
 }
 .menu-btn-daily {
     background: #1C4E80;
     color: white;
     border: 1px solid #1C4E80;
     border-left: 4px solid #12345a;
-    box-shadow: 0 4px 12px rgba(44, 24, 16, 0.18);
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--text-color) 20%, transparent);
 }
 
 /* Arrow color for white-text buttons */
@@ -3385,7 +3432,7 @@ html[data-dark] .chip-panel .info-box {
     padding: 12px 20px 16px;
     background: var(--card-bg);
     border-top: 1px solid var(--outline-variant);
-    box-shadow: 0 -4px 16px rgba(44, 24, 16, 0.1);
+    box-shadow: 0 -4px 16px color-mix(in srgb, var(--text-color) 12%, transparent);
 }
 
 .btn-begin-challenge {
@@ -3422,7 +3469,7 @@ html[data-dark] .chip-panel .info-box {
     gap: 10px;
     padding: 6px 14px;
     flex-shrink: 0;
-    border-bottom: 1px solid rgba(44, 24, 16, 0.07);
+    border-bottom: 1px solid color-mix(in srgb, var(--text-color) 9%, transparent);
 }
 
 .game-progress-track {
@@ -3551,8 +3598,8 @@ html[data-dark] .chip-panel .info-box {
         }
 
         html[data-dark] .game-action-row {
-            background: #2C1810;
-            border-top-color: #52443c;
+            background: var(--card-bg);
+            border-top-color: color-mix(in srgb, var(--text-color) 18%, transparent);
         }
 
         html[data-dark] .game-sidebar .chip-panel .scene-box,
@@ -3571,8 +3618,8 @@ html[data-dark] .game-sidebar .chip-panel .info-box {
 
     html[data-dark] .game-action-row .btn-clear,
 html[data-dark] .game-action-row .btn-backspace {
-        border-color: #f6be3b;
-        color: #f6be3b;
+        border-color: var(--primary-color);
+        color: var(--primary-color);
     }
 
     html[data-dark] .game-action-row .btn-clear:hover,
@@ -3581,12 +3628,12 @@ html[data-dark] .game-action-row .btn-backspace:hover {
     }
 
     html[data-dark] .game-action-row .btn-submit {
-        background: #f6be3b;
-        color: #2C1810;
+        background: var(--primary-color);
+        color: var(--on-primary);
     }
 
     html[data-dark] .game-action-row .btn-submit:hover {
-        background: #ffd055;
+        background: color-mix(in srgb, var(--primary-color) 85%, white);
     }
 
 
