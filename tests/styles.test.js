@@ -19,7 +19,8 @@ const REQUIRED_CLASSES = [
     'result-scene', 'result-scene-art', 'result-oracle-halo',
     'civ-card-art', 'daily-civ-art',
     'story-title', 'mission', 'mission-objective', 'mission-facts', 'fact',
-    'mission-alert', 'mission-scene', 'mission-scene-summary', 'mission-scene-text'
+    'mission-alert', 'mission-scene', 'mission-scene-summary', 'mission-scene-text',
+    'problem-operator', 'problem-unknown', 'btn-quiet', 'btn-text', 'results-actions-row'
 ];
 
 describe('style contract', () => {

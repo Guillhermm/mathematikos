@@ -87,7 +87,10 @@ answer locks a fragment into place, so a run visibly rebuilds it.
 
 ### Themes
 
-Supports light and dark modes, with per-civilization color themes that adapt the UI to each culture's aesthetic.
+Supports light and dark modes, with per-civilization color themes that adapt the UI to each culture's
+aesthetic. Each civilization defines a full palette in both themes, foreground colors included, and
+every text pairing in the game meets WCAG AA contrast (4.5:1 for body text, 3:1 for large). Touch
+targets clear the 24 px WCAG floor, with 44 px on everything but the slider dots.
 
 ### Audio
 
@@ -97,7 +100,7 @@ Ambient audio per civilization. Each historical setting has its own soundscape.
 
 - Pure HTML, CSS, and ES6 JavaScript, with no build step and no dependencies.
 - Progressive Web App (PWA): installable, offline-capable via service worker.
-- 658 automated tests covering the conversion functions, the scene system, the briefing slider, and a style contract that guards the artwork's CSS.
+- 663 automated tests covering the conversion functions, the scene system, the briefing slider, and a style contract that guards the artwork's CSS.
 - CI/CD via GitHub Actions: tests run on every push, deploy to GitHub Pages on version tags.
 
 ## Project Structure

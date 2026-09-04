@@ -36,6 +36,7 @@
     --scene-ground: #D8C8B0;
     --scene-shadow: #5E4482;
     --scrim: rgba(250, 235, 215, 0.55);
+    --on-primary: #ffffff;
 
     /* The Oracle speaks from outside any civilization, in brass on dark */
     --oracle-void:  #241a10;
@@ -475,8 +476,8 @@ h1, h2, h3, h4 {
 
 .symbol-button .symbol-label {
     display: block;
-    font-size: 0.7rem;
-    color: #666;
+    font-size: 0.75rem;
+    color: var(--on-surface-variant);
     margin-top: 5px;
 }
 
@@ -699,43 +700,93 @@ h1, h2, h3, h4 {
 }
 
 /* Results */
+/* Not a card: the stat tiles are the cards, and wrapping them in another one
+   nested every tile inside a panel and doubled the screen's height. */
 .results-box {
-    background: var(--card-bg);
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: var(--shadow);
-    margin: 20px 0;
+    margin: 16px 0;
     text-align: center;
 }
 
 .results-box .final-score {
-    font-size: 3rem;
+    font-size: 3.4rem;
     color: var(--accent-color);
     font-weight: bold;
-    margin: 20px 0;
+    line-height: 1;
+    margin: 4px 0 2px;
+    font-variant-numeric: tabular-nums;
 }
 
+/* Two columns on a phone. The old minmax(150px, 1fr) could not fit two tiles
+   in the available width, so four short facts stacked into four rows. */
 .results-box .stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 15px;
-    margin: 20px 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin: 18px 0;
 }
 
 .results-box .stat-item {
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
+    background: var(--card-bg);
+    border: 1px solid var(--outline-variant);
+    padding: 12px 10px;
+    border-radius: 10px;
 }
 
+.results-box .stat-item strong {
+    display: block;
+    font-size: 1.3rem;
+    line-height: 1.2;
+    font-variant-numeric: tabular-nums;
+}
+
+.results-box .stat-item p {
+    margin: 2px 0 0;
+    font-size: 0.78rem;
+    color: var(--on-surface-variant);
+}
+
+/* One loud action, two quiet ones, and a way out. */
 .results-actions {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.results-actions .btn {
+.results-actions .btn-primary {
     width: 100%;
+}
+
+.results-actions-row {
+    display: flex;
+    gap: 10px;
+}
+
+.results-actions-row .btn {
+    flex: 1;
+    min-width: 0;
+}
+
+.btn-quiet {
+    background: transparent;
+    border: 1.5px solid var(--outline-variant);
+    color: var(--primary-color);
+}
+
+.btn-quiet:hover {
+    background: var(--surface-container);
+}
+
+.btn-text {
+    background: transparent;
+    border: 0;
+    color: var(--on-surface-variant);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    box-shadow: none;
+}
+
+.btn-text:hover {
+    color: var(--text-color);
 }
 
 /* Modal */
@@ -1140,7 +1191,7 @@ h1, h2, h3, h4 {
 
 .reverse-prompt {
     font-size: 1rem;
-    color: #666;
+    color: var(--on-surface-variant);
     font-style: italic;
 }
 
@@ -1418,6 +1469,7 @@ body[data-civ="hindu-arabic"] {
         --scene-sky:    #241a12;
         --scene-ground: #1a1009;
         --scrim: rgba(28, 17, 11, 0.62);
+        --on-primary: #1a1008;
 
         --oracle-tint:  #241a0c;
         --oracle-line:  #d2a640;
@@ -2334,10 +2386,6 @@ body[data-civ="hindu-arabic"] {
 
     .oracle-collected-box { border-color: #b8960a; }
 
-    .diff-easy         { color: #7fd8a0; border-color: rgba(127, 216, 160, 0.3); }
-    .diff-intermediate { color: #ffb68c; border-color: rgba(255, 182, 140, 0.3); }
-    .diff-advanced     { color: #f0cf7a; border-color: rgba(240, 207, 122, 0.32); }
-    .diff-expert       { color: #ff9aa8; border-color: rgba(255, 154, 168, 0.3); }
 
     /* These two carried light literals with no dark counterpart. */
     .daily-completed-msg  { background: #16301f; color: #7fd8a0; border-color: #2f6b46; }
@@ -2778,9 +2826,9 @@ body[data-civ="hindu-arabic"] {
     box-shadow: 0 4px 12px rgba(44, 24, 16, 0.18);
 }
 .menu-btn-practice {
-    background: var(--success-color);
+    background: #256b46;
     color: white;
-    border: 1px solid var(--success-color);
+    border: 1px solid #256b46;
     border-left: 4px solid #1d6b3f;
     box-shadow: 0 4px 12px rgba(44, 24, 16, 0.18);
 }
@@ -2852,7 +2900,7 @@ body[data-civ="hindu-arabic"] {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px 12px;
+    padding: 12px 10px 14px;
     /* Token, not a literal: a hardcoded light value here sits after the
        dark-mode block and would win, leaving cream cards on a dark page. */
     background: var(--card-bg);
@@ -2863,8 +2911,8 @@ body[data-civ="hindu-arabic"] {
     text-align: center;
     position: relative;
     transition: box-shadow 0.25s, transform 0.2s, border-color 0.2s;
-    min-height: 140px;
-    gap: 6px;
+    min-height: 0;
+    gap: 4px;
 }
 
 .civilization-card:not(.locked):hover {
@@ -2884,7 +2932,7 @@ body[data-civ="hindu-arabic"] {
    palette even though the select screen itself has no theme applied. */
 .civ-card-art {
     width: 100%;
-    aspect-ratio: 16 / 7;
+    aspect-ratio: 16 / 6;
     border-radius: 8px;
     overflow: hidden;
     margin-bottom: 8px;
@@ -3333,4 +3381,54 @@ body[data-civ="hindu-arabic"] {
     #main-menu .container {
         max-width: 560px;
     }
+}
+
+
+/* ===== DARK MODE: final component overrides =====
+   This block has to be the LAST thing in the file. The sections above it
+   redeclare components with light literals, and a later rule of equal
+   specificity wins, which is how white-on-peach buttons and unreadable
+   difficulty badges survived the earlier dark blocks. */
+@media (prefers-color-scheme: dark) {
+    /* Filled buttons: primary is a light color in dark mode, so white text on
+       it lands near 1.7:1. The on-primary token inverts with the theme. */
+    .btn-primary,
+    .btn-begin-challenge,
+    .game-action-row .btn-submit,
+    .btn-submit {
+        color: var(--on-primary);
+    }
+
+    /* Menu rows: the later light rules refilled these with primary + white. */
+    .menu-btn-thematic,
+    .menu-btn-temporal,
+    .menu-btn-practice,
+    .menu-btn-daily {
+        background: #291d16;
+        color: var(--text-color);
+        border: 1px solid #52443c;
+        box-shadow: none;
+    }
+
+    /* The mode is carried by the left edge once the fills go dark. */
+    .menu-btn-thematic { border-left: 4px solid #ff9d90; }
+    .menu-btn-temporal { border-left: 4px solid #f6be3b; }
+    .menu-btn-practice { border-left: 4px solid #7fd8a0; }
+    .menu-btn-daily    { border-left: 4px solid #7fb2ea; }
+
+    .menu-btn-thematic .menu-btn-arrow,
+    .menu-btn-temporal .menu-btn-arrow,
+    .menu-btn-practice .menu-btn-arrow,
+    .menu-btn-daily .menu-btn-arrow {
+        color: #d7c2b8;
+    }
+
+    /* Difficulty badges sit on a dark card, so the label has to lighten. */
+    .diff-easy         { color: #7fd8a0; border-color: rgba(127, 216, 160, 0.32); }
+    .diff-intermediate { color: #ffb68c; border-color: rgba(255, 182, 140, 0.32); }
+    .diff-advanced     { color: #f0cf7a; border-color: rgba(240, 207, 122, 0.34); }
+    .diff-expert       { color: #ff9aa8; border-color: rgba(255, 154, 168, 0.32); }
+
+    .reverse-prompt    { color: var(--on-surface-variant); }
+    .symbol-button .symbol-label { color: var(--on-surface-variant); }
 }

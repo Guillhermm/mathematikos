@@ -171,9 +171,11 @@
             <div id="results-content" class="results-box"></div>
             <div class="results-actions">
                 <button class="btn btn-primary" onclick="nextCivilization()">Continue Journey →</button>
-                <button id="codex-btn" class="btn btn-codex" style="display:none" onclick="openCodexCurrent()"><svg class="icon" aria-hidden="true"><use href="#i-book"/></svg> Open Codex</button>
-                <button class="btn btn-secondary" onclick="showScreen('civilization-select')">Choose Another</button>
-                <button class="btn btn-back" onclick="showScreen('main-menu')">Main Menu</button>
+                <div class="results-actions-row">
+                    <button id="codex-btn" class="btn btn-quiet" style="display:none" onclick="openCodexCurrent()"><svg class="icon" aria-hidden="true"><use href="#i-book"/></svg> Open Codex</button>
+                    <button class="btn btn-quiet" onclick="showScreen('civilization-select')">Choose Another</button>
+                </div>
+                <button class="btn btn-text" onclick="showScreen('main-menu')">Main Menu</button>
             </div>
         </div>
     </div>
