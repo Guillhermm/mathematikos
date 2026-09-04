@@ -83,6 +83,7 @@ require('./scenes.test.js');
 require('./briefing.test.js');
 require('./styles.test.js');
 require('./settings.test.js');
+require('./equation.test.js');
 
 // ── Summary ───────────────────────────────────────────────────────────────────
 const total = _passed + _failed;

@@ -50,6 +50,14 @@ function loadNextChallenge() {
     document.getElementById('answer-input').value = '';
     const numPad = document.getElementById('numeric-pad');
     if (numPad) numPad.classList.remove('is-reverse');
+
+    // The previous challenge may have been reverse or cross-civilization, both
+    // of which change the equation tail. Reset before the next one renders.
+    const problemDisplay = document.getElementById('problem-display');
+    if (problemDisplay) problemDisplay.classList.remove('is-reverse');
+    const answerSlot = document.getElementById('built-answer');
+    if (answerSlot) answerSlot.dataset.placeholder = 'Tap symbols below';
+
     clearAnswer();
 
     // In practice mode with 2+ unlocked civs: 20% chance of cross-civ conversion challenge
@@ -112,10 +120,16 @@ function applyReverseDisplay() {
     const civName = civilizations[gameState.currentCivilization].name;
     document.getElementById('problem').innerHTML = `
         <div class="problem-numerals reverse-problem">
-            <div class="reverse-prompt">Write in ${civName} numerals:</div>
+            <div class="reverse-prompt">Write in ${civName} numerals</div>
             <div class="reverse-number">${problem.answer}</div>
         </div>
     `;
+    // A reverse challenge is a value to transcribe, not a sum to complete, so
+    // the equals sign is dropped and the slot asks for the numerals directly.
+    const display = document.getElementById('problem-display');
+    if (display) display.classList.add('is-reverse');
+    const slot = document.getElementById('built-answer');
+    if (slot) slot.dataset.placeholder = `Build in ${civName} numerals`;
     const answerInput = document.getElementById('answer-input');
     if (answerInput) answerInput.placeholder = 'Build the numeral using the symbol pad above';
     const numPad = document.getElementById('numeric-pad');

@@ -152,15 +152,17 @@
             <!-- Right column: scrollable game body -->
             <div class="game-scroll">
                 <div class="challenge-area">
-                    <div class="problem-display">
+                    <!-- The answer slot lives inside the equation: you complete the sum
+                         rather than restating it in a separate labelled box. -->
+                    <div class="problem-display" id="problem-display">
                         <div id="problem" class="problem"></div>
+                        <span class="problem-equals" aria-hidden="true">=</span>
+                        <div id="built-answer" class="built-answer answer-slot"
+                             data-placeholder="Tap symbols below"
+                             role="status" aria-live="polite" aria-label="Your answer"></div>
                     </div>
 
                     <div class="answer-section">
-                        <label class="answer-label">Your Answer</label>
-                        <div id="answer-builder" class="answer-builder">
-                            <div id="built-answer" class="built-answer"></div>
-                        </div>
                         <div class="symbol-pad-zone">
                             <div id="symbol-pad" class="symbol-pad"></div>
                         </div>

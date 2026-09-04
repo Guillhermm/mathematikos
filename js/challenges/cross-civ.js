@@ -118,11 +118,13 @@ function displayCrossCivChallenge() {
 
     document.getElementById('problem').innerHTML = `
         <div class="problem-numerals">
-            <div style="font-size:0.9rem; color:var(--accent-color); margin-bottom:6px;">${sourceCivName}:</div>
-            <div>${sourceHtml}</div>
-            <div style="font-size:0.9rem; margin-top:10px;">= <span style="color:var(--accent-color);">? in ${targetCivName}</span></div>
+            <span class="operand-source">${sourceCivName}</span>
+            <span class="operand">${sourceHtml}</span>
         </div>
     `;
+    const slot = document.getElementById('built-answer');
+    if (slot) slot.dataset.placeholder = `Build in ${targetCivName}`;
+
 
     // Override the answer input placeholder
     const answerInput = document.getElementById('answer-input');

@@ -417,64 +417,125 @@ h1, h2, h3, h4 {
     margin-bottom: 0;
 }
 
+/* ===== EQUATION =====
+   One wrapping line: operands, operator, equals and the answer slot are all
+   siblings in the same flex flow, so a long additive numeral wraps instead of
+   each operand claiming its own row. */
 .problem-display {
-    text-align: center;
-    margin-bottom: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px 10px;
+    margin-bottom: 14px;
     background: var(--card-bg);
     border-radius: 12px;
     border-top: 4px solid var(--primary-color);
-    padding: 24px 20px 20px;
+    padding: 16px 14px;
     box-shadow: var(--shadow-lg);
     position: relative;
-    overflow: hidden;
 }
 
+/* display: contents so the civilization's own wrappers do not create boxes
+   that would break the single flow. */
+.problem,
+.problem-numerals {
+    display: contents;
+}
+
+/* Each operand keeps a faint ground of its own. Without it the two numbers run
+   together into one string as soon as a line wraps. */
+.operand {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 5px 9px;
+    border-radius: 9px;
+    background: color-mix(in srgb, var(--primary-color) 9%, transparent);
+}
+
+.problem-equals {
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--primary-color);
+}
+
+/* A reverse challenge is a value to transcribe, not a sum to complete. */
+.problem-display.is-reverse .problem-equals {
+    display: none;
+}
+
+.problem-display.is-reverse .operand {
+    background: none;
+    padding: 0;
+}
+
+/* The conversion challenge names the system it is showing you. */
+.operand-source {
+    align-self: center;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--accent-color);
+}
+
+/* Sizing only. The display: contents rule above dissolves this wrapper so the
+   operands join the equation's flex flow; inline-block and a min-width here
+   would rebuild the box and put the operands back on their own row. */
 .problem {
     font-size: 2rem;
     font-weight: bold;
     color: var(--primary-color);
-    padding: 10px;
-    background: transparent;
-    border-radius: 0;
-    display: inline-block;
-    min-width: 200px;
 }
 
 /* Answer Section */
 .answer-section {
-    margin: 20px 0;
+    margin: 14px 0 0;
 }
 
-/* Answer Builder */
-.answer-builder {
-    background: var(--bg-color);
-    border: 3px solid var(--secondary-color);
-    border-radius: 10px;
-    padding: 20px;
-    min-height: 80px;
-    margin-bottom: 15px;
-    display: flex;
+/* ===== ANSWER SLOT =====
+   The slot sits inside the equation where the answer belongs, so there is no
+   separate labelled box restating the question. */
+
+.answer-slot {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    min-width: 96px;
+    min-height: 52px;
+    padding: 4px 14px;
+    border: 2px dashed var(--primary-color);
+    border-radius: 10px;
+    background: var(--bg-color);
+}
+
+.answer-slot:not(.empty) {
+    border-style: solid;
+    background: var(--surface-container);
 }
 
 .built-answer {
     font-size: 2rem;
     font-weight: bold;
     color: var(--primary-color);
-    min-height: 40px;
     /* break-all is right for a long run of glyphs with no spaces */
     letter-spacing: 2px;
     word-break: break-all;
 }
 
+/* Placeholder text is set per challenge type: a sum asks for symbols, a
+   reverse challenge names the system to write in. */
 .built-answer.empty::before {
-    content: 'Tap symbols below to build your answer';
-    font-size: 1rem;
+    content: attr(data-placeholder);
+    font-size: 0.85rem;
     color: var(--on-surface-variant);
-    font-weight: normal;
-    /* but wrong for the prose placeholder, which was splitting "answer"
-       into "ans" and "wer" at the line end */
+    font-weight: 600;
+    /* break-all is wrong for the prose placeholder, which was splitting
+       "answer" into "ans" and "wer" at the line end */
     word-break: normal;
     overflow-wrap: break-word;
     letter-spacing: normal;
@@ -1157,29 +1218,10 @@ h1, h2, h3, h4 {
     width: 12px;
 }
 
-/* Problem display numeral containers */
-.problem-numerals {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-    font-size: 1rem;
-}
-.problem-numerals > div {
-    display: flex;
-    align-items: center;
-    gap: 2px;
-    flex-wrap: wrap;
-}
-
-/* Greek problem: inline layout (short numeral strings) */
-.greek-problem,
-.chinese-problem {
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 12px;
-}
+/* The numerals no longer form a container of their own: display: contents in
+   the equation block above dissolves this wrapper so the operands, operator,
+   equals and answer slot all wrap as one line. This rule used to stack them in
+   a column, which is what made an Egyptian sum three rows tall. */
 
 /* Chinese numerals: prioritize CJK fonts */
 .chinese-numeral {
@@ -1559,11 +1601,6 @@ html[data-dark] .context-chips {
         border-color: #52443c;
     }
 
-    html[data-dark] .answer-builder {
-        background: #1c110b;
-        border-color: #f6be3b;
-    }
-
     html[data-dark] .number-display {
         background: #2C1810;
         border-color: #52443c;
@@ -1601,6 +1638,15 @@ html[data-dark] .info-box {
     /* ── Answer builder ── */
     html[data-dark] .built-answer {
         color: var(--text-color);
+    }
+
+    html[data-dark] .answer-slot {
+        background: #1c110b;
+        border-color: var(--primary-color);
+    }
+
+    html[data-dark] .answer-slot:not(.empty) {
+        background: #251912;
     }
     html[data-dark] .built-answer.empty::before { color: #9f8d84; }
 
@@ -1662,7 +1708,6 @@ html[data-dark] .menu-btn-daily    .menu-btn-arrow { color: #9f8d84; }
     html[data-dark] .game-challenge-label { color: #9f8d84; }
 
     /* ── Answer section ── */
-    html[data-dark] .answer-label { color: #9f8d84; }
 
     /* ── Sidebar on desktop ── */
     html[data-dark] .game-sidebar { border-right-color: #52443c; background: #251912; }
@@ -3447,16 +3492,6 @@ html[data-dark] .chip-panel .info-box {
 
 /* ===== ANSWER SECTION: label ===== */
 
-.answer-label {
-    display: block;
-    font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--on-surface-variant);
-    margin-bottom: 6px;
-}
 
 /* ===== NUMERIC KEYPAD (Arabic answer entry) ===== */
 

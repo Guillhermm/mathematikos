@@ -154,10 +154,9 @@ function displayMayanChallenge() {
 
     document.getElementById('problem').innerHTML = `
         <div class="problem-numerals mayan-problem">
-            <div>${mayanToSVGHtml(problem.mayan1)}</div>
-            <div class="problem-operator">${problem.operation}</div>
-            <div>${mayanToSVGHtml(problem.mayan2)}</div>
-            <div>= <span class="problem-unknown">?</span></div>
+            <span class="operand">${mayanToSVGHtml(problem.mayan1)}</span>
+            <span class="problem-operator">${problem.operation}</span>
+            <span class="operand">${mayanToSVGHtml(problem.mayan2)}</span>
         </div>
     `;
 }

@@ -99,9 +99,10 @@ function displayHinduArabicChallenge() {
     `;
 
     document.getElementById('problem').innerHTML = `
-        <span class="hindu-arabic-numeral">${problem.ha1}</span>
-        <span class="problem-operator">${problem.operation}</span>
-        <span class="hindu-arabic-numeral">${problem.ha2}</span>
-        = <span style="color:var(--accent-color);">?</span>
+        <div class="problem-numerals">
+            <span class="operand"><span class="hindu-arabic-numeral">${problem.ha1}</span></span>
+            <span class="problem-operator">${problem.operation}</span>
+            <span class="operand"><span class="hindu-arabic-numeral">${problem.ha2}</span></span>
+        </div>
     `;
 }

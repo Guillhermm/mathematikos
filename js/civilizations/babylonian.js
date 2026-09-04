@@ -110,11 +110,10 @@ function displayBabylonianChallenge() {
     `;
 
     document.getElementById('problem').innerHTML = `
-        <div class="problem-numerals" style="line-height: 2.2;">
-            <div>${babylonianToSVGHtml(problem.babylonian1)}</div>
-            <div class="problem-operator">${problem.operation}</div>
-            <div>${babylonianToSVGHtml(problem.babylonian2)}</div>
-            <div>= <span class="problem-unknown">?</span></div>
+        <div class="problem-numerals">
+            <span class="operand">${babylonianToSVGHtml(problem.babylonian1)}</span>
+            <span class="problem-operator">${problem.operation}</span>
+            <span class="operand">${babylonianToSVGHtml(problem.babylonian2)}</span>
         </div>
     `;
 }

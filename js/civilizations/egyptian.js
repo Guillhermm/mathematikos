@@ -96,11 +96,10 @@ function displayEgyptianChallenge() {
     `;
 
     document.getElementById('problem').innerHTML = `
-        <div class="problem-numerals" style="line-height: 2;">
-            <div>${egyptianToSVGHtml(problem.egyptian1)}</div>
-            <div class="problem-operator">${problem.operation}</div>
-            <div>${egyptianToSVGHtml(problem.egyptian2)}</div>
-            <div>= <span class="problem-unknown">?</span></div>
+        <div class="problem-numerals">
+            <span class="operand">${egyptianToSVGHtml(problem.egyptian1)}</span>
+            <span class="problem-operator">${problem.operation}</span>
+            <span class="operand">${egyptianToSVGHtml(problem.egyptian2)}</span>
         </div>
     `;
 }

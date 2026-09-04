@@ -80,6 +80,19 @@ recolors itself for each civilization and for dark mode without a second copy, a
 offline install stays around 445 KB, most of which is the PWA icons and the provenance screenshots
 rather than the artwork.
 
+### The equation
+
+The answer slot sits inside the equation, where the answer belongs, rather than in a separate
+labelled box below it: you complete the sum instead of restating it. Operands, operator, equals and
+slot are siblings in one wrapping flex line, so a long additive numeral wraps rather than each
+operand taking a row of its own. Each operand keeps a faint ground so the two numbers stay separate
+when a line wraps.
+
+That cut the space above the symbol pad from 241 to 412 px down to 102 to 246 px on a phone,
+depending on civilization and problem size. Reverse challenges drop the equals sign, since a value
+to transcribe is not a sum to complete, and conversion challenges name the target system on the
+slot itself.
+
 ### The Oracle of Numbers
 
 The artifact you are reassembling is drawn as one disc with a wedge per challenge. Each correct
@@ -124,7 +137,7 @@ Ambient audio per civilization. Each historical setting has its own soundscape.
 
 - Pure HTML, CSS, and ES6 JavaScript, with no build step and no dependencies.
 - Progressive Web App (PWA): installable, offline-capable via service worker.
-- 687 automated tests covering the conversion functions, the scene system, the briefing slider, and a style contract that guards the artwork's CSS.
+- 716 automated tests covering the conversion functions, the scene system, the briefing slider, and a style contract that guards the artwork's CSS.
 - CI/CD via GitHub Actions: tests run on every push, deploy to GitHub Pages on version tags.
 
 ## Project Structure
