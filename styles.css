@@ -2120,26 +2120,25 @@ html[data-dark] .menu-btn-daily    .menu-btn-arrow { color: #9f8d84; }
 }
 
 .briefing-dot {
-    /* Hit area 25px, dot still 9px: padding plus content-box clipping. This
-       clears the 24px WCAG 2.5.8 floor. Full 44px targets for moving between
-       slides are the arrows either side, plus swipe. */
+    /* Hit area 25px, dot 9px: padding plus content-box clipping. This clears
+       the 24px WCAG 2.5.8 floor. Full 44px targets for moving between slides
+       are the arrows either side, plus swipe. */
     box-sizing: content-box;
     padding: 8px;
     background-clip: content-box;
-    width: 8px;
-    height: 8px;
+    width: 9px;
+    height: 9px;
     border: 0;
-    border-radius: 999px;
+    border-radius: 50%;
     background: var(--outline);
-    opacity: 0.45;
+    opacity: 0.4;
     cursor: pointer;
-    /* Width, not scale: a growing circle shifts its neighbours and reads as a
-       wobble. A pill keeps the row's rhythm and the same optical weight. */
-    transition: width 0.25s ease, opacity 0.25s ease, background-color 0.25s ease;
+    /* Every dot is the same size. The active one is distinguished by color
+       alone, so nothing grows and the row keeps its rhythm. */
+    transition: opacity 0.2s ease, background-color 0.2s ease;
 }
 
 .briefing-dot.active {
-    width: 22px;
     opacity: 1;
     background: var(--primary-color);
 }
