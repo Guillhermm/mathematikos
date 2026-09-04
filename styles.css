@@ -3526,15 +3526,36 @@ html[data-dark] .game-action-row .btn-backspace:hover {
    shared rules above. */
 @media (min-width: 1024px) {
 
-    /* ── Main menu: sit in the middle of the viewport instead of hugging the
-       top edge with half the screen empty below. ── */
-    #main-menu.active {
+    /* ── Every screen sits in the middle of the viewport instead of hugging
+       the top edge with the lower half empty. Centering is done with auto
+       block margins rather than align-items, because a flex item centered
+       that way is clipped at the top once it grows taller than the viewport,
+       while auto margins fall back to top-aligned. Mobile keeps its top
+       alignment: none of this applies below 1024px. ── */
+    #main-menu.active,
+    #civilization-select.active,
+    #results.active,
+    #daily-screen.active,
+    #about-screen.active {
         display: flex;
         align-items: center;
         justify-content: center;
-        /* body carries 10px of padding on each side, so a flat 100vh here
-           overflows by 20px and puts a scrollbar on a screen that fits. */
+        /* min-height, not height: when the content is taller than the viewport
+           the container grows and the page scrolls, so centering never clips
+           the top. body carries 10px of padding on each side, so a flat 100vh
+           would overflow by 20px and add a scrollbar to a screen that fits. */
         min-height: calc(100vh - 20px);
+    }
+
+    /* The story screen is a fixed-height shell, so its scrolling middle is
+       what gets centered. */
+    .story-scroll {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .story-scroll > #story-content {
+        margin-block: auto;
     }
 
     #main-menu .container {
