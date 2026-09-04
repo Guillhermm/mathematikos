@@ -80,6 +80,46 @@ body {
     display: block;
 }
 
+/* ===== VERTICAL CENTERING =====
+   Screens sit in the middle of the viewport rather than hugging the top edge.
+   The centering uses auto block margins in a column flex container, not
+   justify-content: center, because auto margins resolve to zero once free
+   space runs out: a screen taller than the viewport falls back to top-aligned
+   and stays fully reachable, where justify-content would clip its top.
+   game-play and story-intro are excluded here: both are fixed-height shells
+   that already fill the viewport. */
+#main-menu.active,
+#civilization-select.active,
+#results.active,
+#daily-screen.active,
+#about-screen.active {
+    display: flex;
+    flex-direction: column;
+    /* body carries 10px of padding on each side */
+    min-height: calc(100dvh - 20px);
+}
+
+#main-menu.active > .container,
+#civilization-select.active > .container,
+#results.active > .container,
+#daily-screen.active > .container,
+#about-screen.active > .container {
+    margin-block: auto;
+    width: 100%;
+}
+
+/* The story screen is a fixed-height shell, so its scrolling middle is what
+   gets centered. */
+.story-scroll {
+    display: flex;
+    flex-direction: column;
+}
+
+.story-scroll > #story-content {
+    margin-block: auto;
+    width: 100%;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -2050,7 +2090,10 @@ html[data-dark] .menu-btn-daily    .menu-btn-arrow { color: #9f8d84; }
    override the prefers-color-scheme media query from CSS. */
 
 .btn-settings {
-    position: absolute;
+    /* Fixed to the viewport corner, not the container: the menu block is
+       vertically centered, so an absolutely positioned gear drifted down the
+       page with it. */
+    position: fixed;
     top: 12px;
     right: 12px;
     min-width: 44px;
@@ -3526,38 +3569,6 @@ html[data-dark] .game-action-row .btn-backspace:hover {
    shared rules above. */
 @media (min-width: 1024px) {
 
-    /* ── Every screen sits in the middle of the viewport instead of hugging
-       the top edge with the lower half empty. Centering is done with auto
-       block margins rather than align-items, because a flex item centered
-       that way is clipped at the top once it grows taller than the viewport,
-       while auto margins fall back to top-aligned. Mobile keeps its top
-       alignment: none of this applies below 1024px. ── */
-    #main-menu.active,
-    #civilization-select.active,
-    #results.active,
-    #daily-screen.active,
-    #about-screen.active {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        /* min-height, not height: when the content is taller than the viewport
-           the container grows and the page scrolls, so centering never clips
-           the top. body carries 10px of padding on each side, so a flat 100vh
-           would overflow by 20px and add a scrollbar to a screen that fits. */
-        min-height: calc(100vh - 20px);
-    }
-
-    /* The story screen is a fixed-height shell, so its scrolling middle is
-       what gets centered. */
-    .story-scroll {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .story-scroll > #story-content {
-        margin-block: auto;
-    }
-
     #main-menu .container {
         max-width: 620px;
         padding-block: 40px;
@@ -3684,7 +3695,6 @@ html[data-dark] .game-action-row .btn-backspace:hover {
     /* ── Settings sits in the page corner. Inside the centered container it
        collided with the wordmark. ── */
     .btn-settings {
-        position: fixed;
         top: 20px;
         right: 20px;
     }

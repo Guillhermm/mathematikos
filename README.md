@@ -100,12 +100,14 @@ flash light.
 ### Layout
 
 Phone first. A second layout at 769 px gives tablets a two-column game screen, and a third at
-1024 px is desktop only: every screen centers vertically in the viewport rather than hugging the top
-edge, the story screen puts the briefing beside the mission panel instead of stretching the artwork
-to the full window, the play screen pins to the viewport so Submit is always on screen, and the
-results stats sit in one row. Screens taller than the viewport grow and scroll rather than being
-clipped. Nothing below 1024 px is touched by the desktop rules; on phones and tablets content stays
-top-aligned.
+1024 px is desktop only: the story screen puts the briefing beside the mission panel instead of
+stretching the artwork to the full window, the play screen pins to the viewport so Submit is always
+on screen, and the results stats sit in one row.
+
+Screens are vertically centered at every width. The centering uses auto block margins rather than
+`justify-content`, because auto margins resolve to zero when free space runs out: a screen taller
+than the viewport falls back to top-aligned and stays fully reachable, where `justify-content` would
+clip its top out of the scroll range.
 
 ### Themes
 
