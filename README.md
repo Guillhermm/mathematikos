@@ -117,6 +117,10 @@ Phone first. A second layout at 769 px gives tablets a two-column game screen, a
 stretching the artwork to the full window, the play screen pins to the viewport so Submit is always
 on screen, and the results stats sit in one row.
 
+The story and challenge screens are pinned to the viewport at every width, so their top and bottom
+bars run edge to edge and stay put while only the middle scrolls. The bars are full bleed while
+their contents stay aligned with the body's column, using padding rather than a capped bar width.
+
 Screens are vertically centered at every width. The centering uses auto block margins rather than
 `justify-content`, because auto margins resolve to zero when free space runs out: a screen taller
 than the viewport falls back to top-aligned and stays fully reachable, where `justify-content` would

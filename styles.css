@@ -2839,33 +2839,34 @@ html[data-dark] .about-why { background: #3C2820; }
 
 /* ── Desktop (≥769px): two-column layout ── */
 @media (min-width: 769px) {
+    /* Stays pinned to the viewport at every width. It used to switch to normal
+       flow here, which let the top and bottom bars scroll away with the page
+       between 769 and 1023 px. */
     #game-play.active {
-        /* Switch from fixed-fullscreen to normal flow on desktop */
-        position: static;
+        position: fixed;
+        inset: 0;
         display: flex;
         flex-direction: column;
-        min-height: 100vh;
-        overflow: visible;
+        overflow: hidden;
     }
 
+    /* Full bleed bar, centered contents. Capping the bar itself at 1200px left
+       a strip of page showing either side of it on a wide monitor. The padding
+       formula keeps the controls aligned with the body's 1200px column. */
     #game-play .game-header {
         position: static;
         flex-shrink: 0;
-        max-width: 1200px;
-        margin-inline: auto;
         width: 100%;
         box-sizing: border-box;
-        padding: 14px 28px;
+        padding: 14px max(28px, calc((100% - 1200px) / 2 + 28px));
         border-bottom: 1px solid rgba(44, 24, 16, 0.1);
         box-shadow: var(--shadow);
     }
 
     #game-play .game-challenge-strip {
-        max-width: 1200px;
-        margin-inline: auto;
         width: 100%;
         box-sizing: border-box;
-        padding: 8px 28px;
+        padding: 8px max(28px, calc((100% - 1200px) / 2 + 28px));
     }
 
     /* Hide chips on desktop: panels always visible in sidebar */
@@ -2930,11 +2931,9 @@ html[data-dark] .about-why { background: #3C2820; }
 
     .game-action-row {
         flex-shrink: 0;
-        max-width: 1200px;
-        margin-inline: auto;
         width: 100%;
         box-sizing: border-box;
-        padding: 12px 28px 20px;
+        padding: 12px max(28px, calc((100% - 1200px) / 2 + 28px)) 20px;
         border-top: 1px solid rgba(44, 24, 16, 0.1);
         background: var(--card-bg);
         box-shadow: 0 -4px 16px rgba(44, 24, 16, 0.08);
@@ -3341,11 +3340,16 @@ html[data-dark] .chip-panel .info-box {
 
 /* ===== STORY INTRO: fixed full-screen layout ===== */
 
+/* Pinned to the viewport, not laid out in flow: the body carries 10px of
+   padding, which inset the header and the call to action by 10px on every
+   screen and stopped them being full bleed. */
 #story-intro.active {
+    position: fixed;
+    inset: 0;
     display: flex;
     flex-direction: column;
-    height: 100dvh;
     overflow: hidden;
+    z-index: 1;
 }
 
 .story-intro-header {
@@ -3666,6 +3670,13 @@ html[data-dark] .game-action-row .btn-backspace:hover {
         grid-row: 2;
     }
 
+    /* Full bleed bars with contents aligned to the body's column, matching the
+       play screen. */
+    .story-intro-header,
+    .story-cta {
+        padding-inline: max(20px, calc((100% - 1140px) / 2));
+    }
+
     .story-cta {
         display: flex;
         justify-content: center;
@@ -3679,20 +3690,8 @@ html[data-dark] .game-action-row .btn-backspace:hover {
        which pushed the symbol pad and the action row below the fold. The
        proportions are swapped and each column scrolls inside a fixed-height
        shell, so Submit is always on screen. ── */
-    /* Taken out of flow so the play screen is exactly the viewport, whatever
-       padding the page carries. In normal flow the body's padding pushed it
-       past 100vh and left a scrollbar on a screen meant to fit exactly. */
-    #game-play.active {
-        position: fixed;
-        inset: 0;
-        height: auto;
-        min-height: 0;
-        overflow: hidden;
-    }
-
+    /* The play screen is already pinned from 769px up. */
     body:has(#game-play.active) {
-        padding: 0;
-        min-height: 0;
         overflow: hidden;
     }
 
