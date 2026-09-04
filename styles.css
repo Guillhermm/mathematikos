@@ -3520,6 +3520,155 @@ html[data-dark] .game-action-row .btn-backspace:hover {
 }
 
 
+/* ===== DESKTOP (>= 1024px) =====
+   Gated at 1024 rather than 769 so phones and lower tablets keep exactly the
+   layout they have. Everything here is layout only; colors stay with the
+   shared rules above. */
+@media (min-width: 1024px) {
+
+    /* ── Main menu: sit in the middle of the viewport instead of hugging the
+       top edge with half the screen empty below. ── */
+    #main-menu.active {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* body carries 10px of padding on each side, so a flat 100vh here
+           overflows by 20px and puts a scrollbar on a screen that fits. */
+        min-height: calc(100vh - 20px);
+    }
+
+    #main-menu .container {
+        max-width: 620px;
+        padding-block: 40px;
+    }
+
+    /* ── Civilization select: use the width for larger cards. ── */
+    #civilization-select .container {
+        max-width: 1080px;
+    }
+
+    #civilization-select h2,
+    .civ-select-subtitle {
+        text-align: center;
+    }
+
+    .civilization-grid {
+        gap: 20px;
+    }
+
+    /* The back button was the one element left-aligned on a centered screen. */
+    #civilization-select .btn-back,
+    #daily-screen .btn-back,
+    #about-screen .btn-back {
+        display: block;
+        margin-inline: auto;
+    }
+
+    /* ── Story screen: the briefing had no maximum width, so its artwork
+       stretched to the full viewport and the speech ran to 1300px lines.
+       Two columns keeps the art at a readable size and lifts the mission
+       panel above the fold. ── */
+    .story-scroll > #story-content {
+        max-width: 1140px;
+        margin-inline: auto;
+    }
+
+    #story-content:has(.briefing) {
+        display: grid;
+        grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+        grid-template-rows: auto 1fr;
+        gap: 4px 36px;
+        align-items: start;
+    }
+
+    #story-content:has(.briefing) .briefing {
+        grid-column: 1;
+        grid-row: 1 / span 2;
+        margin-bottom: 0;
+    }
+
+    #story-content:has(.briefing) .story-title {
+        grid-column: 2;
+        grid-row: 1;
+        margin-top: 0;
+        font-size: 1.5rem;
+    }
+
+    #story-content:has(.briefing) .mission {
+        grid-column: 2;
+        grid-row: 2;
+    }
+
+    .story-cta {
+        display: flex;
+        justify-content: center;
+    }
+
+    .btn-begin-challenge {
+        max-width: 420px;
+    }
+
+    /* ── Game screen: the reference column had 55% and the play column 45%,
+       which pushed the symbol pad and the action row below the fold. The
+       proportions are swapped and each column scrolls inside a fixed-height
+       shell, so Submit is always on screen. ── */
+    /* Taken out of flow so the play screen is exactly the viewport, whatever
+       padding the page carries. In normal flow the body's padding pushed it
+       past 100vh and left a scrollbar on a screen meant to fit exactly. */
+    #game-play.active {
+        position: fixed;
+        inset: 0;
+        height: auto;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    body:has(#game-play.active) {
+        padding: 0;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    .game-columns {
+        grid-template-columns: minmax(300px, 38%) minmax(0, 1fr);
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    .game-sidebar,
+    .game-main {
+        min-height: 0;
+        overflow-y: auto;
+    }
+
+    /* ── Results: four stats read as one row at this width. ── */
+    #results .container {
+        max-width: 860px;
+    }
+
+    /* The heading was the only left-aligned thing on a centered screen. */
+    #results h2 {
+        text-align: center;
+    }
+
+    .results-box .stats {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .results-actions {
+        max-width: 520px;
+        margin-inline: auto;
+    }
+
+    /* ── Settings sits in the page corner. Inside the centered container it
+       collided with the wordmark. ── */
+    .btn-settings {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+    }
+}
+
 /* ===== DARK MODE: final component overrides =====
    This block has to be the LAST thing in the file. The sections above it
    redeclare components with light literals, and a later rule of equal
