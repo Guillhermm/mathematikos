@@ -99,6 +99,6 @@ function displayRomanChallenge() {
     `;
 
     document.getElementById('problem').innerHTML = `
-        ${problem.roman1} ${problem.operation} ${problem.roman2} = <span style="color: #CD853F;">?</span>
+        ${problem.roman1} <span class="problem-operator">${problem.operation}</span> ${problem.roman2} = <span class="problem-unknown">?</span>
     `;
 }

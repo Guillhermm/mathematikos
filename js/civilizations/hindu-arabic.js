@@ -100,7 +100,7 @@ function displayHinduArabicChallenge() {
 
     document.getElementById('problem').innerHTML = `
         <span class="hindu-arabic-numeral">${problem.ha1}</span>
-        ${problem.operation}
+        <span class="problem-operator">${problem.operation}</span>
         <span class="hindu-arabic-numeral">${problem.ha2}</span>
         = <span style="color:var(--accent-color);">?</span>
     `;

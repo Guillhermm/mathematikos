@@ -171,7 +171,7 @@ function displayChineseChallenge() {
 
     document.getElementById('problem').innerHTML = `
         <div class="problem-numerals chinese-problem" style="font-size: 2.2rem; line-height: 1.5;">
-            ${chineseToHtml(problem.chinese1)} ${problem.operation} ${chineseToHtml(problem.chinese2)} = <span style="color: #CD853F;">?</span>
+            ${chineseToHtml(problem.chinese1)} <span class="problem-operator">${problem.operation}</span> ${chineseToHtml(problem.chinese2)} = <span class="problem-unknown">?</span>
         </div>
     `;
 }

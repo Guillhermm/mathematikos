@@ -155,9 +155,9 @@ function displayMayanChallenge() {
     document.getElementById('problem').innerHTML = `
         <div class="problem-numerals mayan-problem">
             <div>${mayanToSVGHtml(problem.mayan1)}</div>
-            <div>${problem.operation}</div>
+            <div class="problem-operator">${problem.operation}</div>
             <div>${mayanToSVGHtml(problem.mayan2)}</div>
-            <div>= <span style="color: #CD853F;">?</span></div>
+            <div>= <span class="problem-unknown">?</span></div>
         </div>
     `;
 }

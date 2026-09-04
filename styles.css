@@ -3,7 +3,7 @@
     --primary-color: #6c2f00;
     --primary-container: #8b4513;
     --secondary-color: #DAA520;
-    --accent-color: #CD853F;
+    --accent-color: #96591f;
     --success-color: #2E8B57;
     --error-color: #DC143C;
     --text-color: #2C1810;
@@ -56,7 +56,7 @@
 
 body {
     font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
-    background: linear-gradient(180deg, #FFF8DC 0%, #FAEBD7 100%);
+    background: var(--bg-color);
     color: var(--text-color);
     min-height: 100vh;
     padding: 10px;
@@ -129,7 +129,7 @@ h1, h2, h3, h4 {
 .subtitle {
     text-align: center;
     font-size: 1.1rem;
-    color: var(--accent-color);
+    color: var(--on-surface-variant);
     font-style: italic;
     margin: 6px 0 0;
 }
@@ -211,12 +211,12 @@ h1, h2, h3, h4 {
 }
 
 .btn-back {
-    background: #999;
+    background: #6d6d6d;
     color: white;
 }
 
 .btn-back:hover {
-    background: #777;
+    background: #575757;
 }
 
 .btn-hint {
@@ -422,6 +422,7 @@ h1, h2, h3, h4 {
     font-weight: bold;
     color: var(--primary-color);
     min-height: 40px;
+    /* break-all is right for a long run of glyphs with no spaces */
     letter-spacing: 2px;
     word-break: break-all;
 }
@@ -429,8 +430,13 @@ h1, h2, h3, h4 {
 .built-answer.empty::before {
     content: 'Tap symbols below to build your answer';
     font-size: 1rem;
-    color: #999;
+    color: var(--on-surface-variant);
     font-weight: normal;
+    /* but wrong for the prose placeholder, which was splitting "answer"
+       into "ans" and "wer" at the line end */
+    word-break: normal;
+    overflow-wrap: break-word;
+    letter-spacing: normal;
 }
 
 /* Symbol Pad */
@@ -704,7 +710,7 @@ h1, h2, h3, h4 {
 
 .results-box .final-score {
     font-size: 3rem;
-    color: var(--secondary-color);
+    color: var(--accent-color);
     font-weight: bold;
     margin: 20px 0;
 }
@@ -1141,8 +1147,22 @@ h1, h2, h3, h4 {
 .reverse-number {
     font-size: 3rem;
     font-weight: bold;
-    color: #CD853F;
+    color: var(--accent-color);
     line-height: 1.1;
+}
+
+/* The operator decides whether you add or subtract, so it reads at operand
+   scale rather than inheriting 16px beside 60px glyphs. */
+.problem-operator {
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--primary-color);
+}
+
+.problem-unknown {
+    color: var(--accent-color);
+    font-weight: 700;
 }
 
 /* ===== END NUMERAL SVG SYMBOLS ===== */
@@ -1241,8 +1261,8 @@ h1, h2, h3, h4 {
     align-items: center;
     gap: 6px;
     cursor: pointer;
-    font-size: 0.7rem;
-    letter-spacing: 0.11em;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     font-weight: 700;
     color: var(--accent-color);
@@ -1299,7 +1319,7 @@ body[data-civ="roman"] {
     --primary-color:   #8B0000;
     --secondary-color: #C0A050;
     --accent-color:    #A0522D;
-    --bg-color:        #FAF0E6;
+    --bg-color:        #FDF8F2;
     --card-bg:         #F0E8D8;
     --scene-sky:    #F2E4D2;
     --scene-ground: #DCC7AC;
@@ -1309,10 +1329,10 @@ body[data-civ="roman"] body {
 }
 
 body[data-civ="egyptian"] {
-    --primary-color:   #8B6914;
+    --primary-color:   #7a5c11;
     --secondary-color: #DAA520;
     --accent-color:    #2C7873;
-    --bg-color:        #FFFACD;
+    --bg-color:        #FFFDF0;
     --card-bg:         #FFF0A0;
     --scene-sky:    #F8EAB8;
     --scene-ground: #E3CA84;
@@ -1322,7 +1342,7 @@ body[data-civ="greek"] {
     --primary-color:   #1C4E80;
     --secondary-color: #4A90A4;
     --accent-color:    #1565C0;
-    --bg-color:        #EFF6FF;
+    --bg-color:        #F7FBFF;
     --card-bg:         #DBEAFE;
     --scene-sky:    #D6E6F8;
     --scene-ground: #BACEE6;
@@ -1331,8 +1351,8 @@ body[data-civ="greek"] {
 body[data-civ="babylonian"] {
     --primary-color:   #5C2D1A;
     --secondary-color: #C84B31;
-    --accent-color:    #9C6B2A;
-    --bg-color:        #FDF3E7;
+    --accent-color:    #7d5220;
+    --bg-color:        #FFFAF3;
     --card-bg:         #FAE5CC;
     --scene-sky:    #F7E3CB;
     --scene-ground: #E2C7A4;
@@ -1342,7 +1362,7 @@ body[data-civ="chinese"] {
     --primary-color:   #8B0000;
     --secondary-color: #D4AF37;
     --accent-color:    #C41E3A;
-    --bg-color:        #FFF5F5;
+    --bg-color:        #FFFAFA;
     --card-bg:         #FFE8E8;
     --scene-sky:    #F8DEDE;
     --scene-ground: #E8BEBE;
@@ -1352,7 +1372,7 @@ body[data-civ="mayan"] {
     --primary-color:   #1B5E20;
     --secondary-color: #558B2F;
     --accent-color:    #8D4004;
-    --bg-color:        #F1F8E9;
+    --bg-color:        #FAFDF5;
     --card-bg:         #DCEDC8;
     --scene-sky:    #DCEBCC;
     --scene-ground: #BCD3A4;
@@ -1361,8 +1381,8 @@ body[data-civ="mayan"] {
 body[data-civ="hindu-arabic"] {
     --primary-color:   #4527A0;
     --secondary-color: #7B5EA7;
-    --accent-color:    #8B6914;
-    --bg-color:        #EDE7F6;
+    --accent-color:    #6f5410;
+    --bg-color:        #F7F4FC;
     --card-bg:         #D1C4E9;
     --scene-sky:    #E2D8F2;
     --scene-ground: #C7B8E2;
@@ -1826,16 +1846,16 @@ body[data-civ="hindu-arabic"] {
 }
 
 .briefing-name {
-    font-size: 0.68rem;
-    letter-spacing: 0.12em;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     font-weight: 700;
-    color: var(--hypatia-line);
+    color: var(--hypatia-quote);
     margin: 0 0 6px 0;
 }
 
 .briefing-speech[data-speaker="oracle"] .briefing-name {
-    color: var(--oracle-line);
+    color: var(--oracle-quote);
 }
 
 .briefing-speech[data-speaker="local"] .briefing-name,
@@ -2314,6 +2334,11 @@ body[data-civ="hindu-arabic"] {
 
     .oracle-collected-box { border-color: #b8960a; }
 
+    .diff-easy         { color: #7fd8a0; border-color: rgba(127, 216, 160, 0.3); }
+    .diff-intermediate { color: #ffb68c; border-color: rgba(255, 182, 140, 0.3); }
+    .diff-advanced     { color: #f0cf7a; border-color: rgba(240, 207, 122, 0.32); }
+    .diff-expert       { color: #ff9aa8; border-color: rgba(255, 154, 168, 0.3); }
+
     /* These two carried light literals with no dark counterpart. */
     .daily-completed-msg  { background: #16301f; color: #7fd8a0; border-color: #2f6b46; }
     .timeline-proof       { background: #251912; color: #c2ab9d; }
@@ -2528,8 +2553,8 @@ body[data-civ="hindu-arabic"] {
 .game-action-row .btn-clear,
 .game-action-row .btn-backspace {
     background: transparent;
-    border: 2px solid var(--secondary-color);
-    color: var(--secondary-color);
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
     flex: 0.6;
 }
 
@@ -2726,7 +2751,9 @@ body[data-civ="hindu-arabic"] {
 
 .menu-btn-arrow {
     font-size: 1.1rem;
-    opacity: 0.5;
+    /* No opacity here: it used to compound with the alpha in the per-mode
+       colors below and drove the arrows to about 2.6:1. */
+    opacity: 0.85;
     transition: opacity 0.2s, transform 0.2s;
 }
 
@@ -2768,8 +2795,8 @@ body[data-civ="hindu-arabic"] {
 /* Arrow color for white-text buttons */
 .menu-btn-thematic .menu-btn-arrow,
 .menu-btn-practice .menu-btn-arrow,
-.menu-btn-daily .menu-btn-arrow { color: rgba(255, 255, 255, 0.65); }
-.menu-btn-temporal .menu-btn-arrow { color: rgba(44, 24, 16, 0.5); }
+.menu-btn-daily .menu-btn-arrow { color: #ffffff; }
+.menu-btn-temporal .menu-btn-arrow { color: #2c1810; }
 
 .menu-footer {
     display: flex;
@@ -2801,8 +2828,7 @@ body[data-civ="hindu-arabic"] {
 .menu-version {
     font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
     font-size: 0.8rem;
-    color: var(--outline);
-    opacity: 0.7;
+    color: var(--on-surface-variant);
 }
 
 /* ===== CIVILIZATION SELECT: subtitle + updated cards ===== */
@@ -2954,7 +2980,7 @@ body[data-civ="hindu-arabic"] {
     padding: 3px 10px;
     border-radius: 20px;
     font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.03em;
     text-transform: uppercase;
@@ -2963,7 +2989,9 @@ body[data-civ="hindu-arabic"] {
 
 .diff-easy {
     background: rgba(46, 139, 87, 0.12);
-    color: var(--success-color);
+    /* Explicit darker tone: the success and error tokens are fill colors and
+       land near 3:1 as 12px text on their own tint. */
+    color: #1c6b40;
     border: 1px solid rgba(46, 139, 87, 0.25);
 }
 
@@ -2981,7 +3009,7 @@ body[data-civ="hindu-arabic"] {
 
 .diff-expert {
     background: rgba(220, 20, 60, 0.1);
-    color: var(--error-color);
+    color: #a4102c;
     border: 1px solid rgba(220, 20, 60, 0.2);
 }
 

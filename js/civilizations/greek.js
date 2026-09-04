@@ -110,7 +110,7 @@ function displayGreekChallenge() {
 
     document.getElementById('problem').innerHTML = `
         <div class="problem-numerals greek-problem" style="font-size: 2.2rem; line-height: 1.5;">
-            ${greekToSVGHtml(problem.greek1)} ${problem.operation} ${greekToSVGHtml(problem.greek2)} = <span style="color: #CD853F;">?</span>
+            ${greekToSVGHtml(problem.greek1)} <span class="problem-operator">${problem.operation}</span> ${greekToSVGHtml(problem.greek2)} = <span class="problem-unknown">?</span>
         </div>
     `;
 }

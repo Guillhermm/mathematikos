@@ -98,9 +98,9 @@ function displayEgyptianChallenge() {
     document.getElementById('problem').innerHTML = `
         <div class="problem-numerals" style="line-height: 2;">
             <div>${egyptianToSVGHtml(problem.egyptian1)}</div>
-            <div>${problem.operation}</div>
+            <div class="problem-operator">${problem.operation}</div>
             <div>${egyptianToSVGHtml(problem.egyptian2)}</div>
-            <div>= <span style="color: #CD853F;">?</span></div>
+            <div>= <span class="problem-unknown">?</span></div>
         </div>
     `;
 }
