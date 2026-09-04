@@ -20,7 +20,8 @@ const REQUIRED_CLASSES = [
     'civ-card-art', 'daily-civ-art',
     'story-title', 'mission', 'mission-objective', 'mission-facts', 'fact',
     'mission-alert', 'mission-scene', 'mission-scene-summary', 'mission-scene-text',
-    'problem-operator', 'problem-unknown', 'btn-quiet', 'btn-text', 'results-actions-row'
+    'problem-operator', 'problem-unknown', 'btn-quiet', 'btn-text', 'results-actions-row',
+    'guide-panel', 'btn-settings', 'settings-group', 'settings-option', 'settings-note'
 ];
 
 describe('style contract', () => {
@@ -68,5 +69,19 @@ describe('style contract', () => {
                 `.${cls} sets a literal background instead of a token`
             );
         });
+    });
+});
+
+describe('no inline color literals in generated markup', () => {
+    // An inline style cannot be overridden by a theme, which is how the number
+    // system guide ended up light-on-white in dark mode.
+    it('keeps hardcoded backgrounds out of the civilization modules', () => {
+        const offenders = [];
+        ['roman', 'egyptian', 'greek', 'babylonian', 'chinese', 'mayan', 'hindu-arabic'].forEach(civ => {
+            const src = fs.readFileSync(path.resolve(__dirname, '..', `js/civilizations/${civ}.js`), 'utf8');
+            const hits = src.match(/style="[^"]*background:\s*#[0-9a-fA-F]{3,6}/g) || [];
+            hits.forEach(h => offenders.push(`${civ}: ${h.slice(0, 40)}`));
+        });
+        assertEqual(offenders.join('; '), '', `inline backgrounds: ${offenders.join('; ')}`);
     });
 });

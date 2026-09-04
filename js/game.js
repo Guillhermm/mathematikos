@@ -78,6 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Scene artwork: one sprite the story screen's <use> elements point at
     injectIconSprite();
+    initSettings();
     injectSceneSprite();
 
     // Restore ambient preference

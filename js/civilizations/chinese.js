@@ -153,12 +153,12 @@ function displayChineseChallenge() {
     document.getElementById('number-system-info').innerHTML = `
         <h4>Chinese Rod Numerals / Suanpan System</h4>
         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 10px;">
-            <div style="background: #f9f9f9; padding: 10px; border-radius: 5px;">
+            <div class="guide-panel">
                 <strong>Basic Digits:</strong><br>
                 <span class="chinese-numeral">〇=0, 一=1, 二=2, 三=3, 四=4</span><br>
                 <span class="chinese-numeral">五=5, 六=6, 七=7, 八=8, 九=9</span>
             </div>
-            <div style="background: #f9f9f9; padding: 10px; border-radius: 5px;">
+            <div class="guide-panel">
                 <strong>Place Values:</strong><br>
                 <span class="chinese-numeral">十</span> = 10 (ten)<br>
                 <span class="chinese-numeral">百</span> = 100 (hundred)<br>

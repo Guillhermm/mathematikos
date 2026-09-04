@@ -85,6 +85,18 @@ rather than the artwork.
 The artifact you are reassembling is drawn as one disc with a wedge per challenge. Each correct
 answer locks a fragment into place, so a run visibly rebuilds it.
 
+### Settings
+
+A gear on the main menu opens appearance and language. Appearance is System, Light or Dark, and the
+choice is stored, so it survives a reload and overrides the operating system. Language offers
+English, Spanish, French, German and Brazilian Portuguese; the choice is stored and applied to the
+document's `lang`, but the interface is not translated yet.
+
+Dark styling hangs off `html[data-dark]` rather than a `prefers-color-scheme` media query, because
+CSS gives a page no way to override that query. `js/ui/settings.js` owns the attribute, and an
+inline script in the document head sets it before first paint so a stored dark preference does not
+flash light.
+
 ### Themes
 
 Supports light and dark modes, with per-civilization color themes that adapt the UI to each culture's
@@ -100,7 +112,7 @@ Ambient audio per civilization. Each historical setting has its own soundscape.
 
 - Pure HTML, CSS, and ES6 JavaScript, with no build step and no dependencies.
 - Progressive Web App (PWA): installable, offline-capable via service worker.
-- 663 automated tests covering the conversion functions, the scene system, the briefing slider, and a style contract that guards the artwork's CSS.
+- 687 automated tests covering the conversion functions, the scene system, the briefing slider, and a style contract that guards the artwork's CSS.
 - CI/CD via GitHub Actions: tests run on every push, deploy to GitHub Pages on version tags.
 
 ## Project Structure
@@ -122,7 +134,7 @@ mathematikos/
 │   ├── themes.js          # Theme management
 │   ├── storage.js         # Local persistence
 │   ├── civilizations/     # One module per civilization
-│   └── ui/                # Screens, briefing, scenes, icons, timer, symbol-pad, feedback
+│   └── ui/                # Screens, briefing, scenes, icons, settings, timer, symbol-pad, feedback
 ├── tests/                 # Test suite
 ├── screenshots/           # Provenance screenshots
 └── icons/                 # PWA icons (SVG, PNG, favicon)

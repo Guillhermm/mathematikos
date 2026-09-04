@@ -96,7 +96,7 @@ function displayBabylonianChallenge() {
 
     document.getElementById('number-system-info').innerHTML = `
         <h4>Babylonian Sexagesimal (Base-60) System</h4>
-        <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin-top: 10px;">
+        <div class="guide-panel" style="margin-top: 10px;">
             <p><strong>Symbols:</strong></p>
             <div style="margin: 12px 0; display: flex; flex-direction: column; gap: 8px;">
                 <div class="symbol-ref"><span class="numeral-svg ref-svg">${NUMERAL_SVGS.babylonian[1]}</span> = 1 (vertical wedge)</div>

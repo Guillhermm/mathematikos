@@ -952,11 +952,23 @@ h1, h2, h3, h4 {
     margin-top: 10px;
 }
 
+/* Panels inside the number-system guide. These carried an inline #f9f9f9,
+   which no theme could override, so in dark mode they were light text on a
+   white card at 1.23:1. */
+.guide-panel {
+    background: var(--surface-container);
+    border: 1px solid var(--outline-variant);
+    padding: 12px 14px;
+    border-radius: 8px;
+}
+
 /* Number Display Styling */
 .number-display {
     font-family: 'Georgia', 'Times New Roman', serif;
     padding: 10px 20px;
-    background: linear-gradient(135deg, #fff 0%, #f9f9f9 100%);
+    /* Token, not a literal: this panel had no dark counterpart and rendered
+       light text on white at 1.23:1 in every civilization. */
+    background: var(--card-bg);
     border: 2px solid var(--accent-color);
     border-radius: 8px;
     display: inline-block;
@@ -1441,8 +1453,9 @@ body[data-civ="hindu-arabic"] {
 
 /* Dark mode */
 /* ===== DARK MODE: Nocturnal Codex palette ===== */
-@media (prefers-color-scheme: dark) {
-    :root {
+
+    html[data-dark] {
+        color-scheme: dark;
         --text-color: #f5ded3;
         --on-surface-variant: #d7c2b8;
         --outline: #9f8d84;
@@ -1477,141 +1490,142 @@ body[data-civ="hindu-arabic"] {
         --oracle-box:   #2a2415;
     }
 
-    body {
+    html[data-dark] body {
         background: #1c110b;
         color: var(--text-color);
     }
 
     /* ── Navigation & structure ── */
-    .game-header,
-    .story-intro-header,
-    .context-chips {
+    html[data-dark] .game-header,
+html[data-dark] .story-intro-header,
+html[data-dark] .context-chips {
         background: #2C1810;
         border-color: #52443c;
     }
 
-    .btn-game-back {
+    html[data-dark] .btn-game-back {
         border-color: rgba(255, 182, 140, 0.3);
         color: var(--text-color);
         min-width: 44px;
     min-height: 44px;
 }
 
-    .btn-game-back:hover { background: rgba(255, 182, 140, 0.08); }
+    html[data-dark] .btn-game-back:hover { background: rgba(255, 182, 140, 0.08); }
 
     /* ── Challenge area ── */
-    .problem-display {
+    html[data-dark] .problem-display {
         background: #2C1810;
         border-top-color: var(--primary-color);
         border-color: #52443c;
     }
 
-    .answer-builder {
+    html[data-dark] .answer-builder {
         background: #1c110b;
         border-color: #f6be3b;
     }
 
-    .number-display {
+    html[data-dark] .number-display {
         background: #2C1810;
         border-color: #52443c;
     }
 
-    .problem { color: var(--text-color); }
+    html[data-dark] .problem { color: var(--text-color); }
 
-    .scene-box,
-    .info-box {
+    html[data-dark] .scene-box,
+html[data-dark] .info-box {
         background: #291d16;
         border-left-color: #ffb68c;
         color: var(--text-color);
     }
 
-    .info-box h4 { color: #ffb68c; }
+    html[data-dark] .info-box h4 { color: #ffb68c; }
 
-    .hint-display {
+    html[data-dark] .hint-display {
         background: #251912;
         border-color: #52443c;
         color: #d7c2b8;
     }
 
-    .feedback.correct  { background: #0e2418; color: #7dcca0; }
-    .feedback.incorrect { background: #2a0e10; color: #ffb4ab; }
+    html[data-dark] .feedback.correct { background: #0e2418; color: #7dcca0; }
+    html[data-dark] .feedback.incorrect { background: #2a0e10; color: #ffb4ab; }
 
     /* ── Symbol pad ── */
-    .symbol-button {
+    html[data-dark] .symbol-button {
         background: #2C1810;
         border-color: rgba(246, 190, 59, 0.4);
         color: var(--text-color);
     }
-    .symbol-button:hover { background: #3C2820; border-color: #f6be3b; }
-    .symbol-button .symbol-label { color: #9f8d84; }
+    html[data-dark] .symbol-button:hover { background: #3C2820; border-color: #f6be3b; }
+    html[data-dark] .symbol-button .symbol-label { color: #9f8d84; }
 
     /* ── Answer builder ── */
-    .built-answer {
+    html[data-dark] .built-answer {
         color: var(--text-color);
     }
-    .built-answer.empty::before { color: #9f8d84; }
+    html[data-dark] .built-answer.empty::before { color: #9f8d84; }
 
     /* ── Modals ── */
-    .modal-content {
+    html[data-dark] .modal-content {
         background: #291d16;
         border-color: #52443c;
         color: var(--text-color);
     }
 
     /* ── Results & stats ── */
-    .results-box .stat-item { background: #342720; border-color: #52443c; }
-    .final-score { color: #ffb68c; }
-    .oracle-collected-box { border-color: #f6be3b; }
+    html[data-dark] .results-box .stat-item { background: #342720; border-color: #52443c; }
+    html[data-dark] .final-score { color: #ffb68c; }
+    html[data-dark] .oracle-collected-box { border-color: #f6be3b; }
 
     /* ── Story boxes ── */
 
     /* ── Civilization cards ── */
-    .civilization-card { background: #291d16; border-color: #52443c; }
-    .civ-card-name     { color: var(--text-color); }
-    .civ-best-score    { color: #9f8d84; }
+    html[data-dark] .civilization-card { background: #291d16; border-color: #52443c; }
+    html[data-dark] .civ-card-name { color: var(--text-color); }
+    html[data-dark] .civ-best-score { color: #9f8d84; }
 
     /* ── Main menu buttons ── */
-    .menu-btn {
+    html[data-dark] .menu-btn {
         background: #291d16;
         border-color: #52443c;
         color: var(--text-color);
     }
-    .menu-btn:hover { border-color: #ffb68c; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+    html[data-dark] .menu-btn:hover { border-color: #ffb68c; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
 
     /* Dark mode: revert solid fills to dark cards with colored left borders */
-    .menu-btn-thematic,
-    .menu-btn-temporal,
-    .menu-btn-practice,
-    .menu-btn-daily {
+    html[data-dark] .menu-btn-thematic,
+html[data-dark] .menu-btn-temporal,
+html[data-dark] .menu-btn-practice,
+html[data-dark] .menu-btn-daily {
         background: #291d16;
         color: var(--text-color);
     }
-    .menu-btn-thematic { border: 1px solid #52443c; border-left: 4px solid #8B0000; box-shadow: none; }
-    .menu-btn-temporal { border: 1px solid #52443c; border-left: 4px solid #f6be3b; box-shadow: none; }
-    .menu-btn-practice { border: 1px solid #52443c; border-left: 4px solid #2E8B57; box-shadow: none; }
-    .menu-btn-daily    { border: 1px solid #52443c; border-left: 4px solid #1976D2; box-shadow: none; }
-    .menu-btn-thematic .menu-btn-arrow,
-    .menu-btn-temporal .menu-btn-arrow,
-    .menu-btn-practice .menu-btn-arrow,
-    .menu-btn-daily    .menu-btn-arrow { color: #9f8d84; }
+    html[data-dark] .menu-btn-thematic { border: 1px solid #52443c; border-left: 4px solid #8B0000; box-shadow: none; }
+    html[data-dark] .menu-btn-temporal { border: 1px solid #52443c; border-left: 4px solid #f6be3b; box-shadow: none; }
+    html[data-dark] .menu-btn-practice { border: 1px solid #52443c; border-left: 4px solid #2E8B57; box-shadow: none; }
+    html[data-dark] .menu-btn-daily { border: 1px solid #52443c; border-left: 4px solid #1976D2; box-shadow: none; }
+    html[data-dark] .menu-btn-thematic .menu-btn-arrow,
+html[data-dark] .menu-btn-temporal .menu-btn-arrow,
+html[data-dark] .menu-btn-practice .menu-btn-arrow,
+html[data-dark] .menu-btn-daily    .menu-btn-arrow { color: #9f8d84; }
 
-    .btn-about-link { color: #9f8d84; }
-    .menu-version   { color: #52443c; }
+    html[data-dark] .btn-about-link { color: #d7c2b8; }
+    /* Was #52443c: a dark brown on a dark ground, about 2:1. */
+    html[data-dark] .menu-version { color: #b9a396; }
 
     /* ── Story intro ── */
-    .story-cta     { background: #251912; border-top-color: #52443c; }
-    .story-intro-header-civ { color: #ffb68c; }
+    html[data-dark] .story-cta { background: #251912; border-top-color: #52443c; }
+    html[data-dark] .story-intro-header-civ { color: #ffb68c; }
 
     /* ── Game challenge strip ── */
-    .game-progress-track { background: #52443c; }
-    .game-progress-fill  { background: #ffb68c; box-shadow: 0 0 8px rgba(255, 182, 140, 0.35); }
-    .game-challenge-label { color: #9f8d84; }
+    html[data-dark] .game-progress-track { background: #52443c; }
+    html[data-dark] .game-progress-fill { background: #ffb68c; box-shadow: 0 0 8px rgba(255, 182, 140, 0.35); }
+    html[data-dark] .game-challenge-label { color: #9f8d84; }
 
     /* ── Answer section ── */
-    .answer-label { color: #9f8d84; }
+    html[data-dark] .answer-label { color: #9f8d84; }
 
     /* ── Sidebar on desktop ── */
-    .game-sidebar { border-right-color: #52443c; background: #251912; }
+    html[data-dark] .game-sidebar { border-right-color: #52443c; background: #251912; }
 
     /* ── Civilization theme dark variants ──
        These MUST redefine primary, secondary and accent, not only the surfaces.
@@ -1620,42 +1634,42 @@ body[data-civ="hindu-arabic"] {
        into dark mode and text lands dark-on-dark. Each hue below is its
        civilization's, lightened until it clears 4.5:1 on that civilization's
        own dark background. */
-    body[data-civ="roman"] {
+    html[data-dark] body[data-civ="roman"] {
         --bg-color: #1a0808; --card-bg: #2a0f0f;
         --scene-sky: #2a1a12; --scene-ground: #1f120c;
         --primary-color: #ff9d90; --secondary-color: #e8c06a; --accent-color: #f0a97e;
     }
-    body[data-civ="egyptian"] {
+    html[data-dark] body[data-civ="egyptian"] {
         --bg-color: #1a1508; --card-bg: #2a2012;
         --scene-sky: #2e2410; --scene-ground: #241a0a;
         --primary-color: #f2ca70; --secondary-color: #ffd98c; --accent-color: #ecc463;
     }
-    body[data-civ="greek"] {
+    html[data-dark] body[data-civ="greek"] {
         --bg-color: #081018; --card-bg: #101a28;
         --scene-sky: #13202f; --scene-ground: #0d1722;
         --primary-color: #86bcec; --secondary-color: #9fd0e2; --accent-color: #93c6f2;
     }
-    body[data-civ="babylonian"] {
+    html[data-dark] body[data-civ="babylonian"] {
         --bg-color: #1a0c08; --card-bg: #2a1510;
         --scene-sky: #2a1710; --scene-ground: #1e0f0a;
         --primary-color: #f0ab8c; --secondary-color: #f79b7d; --accent-color: #e6b878;
     }
-    body[data-civ="chinese"] {
+    html[data-dark] body[data-civ="chinese"] {
         --bg-color: #1a0808; --card-bg: #2a1010;
         --scene-sky: #2a1212; --scene-ground: #1e0c0c;
         --primary-color: #ff9f94; --secondary-color: #f0d472; --accent-color: #ff97a6;
     }
-    body[data-civ="mayan"] {
+    html[data-dark] body[data-civ="mayan"] {
         --bg-color: #081408; --card-bg: #101e10;
         --scene-sky: #12251a; --scene-ground: #0c1a10;
         --primary-color: #8fd898; --secondary-color: #b0dd92; --accent-color: #e6ab6b;
     }
-    body[data-civ="hindu-arabic"] {
+    html[data-dark] body[data-civ="hindu-arabic"] {
         --bg-color: #0d0818; --card-bg: #181025;
         --scene-sky: #1c1430; --scene-ground: #130d22;
         --primary-color: #bba5ec; --secondary-color: #ccb2ec; --accent-color: #eccd80;
     }
-}
+
 
 /* ===== MAIN MENU NEW ELEMENTS ===== */
 
@@ -2030,6 +2044,121 @@ body[data-civ="hindu-arabic"] {
     opacity: 0.16;
 }
 
+/* ===== SETTINGS =====
+   Appearance and language. The dark rules in this file hang off
+   html[data-dark], which js/ui/settings.js owns, because a page cannot
+   override the prefers-color-scheme media query from CSS. */
+
+.btn-settings {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--outline-variant);
+    border-radius: 12px;
+    color: var(--on-surface-variant);
+    cursor: pointer;
+    z-index: 3;
+}
+
+.btn-settings:hover {
+    color: var(--text-color);
+    background: var(--card-bg);
+}
+
+.btn-settings .icon {
+    width: 1.35em;
+    height: 1.35em;
+}
+
+#main-menu .container {
+    position: relative;
+}
+
+.settings-modal-content {
+    max-width: 420px;
+}
+
+.settings-group + .settings-group {
+    margin-top: 22px;
+}
+
+.settings-group-title {
+    font-size: 0.72rem;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--accent-color);
+    margin: 0 0 8px 0;
+}
+
+.settings-options {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 1px solid var(--outline-variant);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.settings-options li + li .settings-option {
+    border-top: 1px solid var(--outline-variant);
+}
+
+.settings-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    min-height: 48px;
+    padding: 10px 14px;
+    background: transparent;
+    border: 0;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--text-color);
+    text-align: left;
+    cursor: pointer;
+}
+
+.settings-option:hover {
+    background: var(--card-bg);
+}
+
+.settings-option.active {
+    background: var(--card-bg);
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.settings-option .settings-check {
+    opacity: 0;
+    color: var(--primary-color);
+    flex-shrink: 0;
+}
+
+.settings-option.active .settings-check {
+    opacity: 1;
+}
+
+.settings-option:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: -2px;
+}
+
+.settings-note {
+    margin: 18px 0 0 0;
+    font-size: 0.82rem;
+    line-height: 1.55;
+    color: var(--on-surface-variant);
+}
+
 /* ===== ICONS =====
    Stroked in currentColor, so an icon takes the color of the text it sits in
    and needs no per-theme override. */
@@ -2381,33 +2510,35 @@ body[data-civ="hindu-arabic"] {
 
 /* ===== DARK MODE: late component overrides =====
    Must appear AFTER all base component rules to win the cascade. */
-@media (prefers-color-scheme: dark) {
-    .briefing-text { color: #f0ebe4; }
 
-    .oracle-collected-box { border-color: #b8960a; }
+    html[data-dark] .briefing-text { color: #f0ebe4; }
+
+    html[data-dark] .oracle-collected-box { border-color: #b8960a; }
 
 
     /* These two carried light literals with no dark counterpart. */
-    .daily-completed-msg  { background: #16301f; color: #7fd8a0; border-color: #2f6b46; }
-    .timeline-proof       { background: #251912; color: #c2ab9d; }
+    html[data-dark] .daily-completed-msg { background: #16301f; color: #7fd8a0; border-color: #2f6b46; }
+    html[data-dark] .timeline-proof { background: #251912; color: #c2ab9d; }
 
-    .codex-header         { border-bottom-color: #5a3e30; }
-    .codex-section        { border-bottom-color: #3a2a20; }
-    .codex-section-heading { color: #c8a060; }
-    .codex-meta           { color: #aaa; }
+    html[data-dark] .codex-header { border-bottom-color: #5a3e30; }
+    html[data-dark] .codex-section { border-bottom-color: #3a2a20; }
+    html[data-dark] .codex-section-heading { color: #c8a060; }
+    html[data-dark] .codex-meta { color: #aaa; }
 
-    .daily-info           { background: #2C1810; }
-    .daily-civ-card       { background: #3C2820; }
-    .btn-daily            { background: #1a3a50; }
-    .btn-daily:hover      { background: #254d6b; }
+    html[data-dark] .daily-info { background: #2C1810; }
+    html[data-dark] .daily-civ-card { background: #3C2820; }
+    html[data-dark] .btn-daily { background: #1a3a50; }
+    html[data-dark] .btn-daily:hover { background: #254d6b; }
 
-    .about-intro, .about-creator, .about-why { background: #3C2820; }
-    .timeline-card        { background: #3C2820; border-color: #5a3e30; }
+    html[data-dark] .about-intro,
+html[data-dark] .about-creator,
+html[data-dark] .about-why { background: #3C2820; }
+    html[data-dark] .timeline-card { background: #3C2820; border-color: #5a3e30; }
 
-    .screenshot-placeholder { background: #252525; border-color: #555; color: #aaa; }
-    .screenshot-img         { border-color: #444; }
-    .screenshot-figure figcaption { color: #aaa; }
-}
+    html[data-dark] .screenshot-placeholder { background: #252525; border-color: #555; color: #aaa; }
+    html[data-dark] .screenshot-img { border-color: #444; }
+    html[data-dark] .screenshot-figure figcaption { color: #aaa; }
+
 
 /* ===== MOBILE-FIRST GAME-PLAY FULL-SCREEN LAYOUT ===== */
 
@@ -2725,25 +2856,27 @@ body[data-civ="hindu-arabic"] {
 }
 
 /* ===== DARK MODE: game-play additions ===== */
-@media (prefers-color-scheme: dark) {
+
     @media (max-width: 768px) {
-        .context-chips {
+
+        html[data-dark] .context-chips {
             background: #251912;
             border-bottom-color: #52443c;
         }
 
-        .chip-panel .scene-box,
-        .chip-panel .info-box {
+        html[data-dark] .chip-panel .scene-box,
+html[data-dark] .chip-panel .info-box {
             border-bottom-color: #ffb68c;
         }
 
-        .game-action-row {
+        html[data-dark] .game-action-row {
             background: #2C1810;
             border-top-color: #52443c;
             box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.4);
         }
-    }
+    
 }
+
 
 /* ===== MAIN MENU: row-style buttons ===== */
 
@@ -2983,36 +3116,36 @@ body[data-civ="hindu-arabic"] {
 /* At night the thumbnails take the same treatment as the story scene: a dark
    sky with the silhouette lighter than the ground behind it. Without this the
    cards read as lit windows punched into a dark page. */
-@media (prefers-color-scheme: dark) {
-    .civ-card-art[data-civ="roman"] {
+
+    html[data-dark] .civ-card-art[data-civ="roman"] {
         --primary-color: #ffb68c; --secondary-color: #f6be3b;
         --scene-sky: #2a1a12; --scene-ground: #1f120c;
     }
-    .civ-card-art[data-civ="egyptian"] {
+    html[data-dark] .civ-card-art[data-civ="egyptian"] {
         --primary-color: #ffb68c; --secondary-color: #f6be3b;
         --scene-sky: #2e2410; --scene-ground: #241a0a;
     }
-    .civ-card-art[data-civ="greek"] {
+    html[data-dark] .civ-card-art[data-civ="greek"] {
         --primary-color: #ffb68c; --secondary-color: #f6be3b;
         --scene-sky: #13202f; --scene-ground: #0d1722;
     }
-    .civ-card-art[data-civ="babylonian"] {
+    html[data-dark] .civ-card-art[data-civ="babylonian"] {
         --primary-color: #ffb68c; --secondary-color: #f6be3b;
         --scene-sky: #2a1710; --scene-ground: #1e0f0a;
     }
-    .civ-card-art[data-civ="chinese"] {
+    html[data-dark] .civ-card-art[data-civ="chinese"] {
         --primary-color: #ffb68c; --secondary-color: #f6be3b;
         --scene-sky: #2a1212; --scene-ground: #1e0c0c;
     }
-    .civ-card-art[data-civ="mayan"] {
+    html[data-dark] .civ-card-art[data-civ="mayan"] {
         --primary-color: #ffb68c; --secondary-color: #f6be3b;
         --scene-sky: #12251a; --scene-ground: #0c1a10;
     }
-    .civ-card-art[data-civ="hindu-arabic"] {
+    html[data-dark] .civ-card-art[data-civ="hindu-arabic"] {
         --primary-color: #ffb68c; --secondary-color: #f6be3b;
         --scene-sky: #1c1430; --scene-ground: #130d22;
     }
-}
+
 
 
 .civ-card-name {
@@ -3039,7 +3172,7 @@ body[data-civ="hindu-arabic"] {
     background: rgba(46, 139, 87, 0.12);
     /* Explicit darker tone: the success and error tokens are fill colors and
        land near 3:1 as 12px text on their own tint. */
-    color: #1c6b40;
+    color: #14512f;
     border: 1px solid rgba(46, 139, 87, 0.25);
 }
 
@@ -3068,7 +3201,8 @@ body[data-civ="hindu-arabic"] {
     font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
     font-size: 0.8rem;
     font-weight: 600;
-    color: var(--success-color);
+    /* success-color is a fill token and lands near 3.6:1 as small text */
+    color: #14512f;
     margin-top: 2px;
 }
 
@@ -3326,51 +3460,53 @@ body[data-civ="hindu-arabic"] {
 }
 
 /* ===== DARK MODE: desktop sidebar ===== */
-@media (prefers-color-scheme: dark) {
+
     @media (min-width: 769px) {
-        .game-sidebar {
+
+        html[data-dark] .game-sidebar {
             background: #2C1810;
             border-right-color: #52443c;
         }
 
-        .game-action-row {
+        html[data-dark] .game-action-row {
             background: #2C1810;
             border-top-color: #52443c;
         }
 
-        .game-sidebar .chip-panel .scene-box,
-        .game-sidebar .chip-panel .info-box {
+        html[data-dark] .game-sidebar .chip-panel .scene-box,
+html[data-dark] .game-sidebar .chip-panel .info-box {
             border-left-color: #ffb68c;
         }
 
-        .game-sidebar .oracle-pieces {
+        html[data-dark] .game-sidebar .oracle-pieces {
             border-top-color: #52443c;
         }
-    }
+    
 }
 
+
 /* ===== DARK MODE: action row button overrides ===== */
-@media (prefers-color-scheme: dark) {
-    .game-action-row .btn-clear,
-    .game-action-row .btn-backspace {
+
+    html[data-dark] .game-action-row .btn-clear,
+html[data-dark] .game-action-row .btn-backspace {
         border-color: #f6be3b;
         color: #f6be3b;
     }
 
-    .game-action-row .btn-clear:hover,
-    .game-action-row .btn-backspace:hover {
+    html[data-dark] .game-action-row .btn-clear:hover,
+html[data-dark] .game-action-row .btn-backspace:hover {
         background: rgba(246, 190, 59, 0.1);
     }
 
-    .game-action-row .btn-submit {
+    html[data-dark] .game-action-row .btn-submit {
         background: #f6be3b;
         color: #2C1810;
     }
 
-    .game-action-row .btn-submit:hover {
+    html[data-dark] .game-action-row .btn-submit:hover {
         background: #ffd055;
     }
-}
+
 
 /* ===== DESKTOP: civilization grid 3 columns ===== */
 @media (min-width: 769px) {
@@ -3389,21 +3525,21 @@ body[data-civ="hindu-arabic"] {
    redeclare components with light literals, and a later rule of equal
    specificity wins, which is how white-on-peach buttons and unreadable
    difficulty badges survived the earlier dark blocks. */
-@media (prefers-color-scheme: dark) {
+
     /* Filled buttons: primary is a light color in dark mode, so white text on
        it lands near 1.7:1. The on-primary token inverts with the theme. */
-    .btn-primary,
-    .btn-begin-challenge,
-    .game-action-row .btn-submit,
-    .btn-submit {
+    html[data-dark] .btn-primary,
+html[data-dark] .btn-begin-challenge,
+html[data-dark] .game-action-row .btn-submit,
+html[data-dark] .btn-submit {
         color: var(--on-primary);
     }
 
     /* Menu rows: the later light rules refilled these with primary + white. */
-    .menu-btn-thematic,
-    .menu-btn-temporal,
-    .menu-btn-practice,
-    .menu-btn-daily {
+    html[data-dark] .menu-btn-thematic,
+html[data-dark] .menu-btn-temporal,
+html[data-dark] .menu-btn-practice,
+html[data-dark] .menu-btn-daily {
         background: #291d16;
         color: var(--text-color);
         border: 1px solid #52443c;
@@ -3411,24 +3547,25 @@ body[data-civ="hindu-arabic"] {
     }
 
     /* The mode is carried by the left edge once the fills go dark. */
-    .menu-btn-thematic { border-left: 4px solid #ff9d90; }
-    .menu-btn-temporal { border-left: 4px solid #f6be3b; }
-    .menu-btn-practice { border-left: 4px solid #7fd8a0; }
-    .menu-btn-daily    { border-left: 4px solid #7fb2ea; }
+    html[data-dark] .menu-btn-thematic { border-left: 4px solid #ff9d90; }
+    html[data-dark] .menu-btn-temporal { border-left: 4px solid #f6be3b; }
+    html[data-dark] .menu-btn-practice { border-left: 4px solid #7fd8a0; }
+    html[data-dark] .menu-btn-daily { border-left: 4px solid #7fb2ea; }
 
-    .menu-btn-thematic .menu-btn-arrow,
-    .menu-btn-temporal .menu-btn-arrow,
-    .menu-btn-practice .menu-btn-arrow,
-    .menu-btn-daily .menu-btn-arrow {
+    html[data-dark] .menu-btn-thematic .menu-btn-arrow,
+html[data-dark] .menu-btn-temporal .menu-btn-arrow,
+html[data-dark] .menu-btn-practice .menu-btn-arrow,
+html[data-dark] .menu-btn-daily .menu-btn-arrow {
         color: #d7c2b8;
     }
 
     /* Difficulty badges sit on a dark card, so the label has to lighten. */
-    .diff-easy         { color: #7fd8a0; border-color: rgba(127, 216, 160, 0.32); }
-    .diff-intermediate { color: #ffb68c; border-color: rgba(255, 182, 140, 0.32); }
-    .diff-advanced     { color: #f0cf7a; border-color: rgba(240, 207, 122, 0.34); }
-    .diff-expert       { color: #ff9aa8; border-color: rgba(255, 154, 168, 0.32); }
+    html[data-dark] .diff-easy { color: #7fd8a0; border-color: rgba(127, 216, 160, 0.32); }
+    html[data-dark] .diff-intermediate { color: #ffb68c; border-color: rgba(255, 182, 140, 0.32); }
+    html[data-dark] .diff-advanced { color: #f0cf7a; border-color: rgba(240, 207, 122, 0.34); }
+    html[data-dark] .diff-expert { color: #ff9aa8; border-color: rgba(255, 154, 168, 0.32); }
 
-    .reverse-prompt    { color: var(--on-surface-variant); }
-    .symbol-button .symbol-label { color: var(--on-surface-variant); }
-}
+    html[data-dark] .civ-completion-badge { color: #7fd8a0; }
+    html[data-dark] .reverse-prompt { color: var(--on-surface-variant); }
+    html[data-dark] .symbol-button .symbol-label { color: var(--on-surface-variant); }
+
