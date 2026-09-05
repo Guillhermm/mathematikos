@@ -2124,7 +2124,7 @@ html[data-dark] .menu-btn-daily    .menu-btn-arrow { color: #9f8d84; }
        the 24px WCAG 2.5.8 floor. Full 44px targets for moving between slides
        are the arrows either side, plus swipe. */
     box-sizing: content-box;
-    padding: 8px;
+    padding: 4px;
     background-clip: content-box;
     width: 4px;
     height: 4px;
