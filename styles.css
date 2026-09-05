@@ -2120,18 +2120,17 @@ html[data-dark] .menu-btn-daily    .menu-btn-arrow { color: #9f8d84; }
 }
 
 .briefing-dot {
-    /* 4px dot in a 20px hit area. Moving between slides also has the 44px
-       arrows either side, plus swipe. */
+    /* Hit area 25px, dot 9px: padding plus content-box clipping. This clears
+       the 24px WCAG 2.5.8 floor. Full 44px targets for moving between slides
+       are the arrows either side, plus swipe. */
     box-sizing: content-box;
     padding: 8px;
+    background-clip: content-box;
     width: 4px;
     height: 4px;
     border: 0;
     border-radius: 50%;
-    /* background-color, not the background shorthand: the shorthand resets
-       background-clip to border-box and the dot fills the whole hit area. */
-    background-color: var(--outline);
-    background-clip: content-box;
+    background: var(--outline);
     opacity: 0.4;
     cursor: pointer;
     /* Every dot is the same size. The active one is distinguished by color
@@ -2141,7 +2140,7 @@ html[data-dark] .menu-btn-daily    .menu-btn-arrow { color: #9f8d84; }
 
 .briefing-dot.active {
     opacity: 1;
-    background-color: var(--primary-color);
+    background: var(--primary-color);
 }
 
 .briefing-speech[aria-hidden="true"] {
