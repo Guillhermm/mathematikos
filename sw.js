@@ -1,7 +1,7 @@
 // ===== SERVICE WORKER =====
 // Cache-first strategy for offline play.
 
-const CACHE_NAME = 'mathematikos-v2.3.2';
+const CACHE_NAME = 'mathematikos-v2.3.3';
 
 const SHELL_ASSETS = [
     './',
