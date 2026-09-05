@@ -134,9 +134,14 @@ its own ink, so a blue screen has blue-grey text and hairlines rather than the w
 to run through every theme. Borders and shadows derive from that ink, so nothing has to be restated
 per civilization.
 
-Two colors deliberately ignore the theme, because they identify a character rather than a place:
-Hypatia's violet and the Oracle's brass stay constant everywhere. Everything else holds its
-civilization's hue, verified by sampling every rendered color on both screens in both modes.
+Both characters take the civilization's palette too, so a blue screen is blue throughout: Hypatia's
+robe, the Oracle's night sky and instrument, and every speech panel derive from the active primary.
+They stay recognizable by their artwork rather than their hue, one a figure and one a broken
+astrolabe. Skin and hair are the only exception, since those belong to a person rather than a place.
+
+The derived tokens are declared on `body`, not `:root`, because a `var()` inside a custom property
+resolves against the element that declares it: deriving them at `:root` would pin them to the root
+palette whichever civilization is active.
 
 Every text pairing in the game meets WCAG AA contrast (4.5:1 for body text, 3:1 for large). Touch
 targets clear the 24 px WCAG floor, with 44 px on everything but the slider dots.

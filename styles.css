@@ -17,19 +17,11 @@
     --shadow: 0 2px 8px color-mix(in srgb, var(--text-color) 14%, transparent);
     --shadow-lg: 0 8px 24px color-mix(in srgb, var(--text-color) 20%, transparent);
 
-    /* Hypatia: constant across every civilization, so she stays recognizable */
-    --hypatia-tint:  #f5eeff;
-    --hypatia-line:  #7B5EA7;
-    --hypatia-quote: #6B4E96;
-    --robe:       #7B5EA7;
-    --robe-shade: #5E4482;
-    --robe-light: #9C7FC4;
-    --sash:       #E8D9F5;
+    /* Skin and hair belong to a person, not a place, so they never change.
+       Everything else about both characters is derived on body below. */
     --skin:       #E8BE96;
     --skin-shade: #CE9E77;
     --hair:       #3B2A1C;
-    --brass:      #C99A2E;
-    --brass-lt:   #F0CE7A;
 
     /* Scene backdrop, overridden per civilization below */
     --scene-sky:    #EDE3D2;
@@ -38,14 +30,37 @@
     --scrim: rgba(250, 235, 215, 0.55);
     --on-primary: #ffffff;
 
-    /* The Oracle speaks from outside any civilization, in brass on dark */
-    --oracle-void:  #241a10;
-    --oracle-plate: #33240f;
-    --oracle-glow:  #F0CE7A;
-    --oracle-tint:  #FBF1DC;
-    --oracle-line:  #9A7420;
-    --oracle-quote: #6F5312;
-    --oracle-box:   #FFF9E6;
+
+}
+
+/* ===== CHARACTER PALETTES =====
+   Both characters take the civilization's colors, so a blue screen is blue
+   throughout. They stay recognizable by their artwork rather than their hue:
+   Hypatia is a figure, the Oracle a broken astrolabe.
+
+   These live on body rather than :root on purpose. A var() inside a custom
+   property resolves against the element that DECLARES it, so deriving these at
+   :root would pin them to the root palette no matter which civilization is
+   active. body is where data-civ sets the palette. */
+body {
+    --hypatia-tint:  color-mix(in srgb, var(--primary-color) 7%, var(--bg-color));
+    --hypatia-line:  var(--primary-color);
+    --hypatia-quote: var(--primary-color);
+    --robe:       var(--primary-color);
+    --robe-shade: color-mix(in srgb, var(--primary-color) 72%, black);
+    --robe-light: color-mix(in srgb, var(--primary-color) 62%, white);
+    --sash:       color-mix(in srgb, var(--primary-color) 16%, white);
+    --brass:      var(--secondary-color);
+    --brass-lt:   color-mix(in srgb, var(--secondary-color) 55%, white);
+    --scene-shadow: color-mix(in srgb, var(--primary-color) 70%, black);
+
+    --oracle-void:  color-mix(in srgb, var(--primary-color) 26%, black);
+    --oracle-plate: color-mix(in srgb, var(--primary-color) 38%, black);
+    --oracle-glow:  var(--secondary-color);
+    --oracle-tint:  color-mix(in srgb, var(--primary-color) 7%, var(--bg-color));
+    --oracle-line:  var(--primary-color);
+    --oracle-quote: var(--primary-color);
+    --oracle-box:   color-mix(in srgb, var(--primary-color) 6%, var(--bg-color));
 }
 
 /* Reset and Base Styles */
@@ -1567,11 +1582,6 @@ body[data-civ="hindu-arabic"] {
         --shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
         --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
 
-        /* Hypatia keeps her violet; only its lightness moves for the dark ground */
-        --hypatia-tint:  #1a1a2e;
-        --hypatia-line:  #9c85d0;
-        --hypatia-quote: #c4a0e8;
-        --sash:       #3A2B52;
         --skin:       #C79A72;
         --skin-shade: #A87B57;
 
@@ -1581,13 +1591,14 @@ body[data-civ="hindu-arabic"] {
         /* Neutral, not warm: this sits on a light primary in every theme. */
         --on-primary: #121212;
 
-        --oracle-tint:  #241a0c;
-        --oracle-line:  #d2a640;
-        --oracle-quote: #f0ce7a;
-        --oracle-box:   #2a2415;
+
     }
 
     html[data-dark] body {
+        --hypatia-tint: color-mix(in srgb, var(--primary-color) 14%, var(--bg-color));
+        --sash:         color-mix(in srgb, var(--primary-color) 30%, black);
+        --oracle-tint:  color-mix(in srgb, var(--primary-color) 14%, var(--bg-color));
+        --oracle-box:   color-mix(in srgb, var(--primary-color) 11%, var(--bg-color));
         background: #1c110b;
         color: var(--text-color);
     }
