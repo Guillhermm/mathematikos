@@ -2120,11 +2120,10 @@ html[data-dark] .menu-btn-daily    .menu-btn-arrow { color: #9f8d84; }
 }
 
 .briefing-dot {
-    /* 4px dot, 24px hit area: the padding carries the target size, not the
-       dot. That clears the 24px WCAG 2.5.8 floor while the marker stays small.
-       Full 44px targets are the arrows either side, plus swipe. */
+    /* 4px dot in a 20px hit area. Moving between slides also has the 44px
+       arrows either side, plus swipe. */
     box-sizing: content-box;
-    padding: 10px;
+    padding: 8px;
     width: 4px;
     height: 4px;
     border: 0;
