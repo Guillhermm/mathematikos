@@ -6,14 +6,16 @@ function showDailyChallenge() {
     const completed  = isDailyCompleted();
     const streak     = getDailyStreak();
     const today      = getTodayKey();
-    const streakText = streak > 0
-        ? `${icon('flame')} <strong>${streak}-day streak!</strong>`
-        : 'Start your streak today!';
 
-    document.getElementById('daily-content').innerHTML = `
+    const content = document.getElementById('daily-content');
+    content.innerHTML = `
         <div class="daily-info">
-            <div class="daily-date">${formatDate(today)}</div>
-            <div class="daily-streak">${streakText}</div>
+            <div class="daily-date"></div>
+            <div class="daily-streak">
+                ${streak > 0
+                    ? `${icon('flame')}<strong class="daily-streak-text"></strong>`
+                    : '<span class="daily-streak-text"></span>'}
+            </div>
         </div>
 
         <div class="daily-civ-card">
@@ -24,27 +26,48 @@ function showDailyChallenge() {
                     <rect y="168" width="400" height="32" fill="var(--scene-ground)"/>
                 </svg>
             </div>
-            <div class="daily-civ-name">${civ.name}</div>
-            <div class="daily-civ-system">${civ.numberSystem}</div>
-            <div class="daily-civ-difficulty">${civ.difficulty}</div>
+            <div class="daily-civ-name"></div>
+            <div class="daily-civ-system"></div>
+            <div class="daily-civ-difficulty"></div>
         </div>
 
         ${completed ? `
             <div class="daily-completed-msg">
-                <p>${icon('check')} You've already completed today's challenge!</p>
-                <p>Come back tomorrow for a new civilization.</p>
+                <p>${icon('check')}<span class="daily-completed-title"></span></p>
+                <p class="daily-completed-text"></p>
             </div>
         ` : `
-            <p class="daily-description">
-                Today's challenge uses the <strong>${civ.name}</strong> number system.
-                5 questions, no time limit. Just show what you've learned!
-            </p>
+            <p class="daily-description"></p>
         `}
     `;
 
-    document.getElementById('daily-actions').innerHTML = completed
-        ? ''
-        : `<button class="btn btn-primary" onclick="startDailyChallenge()">▶ Play Today's Challenge</button>`;
+    const setText = (selector, value) => {
+        const node = content.querySelector(selector);
+        if (node) node.textContent = value;
+    };
+
+    setText('.daily-date', formatDate(today));
+    setText('.daily-streak-text', streak > 0
+        ? t('ui.daily.streak', { count: streak })
+        : t('ui.daily.startStreak'));
+    setText('.daily-civ-name', civ.name);
+    setText('.daily-civ-system', civ.numberSystem);
+    setText('.daily-civ-difficulty', t(`ui.difficulty.${civ.difficulty}`));
+
+    if (completed) {
+        setText('.daily-completed-title', t('ui.daily.completedTitle'));
+        setText('.daily-completed-text', t('ui.daily.completedText'));
+    } else {
+        setText('.daily-description', t('ui.daily.description', { civ: civ.name }));
+    }
+
+    const actions = document.getElementById('daily-actions');
+    if (completed) {
+        actions.innerHTML = '';
+    } else {
+        actions.innerHTML = '<button class="btn btn-primary" onclick="startDailyChallenge()"></button>';
+        actions.querySelector('button').textContent = t('ui.daily.play');
+    }
 
     showScreen('daily-screen');
 }
@@ -52,5 +75,9 @@ function showDailyChallenge() {
 function formatDate(isoDate) {
     const [year, month, day] = isoDate.split('-').map(Number);
     const d = new Date(year, month - 1, day);
-    return d.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    // The player's chosen language, not the browser's: someone playing the game
+    // in French should not get an English date above a French screen.
+    return d.toLocaleDateString(getLanguage(), {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+    });
 }

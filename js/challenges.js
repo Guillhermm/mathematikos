@@ -38,8 +38,10 @@ function loadNextChallenge() {
     }
 
     document.getElementById('score').textContent = gameState.score;
-    document.getElementById('challenge-number').textContent =
-        `Challenge ${gameState.currentChallenge}/${gameState.totalChallenges}`;
+    document.getElementById('challenge-number').textContent = t('ui.game.counter', {
+        current: gameState.currentChallenge,
+        total:   gameState.totalChallenges
+    });
     const fillEl = document.getElementById('progress-fill');
     if (fillEl) {
         fillEl.style.width =
@@ -56,7 +58,7 @@ function loadNextChallenge() {
     const problemDisplay = document.getElementById('problem-display');
     if (problemDisplay) problemDisplay.classList.remove('is-reverse');
     const answerSlot = document.getElementById('built-answer');
-    if (answerSlot) answerSlot.dataset.placeholder = 'Tap symbols below';
+    if (answerSlot) answerSlot.dataset.placeholder = t('ui.game.answerPlaceholder');
 
     clearAnswer();
 
@@ -118,20 +120,23 @@ function loadNextChallenge() {
 function applyReverseDisplay() {
     const problem = gameState.currentProblem;
     const civName = civilizations[gameState.currentCivilization].name;
-    document.getElementById('problem').innerHTML = `
+    const problemEl = document.getElementById('problem');
+    problemEl.innerHTML = `
         <div class="problem-numerals reverse-problem">
-            <div class="reverse-prompt">Write in ${civName} numerals</div>
+            <div class="reverse-prompt"></div>
             <div class="reverse-number">${problem.answer}</div>
         </div>
     `;
+    problemEl.querySelector('.reverse-prompt').textContent =
+        t('ui.game.reversePrompt', { civ: civName });
     // A reverse challenge is a value to transcribe, not a sum to complete, so
     // the equals sign is dropped and the slot asks for the numerals directly.
     const display = document.getElementById('problem-display');
     if (display) display.classList.add('is-reverse');
     const slot = document.getElementById('built-answer');
-    if (slot) slot.dataset.placeholder = `Build in ${civName} numerals`;
+    if (slot) slot.dataset.placeholder = t('ui.game.reverseSlot', { civ: civName });
     const answerInput = document.getElementById('answer-input');
-    if (answerInput) answerInput.placeholder = 'Build the numeral using the symbol pad above';
+    if (answerInput) answerInput.placeholder = t('ui.game.reverseInput');
     const numPad = document.getElementById('numeric-pad');
     if (numPad) numPad.classList.add('is-reverse');
 }
@@ -141,7 +146,7 @@ function submitAnswer() {
     const input    = numericInput || builtAnswer || typedRaw;
 
     if (!input) {
-        showFeedback('Please build an answer or type a number!', 'incorrect');
+        showFeedback(t('ui.feedback.empty'), 'incorrect');
         return;
     }
 
@@ -218,7 +223,7 @@ function handleCorrectAnswer() {
     const points = gameState.hintsUsed === 0 ? 150 : 100;
     gameState.score += points;
 
-    showFeedback(`Correct! +${points} points`, 'correct');
+    showFeedback(t('ui.feedback.correct', { points }), 'correct');
     playSound('correct');
     celebrateSuccess(document.getElementById('score'));
 
@@ -230,9 +235,9 @@ function handleCorrectAnswer() {
     document.getElementById('score').textContent = gameState.score;
 
     if (gameState.correctAnswers === 3) {
-        showAchievement('On a Roll!', 'Three correct answers in a row!');
+        showAchievement(t('ui.achievement.rollTitle'), t('ui.achievement.rollText'));
     } else if (gameState.correctAnswers === 5) {
-        showAchievement('Master Calculator!', 'All challenges completed!');
+        showAchievement(t('ui.achievement.masterTitle'), t('ui.achievement.masterText'));
     }
 
     setTimeout(loadNextChallenge, 1500);
@@ -244,16 +249,18 @@ function handleIncorrectAnswer() {
 
     if (gameState.mode === 'temporal') {
         gameState.timeLimit -= 10;
-        showFeedback('Incorrect. Try again! (-10s)', 'incorrect');
-        showAchievement('Time Penalty!', '-10 seconds');
+        showFeedback(t('ui.feedback.incorrectTimed'), 'incorrect');
+        showAchievement(t('ui.achievement.penaltyTitle'), t('ui.achievement.penaltyText'));
     } else if (gameState.mode === 'practice' || gameState.mode === 'daily') {
         const civ       = gameState.currentCivilization;
         const problem   = gameState.currentProblem;
         const key       = civ.replace('-', '') + 'Answer'; // e.g. hinduArabicAnswer
         const civAnswer = problem[key] !== undefined ? problem[key] : problem.answer;
-        showFeedback(`Not quite! Answer: ${problem.answer} = ${civAnswer}`, 'incorrect');
+        showFeedback(
+            t('ui.feedback.incorrectReveal', { answer: problem.answer, civAnswer }),
+            'incorrect');
     } else {
-        showFeedback('Incorrect. Try again!', 'incorrect');
+        showFeedback(t('ui.feedback.incorrect'), 'incorrect');
     }
 }
 
@@ -269,16 +276,17 @@ function endChallenge(completed) {
     const resultsContent = document.getElementById('results-content');
 
     if (completed) {
-        resultsTitle.textContent = 'Challenge Complete!';
+        resultsTitle.textContent = t('ui.results.title');
         playSound('complete');
 
         // Record daily completion and update streak
         if (gameState.mode === 'daily') {
             const streak = recordDailyComplete();
             if (streak > 1) {
-                showAchievement(`${streak}-Day Streak!`, 'Come back tomorrow to keep it going!');
+                showAchievement(t('ui.achievement.streakTitle', { count: streak }),
+                                t('ui.achievement.streakText'));
             } else {
-                showAchievement('Daily Challenge Complete!', 'Come back tomorrow for a new civilization!');
+                showAchievement(t('ui.achievement.dailyTitle'), t('ui.achievement.dailyText'));
             }
         }
 
@@ -301,34 +309,34 @@ function endChallenge(completed) {
                 const nextId = civIds[currentIdx + 1];
                 civilizations[nextId].unlocked = true;
                 setStorage(`mathematikos_${nextId}_unlocked`, 'true');
-                showAchievement('New Civilization Unlocked!',
-                    `You can now explore ${civilizations[nextId].name}!`);
+                showAchievement(t('ui.achievement.unlockedTitle'),
+                    t('ui.achievement.unlockedText', { civ: civilizations[nextId].name }));
             } else {
-                showAchievement('Master of Numbers!',
-                    'You have completed all civilizations! You are a true Guardian of Numbers!');
+                showAchievement(t('ui.achievement.allCompleteTitle'),
+                    t('ui.achievement.allCompleteText'));
             }
         }
 
         resultsContent.innerHTML = `
             <div class="final-score">${gameState.score}</div>
-            <p class="results-score-label">Total Score</p>
+            <p class="results-score-label" data-i18n="ui.results.totalScore"></p>
 
             <div class="stats">
                 <div class="stat-item">
                     <strong>${gameState.correctAnswers}</strong>
-                    <p>Correct Answers</p>
+                    <p data-i18n="ui.results.correctAnswers"></p>
                 </div>
                 <div class="stat-item">
                     <strong>${minutes}:${String(seconds).padStart(2, '0')}</strong>
-                    <p>Time Taken</p>
+                    <p data-i18n="ui.results.timeTaken"></p>
                 </div>
                 <div class="stat-item">
                     <strong>${gameState.oraclePieces.length}</strong>
-                    <p>Oracle Pieces</p>
+                    <p data-i18n="ui.results.oraclePieces"></p>
                 </div>
                 <div class="stat-item">
                     <strong>${gameState.hintsUsed}</strong>
-                    <p>Hints Used</p>
+                    <p data-i18n="ui.results.hintsUsed"></p>
                 </div>
             </div>
 
@@ -339,12 +347,20 @@ function endChallenge(completed) {
                         gameState.oraclePieces.length,
                         gameState.totalChallenges
                     )}
-                    <h3>Oracle Piece Collected!</h3>
-                    <p>You have collected a fragment of the Oracle of Numbers from the ${civilizations[gameState.currentCivilization].name}!</p>
-                    <p><em>"The wisdom of numbers transcends time..."</em></p>
+                    <h3 data-i18n="ui.results.collectedTitle"></h3>
+                    <p class="results-collected-text"></p>
+                    <p><em data-i18n="ui.results.collectedQuote"></em></p>
                 </div>
             ` : ''}
         `;
+
+        applyStaticTranslations(resultsContent);
+        const collected = resultsContent.querySelector('.results-collected-text');
+        if (collected) {
+            collected.textContent = t('ui.results.collectedText', {
+                civ: civilizations[gameState.currentCivilization].name
+            });
+        }
 
         // Show Codex button for completed non-practice runs
         const codexBtn = document.getElementById('codex-btn');
@@ -356,26 +372,28 @@ function endChallenge(completed) {
         const codexBtn = document.getElementById('codex-btn');
         if (codexBtn) codexBtn.style.display = 'none';
 
-        resultsTitle.textContent = 'Time\'s Up!';
+        resultsTitle.textContent = t('ui.results.timeUpTitle');
         resultsContent.innerHTML = `
-            <p class="results-timeout-msg">The Children of Time have destroyed the records!</p>
+            <p class="results-timeout-msg" data-i18n="ui.results.timeoutMessage"></p>
 
             <div class="final-score">${gameState.score}</div>
-            <p class="results-score-label">Score Achieved</p>
+            <p class="results-score-label" data-i18n="ui.results.scoreAchieved"></p>
 
             <div class="stats">
                 <div class="stat-item">
                     <strong>${gameState.correctAnswers}</strong>
-                    <p>Challenges Completed</p>
+                    <p data-i18n="ui.results.challengesCompleted"></p>
                 </div>
                 <div class="stat-item">
                     <strong>${gameState.currentChallenge - 1}/${gameState.totalChallenges}</strong>
-                    <p>Progress</p>
+                    <p data-i18n="ui.results.progress"></p>
                 </div>
             </div>
 
-            <p class="results-retry-msg">Don't give up! Try again to save the knowledge of ancient civilizations!</p>
+            <p class="results-retry-msg" data-i18n="ui.results.retryMessage"></p>
         `;
+
+        applyStaticTranslations(resultsContent);
     }
 
     showScreen('results');

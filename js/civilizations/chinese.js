@@ -123,20 +123,17 @@ function generateChineseProblem(difficulty) {
     const chinese1 = numberToChinese(num1);
     const chinese2 = numberToChinese(num2);
 
-    const contexts = [
-        `The merchant calculates: ${num1} bolts of silk ${operation === '+' ? 'plus' : 'minus'} ${num2} bolts of cotton in the Han Dynasty market.`,
-        `Calculate the imperial treasury: ${num1} taels of silver ${operation === '+' ? 'combined with' : 'reduced by'} ${num2} taels of gold.`,
-        `The abacus master asks: ${num1} bags of rice ${operation === '+' ? 'and' : 'minus'} ${num2} bags of wheat. What is the result?`,
-        `Festival preparations: ${num1} lanterns ${operation === '+' ? 'added to' : 'removed from'} ${num2} paper dragons. Calculate the total.`,
-        `Counting rods show: ${num1} jade pieces ${operation === '+' ? 'plus' : 'minus'} ${num2} bronze coins at the marketplace.`
-    ];
+    const context = tPick(
+        `challenge.chinese.contexts.${operation === '+' ? 'plus' : 'minus'}`,
+        { num1, num2 }
+    );
 
     return {
         num1, num2, operation, answer,
         chinese1, chinese2,
         chineseAnswer: numberToChinese(answer),
-        context: contexts[rand(0, contexts.length - 1)],
-        hint: `Chinese system! ${chinese1} = ${num1}, ${chinese2} = ${num2}. Calculate: ${num1} ${operation} ${num2} = ${answer}. 一二三=1,2,3; 十百千萬=10,100,1000,10000`
+        context,
+        hint: t('challenge.chinese.hint', { sym1: chinese1, sym2: chinese2, num1, num2, operation, answer })
     };
 }
 
@@ -145,28 +142,25 @@ function generateChineseProblem(difficulty) {
 function displayChineseChallenge() {
     const problem = gameState.currentProblem;
 
-    document.getElementById('scene-description').innerHTML = `
-        <strong>Challenge ${gameState.currentChallenge} of ${gameState.totalChallenges}</strong>
-        <p>${problem.context}</p>
-    `;
+    renderSceneDescription(problem.context);
 
     document.getElementById('number-system-info').innerHTML = `
-        <h4>Chinese Rod Numerals / Suanpan System</h4>
+        <h4>${t('guide.chinese.title')}</h4>
         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 10px;">
             <div class="guide-panel">
-                <strong>Basic Digits:</strong><br>
+                <strong>${t('guide.chinese.basicDigits')}</strong><br>
                 <span class="chinese-numeral">〇=0, 一=1, 二=2, 三=3, 四=4</span><br>
                 <span class="chinese-numeral">五=5, 六=6, 七=7, 八=8, 九=9</span>
             </div>
             <div class="guide-panel">
-                <strong>Place Values:</strong><br>
-                <span class="chinese-numeral">十</span> = 10 (ten)<br>
-                <span class="chinese-numeral">百</span> = 100 (hundred)<br>
-                <span class="chinese-numeral">千</span> = 1,000 (thousand)<br>
-                <span class="chinese-numeral">萬</span> = 10,000 (ten thousand)
+                <strong>${t('guide.chinese.placeValues')}</strong><br>
+                <span class="chinese-numeral">十</span> = 10 (${t('guide.chinese.ten')})<br>
+                <span class="chinese-numeral">百</span> = 100 (${t('guide.chinese.hundred')})<br>
+                <span class="chinese-numeral">千</span> = 1,000 (${t('guide.chinese.thousand')})<br>
+                <span class="chinese-numeral">萬</span> = 10,000 (${t('guide.chinese.tenThousand')})
             </div>
         </div>
-        <p style="font-size: 0.9rem; margin-top: 8px;">${icon('lamp')} Tip: Read from left to right. <span class="chinese-numeral">三百五十二</span> = 3×100 + 5×10 + 2 = 352</p>
+        <p style="font-size: 0.9rem; margin-top: 8px;">${icon('lamp')} ${t('guide.chinese.tip')}</p>
     `;
 
     document.getElementById('problem').innerHTML = `

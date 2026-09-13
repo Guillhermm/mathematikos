@@ -102,13 +102,37 @@ answer locks a fragment into place, so a run visibly rebuilds it.
 
 A gear on the main menu opens appearance and language. Appearance is System, Light or Dark, and the
 choice is stored, so it survives a reload and overrides the operating system. Language offers
-English, Spanish, French, German and Brazilian Portuguese; the choice is stored and applied to the
-document's `lang`, but the interface is not translated yet.
+English, Spanish, French, German and Brazilian Portuguese, and the choice applies immediately to
+every screen.
 
 Dark styling hangs off `html[data-dark]` rather than a `prefers-color-scheme` media query, because
 CSS gives a page no way to override that query. `js/ui/settings.js` owns the attribute, and an
 inline script in the document head sets it before first paint so a stored dark preference does not
 flash light.
+
+### Languages
+
+The game is fully translated into English, Spanish, French, German and Brazilian Portuguese. Every
+authored string lives in `js/locales/<tag>.js`; the code holds identifiers, numbers and runtime
+state, never sentences. That covers the interface, the stories, the word problems, the quick
+reference guides, the codex and the about page.
+
+`js/i18n.js` is the runtime. `t('ui.game.submit')` returns one string and substitutes `{named}`
+parameters; `tData` returns a list or object whole; `tPick` chooses one of a civilization's word
+problems at random and fills in the operands. Bulk content (stories, codex, timeline, civilization
+names) is bound onto the globals the rest of the game already reads, so those call sites did not
+change. Static markup carries its key on the element as `data-i18n`, with `data-i18n-title`,
+`data-i18n-label`, `data-i18n-placeholder` and `data-i18n-slot` for the attributes that hold copy.
+Everything is written with `textContent`, so authored text never becomes markup.
+
+Word problems are held as separate lists per operation rather than one sentence with a verb spliced
+in, because addition and subtraction do not share a frame in every language.
+
+Translation drift is silent by nature, so `tests/i18n.test.js` makes it loud: each catalog must
+define exactly the English key set, with no empty values, the same `{placeholders}` and the same
+deliberate nulls. It also checks the other direction, that every key the code and the markup ask for
+actually exists, and that each locale file is loaded by `index.html` and precached by the service
+worker.
 
 ### Layout
 
@@ -166,6 +190,8 @@ mathematikos/
 ├── manifest.json
 ├── sw.js                  # Service worker (PWA)
 ├── js/
+│   ├── i18n.js            # Translation runtime: t(), tData(), tPick()
+│   ├── locales/           # One catalog per language: en, es, fr, de, pt-BR
 │   ├── game.js            # Core game loop
 │   ├── state.js           # Application state
 │   ├── challenges.js      # Challenge generation
@@ -193,8 +219,7 @@ python3 -m http.server 8080
 ### Running Tests
 
 ```bash
-cd tests
-node run_tests.js
+node tests/run-tests.js
 ```
 
 ## Origin

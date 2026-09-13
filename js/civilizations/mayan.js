@@ -114,20 +114,17 @@ function generateMayanProblem(difficulty) {
     const mayan1 = numberToMayan(num1);
     const mayan2 = numberToMayan(num2);
 
-    const contexts = [
-        `The Maya astronomer calculates: ${num1} days ${operation === '+' ? 'plus' : 'minus'} ${num2} days in the sacred Tzolk'in calendar.`,
-        `Prepare offerings for Kukulcán: ${num1} cacao beans ${operation === '+' ? 'combined with' : 'reduced by'} ${num2} jade pieces.`,
-        `The scribe records the harvest: ${num1} maize cobs ${operation === '+' ? 'added to' : 'minus'} ${num2} squash from the milpa field.`,
-        `Calculate the pyramid steps: ${num1} stones ${operation === '+' ? 'plus' : 'minus'} ${num2} stones for the next level of Chichen Itza.`,
-        `The merchant counts at Tikal market: ${num1} quetzal feathers ${operation === '+' ? 'and' : 'minus'} ${num2} obsidian blades.`
-    ];
+    const context = tPick(
+        `challenge.mayan.contexts.${operation === '+' ? 'plus' : 'minus'}`,
+        { num1, num2 }
+    );
 
     return {
         num1, num2, operation, answer,
         mayan1, mayan2,
         mayanAnswer: numberToMayan(answer),
-        context: contexts[rand(0, contexts.length - 1)],
-        hint: `Maya vigesimal (base-20)! ● = 1, ━ = 5, ○ = 0. ${mayan1} = ${num1}, ${mayan2} = ${num2}. Calculate: ${num1} ${operation} ${num2} = ${answer}.`
+        context,
+        hint: t('challenge.mayan.hint', { sym1: mayan1, sym2: mayan2, num1, num2, operation, answer })
     };
 }
 
@@ -136,20 +133,17 @@ function generateMayanProblem(difficulty) {
 function displayMayanChallenge() {
     const problem = gameState.currentProblem;
 
-    document.getElementById('scene-description').innerHTML = `
-        <strong>Challenge ${gameState.currentChallenge} of ${gameState.totalChallenges}</strong>
-        <p>${problem.context}</p>
-    `;
+    renderSceneDescription(problem.context);
 
     document.getElementById('number-system-info').innerHTML = `
-        <h4>Maya Vigesimal (Base-20) System</h4>
+        <h4>${t('guide.mayan.title')}</h4>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-top: 10px; align-items: center;">
-            <div class="symbol-ref"><span class="numeral-svg mayan-ref">${mayanDigitSvg(1)}</span><span>● = 1 (dot)</span></div>
-            <div class="symbol-ref"><span class="numeral-svg mayan-ref">${mayanDigitSvg(5)}</span><span>━ = 5 (bar)</span></div>
-            <div class="symbol-ref"><span class="numeral-svg mayan-ref">${mayanDigitSvg(0)}</span><span>○ = 0 (shell)</span></div>
-            <div class="symbol-ref"><span class="numeral-svg mayan-ref">${mayanDigitSvg(19)}</span><span>max = 19</span></div>
+            <div class="symbol-ref"><span class="numeral-svg mayan-ref">${mayanDigitSvg(1)}</span><span>● = 1 (${t('guide.mayan.dot')})</span></div>
+            <div class="symbol-ref"><span class="numeral-svg mayan-ref">${mayanDigitSvg(5)}</span><span>━ = 5 (${t('guide.mayan.bar')})</span></div>
+            <div class="symbol-ref"><span class="numeral-svg mayan-ref">${mayanDigitSvg(0)}</span><span>○ = 0 (${t('guide.mayan.shell')})</span></div>
+            <div class="symbol-ref"><span class="numeral-svg mayan-ref">${mayanDigitSvg(19)}</span><span>${t('guide.mayan.max')}</span></div>
         </div>
-        <p style="font-size: 0.9rem; margin-top: 8px;">${icon('lamp')} Tip: Each position is 20× the one below it. Positions stack vertically, with the top position most significant.</p>
+        <p style="font-size: 0.9rem; margin-top: 8px;">${icon('lamp')} ${t('guide.mayan.tip')}</p>
     `;
 
     document.getElementById('problem').innerHTML = `

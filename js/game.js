@@ -78,7 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Scene artwork: one sprite the story screen's <use> elements point at
     injectIconSprite();
+    // Settings first: it resolves the stored language that the catalog binds to.
     initSettings();
+    initI18n();
     injectSceneSprite();
 
     // Restore ambient preference

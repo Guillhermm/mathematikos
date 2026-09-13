@@ -5,9 +5,11 @@
 // the story screen from running several screens tall.
 
 // The Oracle and Hypatia are fixed; a local speaker is named by the story.
-const BRIEFING_SPEAKERS = {
-    oracle:  'The Oracle of Numbers',
-    hypatia: 'Hypatia of Alexandria'
+// Their names are catalog keys because they are read aloud in every language,
+// and Hypatia's name in particular is spelled differently in each.
+const BRIEFING_SPEAKER_KEYS = {
+    oracle:  'ui.speakers.oracle',
+    hypatia: 'ui.speakers.hypatia'
 };
 
 // Identifies the artwork a slide shows. Consecutive slides with the same key
@@ -133,7 +135,8 @@ function fillBriefingText(slides) {
         const name = panel.querySelector('.briefing-name');
         const quote = panel.querySelector('.briefing-quote');
         const text = panel.querySelector('.briefing-text');
-        if (name) name.textContent = BRIEFING_SPEAKERS[slide.speaker] || slide.name || '';
+        const speakerKey = BRIEFING_SPEAKER_KEYS[slide.speaker];
+        if (name) name.textContent = speakerKey ? t(speakerKey) : (slide.name || '');
         if (quote) {
             quote.textContent = slide.quote;
             quote.hidden = !slide.quote;

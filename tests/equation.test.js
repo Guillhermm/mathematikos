@@ -67,7 +67,9 @@ describe('equation shell', () => {
     });
 
     it('gives the slot a default placeholder to fill from', () => {
-        assertTrue(/data-placeholder="[^"]+"/.test(HTML), 'no default placeholder on the slot');
+        // The attribute itself is written at runtime from the active language,
+        // so the contract the markup has to keep is the binding, not the text.
+        assertTrue(/data-i18n-slot="[^"]+"/.test(HTML), 'no placeholder binding on the slot');
     });
 });
 

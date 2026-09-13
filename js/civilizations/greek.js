@@ -65,20 +65,17 @@ function generateGreekProblem(difficulty) {
     const greek1 = numberToGreek(num1);
     const greek2 = numberToGreek(num2);
 
-    const contexts = [
-        `The architect needs to calculate the golden ratio for ${num1} columns ${operation === '+' ? 'plus' : 'minus'} ${num2} columns for the Parthenon.`,
-        `Pythagoras asks you to solve: if one side measures ${num1} units, ${operation === '+' ? 'and we add' : 'and we subtract'} ${num2} units, what is the result?`,
-        `Calculate the proportion: ${num1} marble blocks ${operation === '+' ? 'combined with' : 'reduced by'} ${num2} blocks for the temple construction.`,
-        `The philosopher's scroll shows: ${num1} students ${operation === '+' ? 'join' : 'leave'} the academy. ${operation === '+' ? 'And' : 'Leaving'} ${num2} ${operation === '+' ? 'more arrive' : 'remaining'}. Calculate the ${operation === '+' ? 'total' : 'difference'}.`,
-        `Mathematical harmony: balance the equation of ${num1} lyres ${operation === '+' ? 'and' : 'minus'} ${num2} flutes in the amphitheater.`
-    ];
+    const context = tPick(
+        `challenge.greek.contexts.${operation === '+' ? 'plus' : 'minus'}`,
+        { num1, num2 }
+    );
 
     return {
         num1, num2, operation, answer,
         greek1, greek2,
         greekAnswer: numberToGreek(answer),
-        context: contexts[rand(0, contexts.length - 1)],
-        hint: `Decode the letters: ${greek1} = ${num1}, ${greek2} = ${num2}. Then: ${num1} ${operation} ${num2} = ${answer}. Remember: each Greek letter represents a specific number!`
+        context,
+        hint: t('challenge.greek.hint', { sym1: greek1, sym2: greek2, num1, num2, operation, answer })
     };
 }
 
@@ -87,13 +84,10 @@ function generateGreekProblem(difficulty) {
 function displayGreekChallenge() {
     const problem = gameState.currentProblem;
 
-    document.getElementById('scene-description').innerHTML = `
-        <strong>Challenge ${gameState.currentChallenge} of ${gameState.totalChallenges}</strong>
-        <p>${problem.context}</p>
-    `;
+    renderSceneDescription(problem.context);
 
     document.getElementById('number-system-info').innerHTML = `
-        <h4>Greek Alphabetic Numerals</h4>
+        <h4>${t('guide.greek.title')}</h4>
         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; font-size: 0.9rem;">
             <div><strong>α</strong>=1 <strong>β</strong>=2 <strong>γ</strong>=3</div>
             <div><strong>δ</strong>=4 <strong>ε</strong>=5 <strong>ϛ</strong>=6</div>
@@ -105,7 +99,7 @@ function displayGreekChallenge() {
             <div><span class="greek-char">υ</span>=400 <span class="greek-char">φ</span>=500 <span class="greek-char">χ</span>=600</div>
             <div><span class="greek-char">ψ</span>=700 <span class="greek-char">ω</span>=800 <span class="numeral-svg ref-svg-inline">${NUMERAL_SVGS.greek['ϡ']}</span>=900</div>
         </div>
-        <p style="font-size: 0.9rem; margin-top: 8px;">${icon('lamp')} Tip: Letters are combined to form numbers. ρκγ = 100 + 20 + 3 = 123</p>
+        <p style="font-size: 0.9rem; margin-top: 8px;">${icon('lamp')} ${t('guide.greek.tip')}</p>
     `;
 
     document.getElementById('problem').innerHTML = `

@@ -1,7 +1,7 @@
 // ===== SERVICE WORKER =====
 // Cache-first strategy for offline play.
 
-const CACHE_NAME = 'mathematikos-v2.4.0';
+const CACHE_NAME = 'mathematikos-v2.5.0';
 
 const SHELL_ASSETS = [
     './',
@@ -16,6 +16,13 @@ const SHELL_ASSETS = [
     './icons/apple-touch-icon.png',
     './icons/icon-192.png',
     './icons/icon-512.png',
+    // Language
+    './js/i18n.js',
+    './js/locales/en.js',
+    './js/locales/es.js',
+    './js/locales/fr.js',
+    './js/locales/de.js',
+    './js/locales/pt-BR.js',
     // Core
     './js/state.js',
     './js/storage.js',

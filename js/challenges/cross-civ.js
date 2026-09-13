@@ -91,8 +91,8 @@ function generateCrossCivProblem() {
         chineseAnswer:        targetCivId === 'chinese'        ? targetStr : null,
         mayanAnswer:          targetCivId === 'mayan'          ? targetStr : null,
         hinduArabicAnswer:    targetCivId === 'hindu-arabic'   ? targetStr : null,
-        context: `Convert this ${sourceCivName} numeral into the ${targetCivName} system.`,
-        hint: `The value is ${value}. In ${targetCivName}: ${targetStr}`
+        context: t('ui.crossCiv.context', { source: sourceCivName, target: targetCivName }),
+        hint: t('ui.crossCiv.hint', { value, target: targetCivName, answer: targetStr })
     };
 }
 
@@ -106,30 +106,34 @@ function displayCrossCivChallenge() {
     const displayFn = CROSS_CIV_DISPLAY_HTML[sourceCivId];
     const sourceHtml = displayFn ? displayFn(problem.sourceStr) : problem.sourceStr;
 
-    document.getElementById('scene-description').innerHTML = `
-        <strong>Cross-Era Conversion Challenge</strong>
-        <p>${problem.context}</p>
-    `;
+    const sceneBox = document.getElementById('scene-description');
+    sceneBox.innerHTML = '<strong class="scene-counter"></strong><p class="scene-context"></p>';
+    sceneBox.querySelector('.scene-counter').textContent = t('ui.crossCiv.sceneTitle');
+    sceneBox.querySelector('.scene-context').textContent = problem.context;
 
-    document.getElementById('number-system-info').innerHTML = `
-        <h4>From ${sourceCivName} → To ${targetCivName}</h4>
-        <p>Use the <strong>${targetCivName}</strong> symbol pad below to write your answer.</p>
-    `;
+    const guide = document.getElementById('number-system-info');
+    guide.innerHTML = '<h4></h4><p></p>';
+    guide.querySelector('h4').textContent =
+        t('ui.crossCiv.guideTitle', { source: sourceCivName, target: targetCivName });
+    guide.querySelector('p').textContent =
+        t('ui.crossCiv.guideText', { target: targetCivName });
 
-    document.getElementById('problem').innerHTML = `
+    const problemEl = document.getElementById('problem');
+    problemEl.innerHTML = `
         <div class="problem-numerals">
-            <span class="operand-source">${sourceCivName}</span>
+            <span class="operand-source"></span>
             <span class="operand">${sourceHtml}</span>
         </div>
     `;
+    problemEl.querySelector('.operand-source').textContent = sourceCivName;
     const slot = document.getElementById('built-answer');
-    if (slot) slot.dataset.placeholder = `Build in ${targetCivName}`;
+    if (slot) slot.dataset.placeholder = t('ui.crossCiv.slot', { target: targetCivName });
 
 
     // Override the answer input placeholder
     const answerInput = document.getElementById('answer-input');
     if (answerInput) {
-        answerInput.placeholder = `Build the ${targetCivName} numeral using the symbol pad above`;
+        answerInput.placeholder = t('ui.crossCiv.input', { target: targetCivName });
     }
 }
 

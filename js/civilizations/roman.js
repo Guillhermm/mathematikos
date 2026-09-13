@@ -64,20 +64,17 @@ function generateRomanProblem(difficulty) {
     const roman1 = numberToRoman(num1);
     const roman2 = numberToRoman(num2);
 
-    const contexts = [
-        `Marcus needs to calculate the total cost of ${num1} yards of silk and ${num2} yards of linen.`,
-        `A customer wants to buy ${num1} amphorae of wine, but returns ${num2} amphorae. How many does Marcus sell?`,
-        `The stall has ${num1} loaves of bread. Marcus ${operation === '+' ? 'receives' : 'sells'} ${num2} more. How many remain?`,
-        `Calculate the ${operation === '+' ? 'sum' : 'difference'} of these transactions: ${num1} denarii and ${num2} denarii.`,
-        `Marcus counts ${num1} customers in the morning and ${num2} in the afternoon. Total customers?`
-    ];
+    const context = tPick(
+        `challenge.roman.contexts.${operation === '+' ? 'plus' : 'minus'}`,
+        { num1, num2 }
+    );
 
     return {
         num1, num2, operation, answer,
         roman1, roman2,
         romanAnswer: numberToRoman(answer),
-        context: contexts[rand(0, contexts.length - 1)],
-        hint: `Break down the numerals: ${roman1} = ${num1}, ${roman2} = ${num2}. Then calculate: ${num1} ${operation} ${num2} = ${answer}`
+        context,
+        hint: t('challenge.roman.hint', { sym1: roman1, sym2: roman2, num1, num2, operation, answer })
     };
 }
 
@@ -86,16 +83,13 @@ function generateRomanProblem(difficulty) {
 function displayRomanChallenge() {
     const problem = gameState.currentProblem;
 
-    document.getElementById('scene-description').innerHTML = `
-        <strong>Challenge ${gameState.currentChallenge} of ${gameState.totalChallenges}</strong>
-        <p>${problem.context}</p>
-    `;
+    renderSceneDescription(problem.context);
 
     document.getElementById('number-system-info').innerHTML = `
-        <h4>Roman Numerals Quick Reference</h4>
+        <h4>${t('guide.roman.title')}</h4>
         <p><strong>I</strong> = 1, <strong>V</strong> = 5, <strong>X</strong> = 10, <strong>L</strong> = 50,
         <strong>C</strong> = 100, <strong>D</strong> = 500, <strong>M</strong> = 1000</p>
-        <p style="font-size: 0.9rem; margin-top: 8px;">${icon('lamp')} Tip: When a smaller numeral comes before a larger one, subtract it (e.g., IV = 4, IX = 9)</p>
+        <p style="font-size: 0.9rem; margin-top: 8px;">${icon('lamp')} ${t('guide.roman.tip')}</p>
     `;
 
     document.getElementById('problem').innerHTML = `

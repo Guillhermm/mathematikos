@@ -7,20 +7,22 @@
 const THEME_KEY = 'mathematikos_theme';
 const LANGUAGE_KEY = 'mathematikos_language';
 
+// Labels are catalog keys: the appearance names translate, the language names
+// below deliberately do not.
 const THEME_OPTIONS = [
-    { value: 'system', label: 'System' },
-    { value: 'light',  label: 'Light' },
-    { value: 'dark',   label: 'Dark' }
+    { value: 'system', labelKey: 'ui.settings.system' },
+    { value: 'light',  labelKey: 'ui.settings.light' },
+    { value: 'dark',   labelKey: 'ui.settings.dark' }
 ];
 
 // Endonyms: a language list is one of the few places a reader may not be able
 // to read the surrounding interface, so each is named in its own language.
 const LANGUAGE_OPTIONS = [
-    { value: 'en',    label: 'English',             endonym: 'English' },
-    { value: 'es',    label: 'Spanish',             endonym: 'Español' },
-    { value: 'fr',    label: 'French',              endonym: 'Français' },
-    { value: 'de',    label: 'German',              endonym: 'Deutsch' },
-    { value: 'pt-BR', label: 'Brazilian Portuguese', endonym: 'Português (Brasil)' }
+    { value: 'en',    endonym: 'English' },
+    { value: 'es',    endonym: 'Español' },
+    { value: 'fr',    endonym: 'Français' },
+    { value: 'de',    endonym: 'Deutsch' },
+    { value: 'pt-BR', endonym: 'Português (Brasil)' }
 ];
 
 const DEFAULT_THEME = 'system';
@@ -56,6 +58,16 @@ function setLanguage(value) {
     applyLanguage();
 }
 
+// Switching language rebinds the catalog and repaints every string currently on
+// screen. Settings open from the main menu, whose markup is static, so
+// retranslating the document covers everything the player can see.
+function changeLanguage(value) {
+    if (value === getLanguage()) return;
+    setLanguage(value);
+    applyCatalog();
+    applyStaticTranslations();
+}
+
 // Resolves 'system' against the OS setting. Everything else is literal.
 function resolveDarkMode(preference, prefersDark) {
     if (preference === 'dark') return true;
@@ -78,8 +90,7 @@ function applyThemePreference() {
 }
 
 function applyLanguage() {
-    // No translations yet. Setting lang is what screen readers, hyphenation and
-    // the eventual string tables all key off, so it is worth setting now.
+    // Screen readers, hyphenation and date formatting all key off this.
     document.documentElement.lang = getLanguage();
 }
 
@@ -107,20 +118,21 @@ function renderSettings() {
     if (!content) return;
 
     content.innerHTML =
-        settingsGroupMarkup('theme', 'Appearance', THEME_OPTIONS, getThemePreference())
-        + settingsGroupMarkup('language', 'Language', LANGUAGE_OPTIONS, getLanguage())
+        settingsGroupMarkup('theme', t('ui.settings.appearance'), THEME_OPTIONS, getThemePreference())
+        + settingsGroupMarkup('language', t('ui.settings.language'), LANGUAGE_OPTIONS, getLanguage())
         + '<p class="settings-note"></p>';
 
-    // Labels go in as text, like every other authored string in the game.
+    // Labels go in as text, like every other authored string in the game. A
+    // language is named in its own language, so its endonym is used as written.
     const labels = content.querySelectorAll('.settings-option-label');
     const all = THEME_OPTIONS.concat(LANGUAGE_OPTIONS);
     labels.forEach((node, i) => {
         const option = all[i];
-        if (option) node.textContent = option.endonym || option.label;
+        if (option) node.textContent = option.endonym || t(option.labelKey);
     });
 
     const note = content.querySelector('.settings-note');
-    if (note) note.textContent = 'Translations are on the way. Choosing a language now stores your preference and will apply as soon as each one lands.';
+    if (note) note.textContent = t('ui.settings.note');
 }
 
 function openSettings() {
@@ -139,7 +151,7 @@ function handleSettingsClick(event) {
     if (!button) return;
     const { setting, value } = button.dataset;
     if (setting === 'theme') setThemePreference(value);
-    if (setting === 'language') setLanguage(value);
+    if (setting === 'language') changeLanguage(value);
     renderSettings();
 }
 

@@ -58,6 +58,12 @@ global.assertTrue = function assertTrue(value, msg) {
 global.assert = global.assertTrue;
 
 // ── Load source files (pure logic only, no DOM) ───────────────────────────────
+loadScript('js/i18n.js');                // t(), tData(), tPick(), applyCatalog()
+loadScript('js/locales/en.js');
+loadScript('js/locales/es.js');
+loadScript('js/locales/fr.js');
+loadScript('js/locales/de.js');
+loadScript('js/locales/pt-BR.js');
 loadScript('js/state.js');                    // gameState, civilizations, rand()
 loadScript('js/civilizations/roman.js');
 loadScript('js/civilizations/egyptian.js');
@@ -70,6 +76,12 @@ loadScript('js/storage.js');            // getStorage/setStorage
 loadScript('js/ui/settings.js');         // theme + language preferences
 loadScript('js/ui/scenes.js');           // scene sprite + backdrop lookup
 loadScript('js/ui/briefing.js');         // story briefing slider
+loadScript('js/codex.js');               // CODEX, bound from the catalog
+loadScript('js/ui/about.js');            // TIMELINE_ENTRIES, bound from the catalog
+loadScript('js/ui/screens.js');          // DIFFICULTY_CLASS, mission markup
+
+// Bind the default language so every suite sees the same content the game does.
+applyCatalog();
 
 // ── Test suites ───────────────────────────────────────────────────────────────
 require('./roman.test.js');
@@ -84,6 +96,7 @@ require('./briefing.test.js');
 require('./styles.test.js');
 require('./settings.test.js');
 require('./equation.test.js');
+require('./i18n.test.js');
 
 // ── Summary ───────────────────────────────────────────────────────────────────
 const total = _passed + _failed;

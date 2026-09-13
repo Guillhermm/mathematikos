@@ -54,13 +54,13 @@ const CIVILIZATION_SYMBOLS = {
         { symbol: '𒐕', label: '1' },
         { symbol: '𒌋', label: '10' },
         { symbol: '⊙', label: '0' },
-        { symbol: ' ', label: 'sep' }  // group separator for positional notation
+        { symbol: ' ', label: 'separator' }  // group separator for positional notation
     ],
     mayan: [
         { symbol: '●', label: '1' },
         { symbol: '━', label: '5' },
         { symbol: '○', label: '0' },
-        { symbol: '|', label: 'pos' }
+        { symbol: '|', label: 'position' }
     ],
     chinese: [
         { symbol: '〇', label: '0' },
@@ -100,18 +100,22 @@ function renderSymbolPad() {
     const symbols = CIVILIZATION_SYMBOLS[civ] || [];
 
     symbols.forEach(({ symbol, label }) => {
+        // Space (Babylonian) and '|' (Maya) are positional group separators, so show a visual dash.
+        const isSeparator = symbol === ' ' || symbol === '|';
+        // Digit labels are the same in every language; the two separators are words.
+        const text = isSeparator ? t(`ui.symbolPad.${label}`) : label;
+
         const button = document.createElement('div');
         button.className = 'symbol-button';
         button.setAttribute('role', 'button');
-        button.setAttribute('aria-label', label);
+        button.setAttribute('aria-label', text);
         button.onclick = () => addSymbol(symbol);
 
-        // Space (Babylonian) and '|' (Maya) are positional group separators, so show a visual dash.
-        const isSeparator = symbol === ' ' || symbol === '|';
         const iconHtml = isSeparator
             ? '<span class="sep-icon">╌</span>'
             : symbolButtonHtml(civ, symbol);
-        button.innerHTML = `${iconHtml}<span class="symbol-label">${label}</span>`;
+        button.innerHTML = `${iconHtml}<span class="symbol-label"></span>`;
+        button.querySelector('.symbol-label').textContent = text;
         pad.appendChild(button);
     });
 }

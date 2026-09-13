@@ -55,20 +55,17 @@ function generateEgyptianProblem(difficulty) {
     const egyptian1 = numberToEgyptian(num1);
     const egyptian2 = numberToEgyptian(num2);
 
-    const contexts = [
-        `The royal scribe needs to count offerings: ${num1} loaves of bread and ${num2} jars of honey for the temple.`,
-        `Calculate the number of stone blocks: ${num1} blocks ${operation === '+' ? 'plus' : 'minus'} ${num2} blocks for the pyramid construction.`,
-        `The pharaoh's treasury has ${num1} gold pieces. ${operation === '+' ? 'Add' : 'Remove'} ${num2} pieces. What remains?`,
-        `Count the papyrus scrolls in the library: ${num1} scrolls on one shelf, ${operation === '+' ? 'add' : 'subtract'} ${num2} from another.`,
-        `Calculate provisions for the banquet: ${num1} portions ${operation === '+' ? 'combined with' : 'reduced by'} ${num2} portions.`
-    ];
+    const context = tPick(
+        `challenge.egyptian.contexts.${operation === '+' ? 'plus' : 'minus'}`,
+        { num1, num2 }
+    );
 
     return {
         num1, num2, operation, answer,
         egyptian1, egyptian2,
         egyptianAnswer: numberToEgyptian(answer),
-        context: contexts[rand(0, contexts.length - 1)],
-        hint: `Count the symbols: ${egyptian1} = ${num1}, ${egyptian2} = ${num2}. Calculate: ${num1} ${operation} ${num2} = ${answer}. Each symbol represents a power of 10!`
+        context,
+        hint: t('challenge.egyptian.hint', { sym1: egyptian1, sym2: egyptian2, num1, num2, operation, answer })
     };
 }
 
@@ -77,13 +74,10 @@ function generateEgyptianProblem(difficulty) {
 function displayEgyptianChallenge() {
     const problem = gameState.currentProblem;
 
-    document.getElementById('scene-description').innerHTML = `
-        <strong>Challenge ${gameState.currentChallenge} of ${gameState.totalChallenges}</strong>
-        <p>${problem.context}</p>
-    `;
+    renderSceneDescription(problem.context);
 
     document.getElementById('number-system-info').innerHTML = `
-        <h4>Egyptian Hieroglyphic Numerals</h4>
+        <h4>${t('guide.egyptian.title')}</h4>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-top: 10px; align-items: center;">
             <div class="symbol-ref"><span class="numeral-svg ref-svg">${NUMERAL_SVGS.egyptian[1]}</span> = 1</div>
             <div class="symbol-ref"><span class="numeral-svg ref-svg">${NUMERAL_SVGS.egyptian[10]}</span> = 10</div>
@@ -92,7 +86,7 @@ function displayEgyptianChallenge() {
             <div class="symbol-ref"><span class="numeral-svg ref-svg">${NUMERAL_SVGS.egyptian[10000]}</span> = 10,000</div>
             <div class="symbol-ref"><span class="numeral-svg ref-svg">${NUMERAL_SVGS.egyptian[100000]}</span> = 100,000</div>
         </div>
-        <p style="font-size: 0.9rem; margin-top: 8px;">${icon('lamp')} Tip: Count each symbol and multiply by its value, then add them all together!</p>
+        <p style="font-size: 0.9rem; margin-top: 8px;">${icon('lamp')} ${t('guide.egyptian.tip')}</p>
     `;
 
     document.getElementById('problem').innerHTML = `

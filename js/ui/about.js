@@ -1,114 +1,101 @@
 // ===== ABOUT SCREEN =====
+// Origin story and provenance. All copy lives in js/locales/<tag>.js;
+// TIMELINE_ENTRIES is bound from there by applyCatalog().
 
-const TIMELINE_ENTRIES = [
-    {
-        date: 'Late 2024',
-        title: 'The Idea Is Born',
-        text: 'During a ChatGPT conversation titled <em>"Jogo de adição histórica"</em> (Portuguese: "Historical Addition Game"), the concept for Mathematikos takes shape: a browser game teaching ancient number systems through time-travel challenges. The name, the civilization list, and the two game modes (Thematic Scenes and Temporal Challenges) are all defined in this session.'
-    },
-    {
-        date: 'October 19, 2024',
-        title: 'Prototype Repository Created',
-        text: 'The first commit to the prototype repository is made at 22:21 (UTC-3). Eighteen minutes later, a comprehensive design document is committed and pushed the next day, covering the complete game concept, story narrative, civilizations, mechanics, and technology plan. This document is cryptographically timestamped in Git history.',
-        proof: 'Prototype first commit: <code>e78660e</code>, Oct 19, 2024, 22:21 UTC-3'
-    },
-    {
-        date: 'October 21–November 6, 2024',
-        title: 'First Prototype Built',
-        text: 'A working prototype is developed using React, TypeScript, Vite, and Phaser 3. The theme selection system, WebGL shaders per civilization, and introduction scene are implemented. Development spans 19 days across the prototype repository.'
-    },
-    {
-        date: '2025',
-        title: 'Mathematicus Board Game Released',
-        text: 'A physical board game called <em>Mathematicus</em> is released, covering Babylonian, Egyptian, Chinese, Roman, Mayan, Arabic, and binary numeral systems, a convergent concept developed independently. Mathematikos predates this release by over a year, as evidenced by the 2024 Git history. The two products are complementary, not competitive: Mathematikus is digital and free; Mathematicus is physical and paid.'
-    },
-    {
-        date: '2025',
-        title: 'Master\'s Degree in Applied Mathematics Begins',
-        text: 'Development of Mathematikos is paused to focus on academic work. The project rests, but the idea does not disappear.'
-    },
-    {
-        date: 'February 15, 2026',
-        title: 'Rebuilt as Pure HTML/CSS/JS',
-        text: 'Mathematikos is rebuilt from scratch as a zero-dependency browser game in pure HTML, CSS, and ES6 JavaScript. The goal: instant play, no build step, works offline. Roman, Egyptian, Greek, Babylonian, and Chinese civilizations are implemented in a single evening.'
-    },
-    {
-        date: 'March 23, 2026',
-        title: 'Maya Civilization &amp; Major Expansion',
-        text: 'The Maya vigesimal (base-20) system is added, along with full SVG rendering for all numeral systems, a test suite per civilization, Practice Mode, and reverse challenges (write ancient numerals from Arabic numbers). The codebase is modularized into a clean file structure.'
-    },
-    {
-        date: 'March 25, 2026',
-        title: 'Dark Mode &amp; Visual Polish',
-        text: 'Comprehensive dark mode support is added, fixing all hardcoded light colors. Inline styles are refactored to CSS classes. The game now looks great in both light and dark themes.'
-    },
-    {
-        date: 'March 25, 2026',
-        title: 'Hindu-Arabic Civilization &amp; Full Feature Expansion',
-        text: 'The seventh and final civilization is added: Hindu-Arabic numerals from 9th-century Baghdad, the origin story of the number system we use today. The Daily Challenge, Codex (civilization encyclopedia), civilization visual themes, ambient sound, cross-civilization conversion challenges, and PWA (offline play) are all shipped in a single release.'
-    }
-];
+let TIMELINE_ENTRIES = [];
 
 function showAbout() {
     const container = document.getElementById('about-content');
+    const whyItems = tData('about.whyItems') || [];
 
     container.innerHTML = `
         <div class="about-intro">
-            <p>Mathematikos is a free, open educational game created by <strong>Guilherme Almeida Zeni</strong>. This page documents the project's origin (including timestamps predating all known similar products) and the philosophy behind it.</p>
+            <p class="about-intro-text"></p>
         </div>
 
         <div class="about-creator">
-            <h3>The Creator</h3>
-            <p>Guilherme is a senior software engineer with over 10 years of experience. Mathematikos was born from a personal passion for history and mathematics, and a conviction that there is no good free browser game that teaches ancient number systems as a genuine game experience.</p>
-            <p>The game is and will remain <strong>free</strong>. If it helps you, consider supporting it voluntarily.</p>
+            <h3 class="about-creator-heading"></h3>
+            <p class="about-creator-text-1"></p>
+            <p class="about-creator-text-2"></p>
         </div>
 
         <div class="about-why">
-            <h3>Why These Civilizations?</h3>
-            <p>Each civilization was chosen for its mathematical distinctiveness and cultural significance:</p>
-            <ul>
-                <li><strong>Roman</strong>: The most familiar ancient system; a gentle entry point</li>
-                <li><strong>Egyptian</strong>: Base-10 but fully additive; visual hieroglyphs make it memorable</li>
-                <li><strong>Greek</strong>: Alphabetic numerals; a unique bridge between language and number</li>
-                <li><strong>Babylonian</strong>: Base-60, sexagesimal; the origin of our 60-second minute and 360-degree circle</li>
-                <li><strong>Chinese</strong>: Rod numerals and suanpan (abacus); a sophisticated positional system</li>
-                <li><strong>Maya</strong>: Base-20, vigesimal; one of the few independent inventions of zero</li>
-                <li><strong>Hindu-Arabic</strong>: The grand finale, the system that unified all others and became our modern numerals</li>
+            <h3 class="about-why-heading"></h3>
+            <p class="about-why-lead"></p>
+            <ul class="about-why-list">
+                ${whyItems.map(() => '<li><strong></strong><span></span></li>').join('')}
             </ul>
         </div>
 
-        <h3 class="timeline-heading">Development Timeline</h3>
+        <h3 class="timeline-heading"></h3>
         <div class="timeline">
             ${TIMELINE_ENTRIES.map((entry, i) => `
                 <div class="timeline-item ${i % 2 === 0 ? 'timeline-left' : 'timeline-right'}">
                     <div class="timeline-dot">${i + 1}</div>
                     <div class="timeline-card">
-                        <div class="timeline-date">${entry.date}</div>
-                        <h4 class="timeline-title">${entry.title}</h4>
-                        <p class="timeline-text">${entry.text}</p>
-                        ${entry.proof ? `<div class="timeline-proof">${entry.proof}</div>` : ''}
+                        <div class="timeline-date"></div>
+                        <h4 class="timeline-title"></h4>
+                        <p class="timeline-text"></p>
+                        ${entry.proof ? '<div class="timeline-proof"></div>' : ''}
                     </div>
                 </div>
             `).join('')}
         </div>
 
         <div class="about-screenshots">
-            <h3>Evidence &amp; Provenance</h3>
-            <p>The original 2024 ChatGPT conversation and the mathematikos prototype repository commit history document independent origin. The prototype repository has since been archived.</p>
+            <h3 class="about-evidence-heading"></h3>
+            <p class="about-evidence-text"></p>
             <figure class="screenshot-figure">
                 <img src="screenshots/screenshot-chatgpt-2024-october.png"
-                     alt="ChatGPT conversation titled 'Jogo de adição histórica', October 2024"
-                     class="screenshot-img">
-                <figcaption>ChatGPT conversation, <em>"Jogo de adição histórica"</em>, October 2024</figcaption>
+                     class="screenshot-img evidence-img-1">
+                <figcaption class="evidence-caption-1"></figcaption>
             </figure>
             <figure class="screenshot-figure">
                 <img src="screenshots/screenshot-github-mathematikos-proto-readme-history.png"
-                     alt="Prototype repository showing first commit on October 19, 2024"
-                     class="screenshot-img">
-                <figcaption>Prototype repository, first commit October 19, 2024</figcaption>
+                     class="screenshot-img evidence-img-2">
+                <figcaption class="evidence-caption-2"></figcaption>
             </figure>
         </div>
     `;
+
+    const setText = (selector, value) => {
+        const node = container.querySelector(selector);
+        if (node) node.textContent = value;
+    };
+
+    setText('.about-intro-text',      t('about.intro'));
+    setText('.about-creator-heading', t('about.creatorHeading'));
+    setText('.about-creator-text-1',  t('about.creatorText1'));
+    setText('.about-creator-text-2',  t('about.creatorText2'));
+    setText('.about-why-heading',     t('about.whyHeading'));
+    setText('.about-why-lead',        t('about.whyLead'));
+    setText('.timeline-heading',      t('about.timelineHeading'));
+    setText('.about-evidence-heading', t('about.evidenceHeading'));
+    setText('.about-evidence-text',   t('about.evidenceText'));
+    setText('.evidence-caption-1',    t('about.evidenceCaption1'));
+    setText('.evidence-caption-2',    t('about.evidenceCaption2'));
+
+    const img1 = container.querySelector('.evidence-img-1');
+    if (img1) img1.alt = t('about.evidenceAlt1');
+    const img2 = container.querySelector('.evidence-img-2');
+    if (img2) img2.alt = t('about.evidenceAlt2');
+
+    container.querySelectorAll('.about-why-list li').forEach((node, i) => {
+        const item = whyItems[i];
+        if (!item) return;
+        node.querySelector('strong').textContent = `${item.name}: `;
+        node.querySelector('span').textContent = item.text;
+    });
+
+    container.querySelectorAll('.timeline-item').forEach((node, i) => {
+        const entry = TIMELINE_ENTRIES[i];
+        if (!entry) return;
+        node.querySelector('.timeline-date').textContent = entry.date;
+        node.querySelector('.timeline-title').textContent = entry.title;
+        node.querySelector('.timeline-text').textContent = entry.text;
+        const proof = node.querySelector('.timeline-proof');
+        if (proof) proof.textContent = entry.proof;
+    });
 
     showScreen('about-screen');
 }

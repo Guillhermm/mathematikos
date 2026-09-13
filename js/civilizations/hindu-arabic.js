@@ -56,33 +56,27 @@ function generateHinduArabicProblem(difficulty) {
     const ha1     = numberToHinduArabic(num1);
     const ha2     = numberToHinduArabic(num2);
 
-    const contexts = [
-        `Al-Khwarizmi records two measurements from the observatory: ${num1} and ${num2}. What is their ${operation === '+' ? 'sum' : 'difference'}?`,
-        `A merchant in the Baghdad bazaar has ${num1} dirhams and ${operation === '+' ? 'receives' : 'spends'} ${num2} more. How many remain?`,
-        `The House of Wisdom catalogs ${num1} Greek manuscripts and ${num2} Persian scrolls. ${operation === '+' ? 'How many in total?' : 'How many more Greek manuscripts are there?'}`,
-        `An astronomer calculates ${num1} degrees for one arc and ${num2} for another. What is the ${operation === '+' ? 'total arc' : 'difference'}?`,
-        `A translator completes ${num1} pages in the morning and ${num2} in the evening. What is the ${operation === '+' ? 'daily total' : 'difference'}?`
-    ];
+    const context = tPick(
+        `challenge.hindu-arabic.contexts.${operation === '+' ? 'plus' : 'minus'}`,
+        { num1, num2 }
+    );
 
     return {
         num1, num2, operation, answer,
         ha1, ha2,
         hinduArabicAnswer: numberToHinduArabic(answer),
-        context: contexts[rand(0, contexts.length - 1)],
-        hint: `These are Eastern Arabic-Indic numerals: ${ha1} = ${num1}, ${ha2} = ${num2}. Calculate: ${num1} ${operation} ${num2} = ${answer} → ${numberToHinduArabic(answer)}`
+        context,
+        hint: t('challenge.hindu-arabic.hint', { sym1: ha1, sym2: ha2, num1, num2, operation, answer, answerNumeral: numberToHinduArabic(answer) })
     };
 }
 
 function displayHinduArabicChallenge() {
     const problem = gameState.currentProblem;
 
-    document.getElementById('scene-description').innerHTML = `
-        <strong>Challenge ${gameState.currentChallenge} of ${gameState.totalChallenges}</strong>
-        <p>${problem.context}</p>
-    `;
+    renderSceneDescription(problem.context);
 
     document.getElementById('number-system-info').innerHTML = `
-        <h4>Hindu-Arabic Numerals Quick Reference</h4>
+        <h4>${t('guide.hindu-arabic.title')}</h4>
         <p>
             <span class="hindu-arabic-numeral">٠</span>=0 &nbsp;
             <span class="hindu-arabic-numeral">١</span>=1 &nbsp;
@@ -95,7 +89,7 @@ function displayHinduArabicChallenge() {
             <span class="hindu-arabic-numeral">٨</span>=8 &nbsp;
             <span class="hindu-arabic-numeral">٩</span>=9
         </p>
-        <p style="margin-top:8px; font-size:0.9rem;">${icon('lamp')} This positional system, with a true zero, is the ancestor of the numbers we use today.</p>
+        <p style="margin-top:8px; font-size:0.9rem;">${icon('lamp')} ${t('guide.hindu-arabic.tip')}</p>
     `;
 
     document.getElementById('problem').innerHTML = `

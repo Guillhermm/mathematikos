@@ -67,20 +67,17 @@ function generateBabylonianProblem(difficulty) {
     const babylonian1 = numberToBabylonian(num1);
     const babylonian2 = numberToBabylonian(num2);
 
-    const contexts = [
-        `The royal engineer calculates water distribution: ${num1} measures ${operation === '+' ? 'plus' : 'minus'} ${num2} measures for the irrigation canals.`,
-        `Calculate the resources for the Hanging Gardens: ${num1} palm trees ${operation === '+' ? 'combined with' : 'reduced by'} ${num2} cedar trees.`,
-        `The astronomer's calculation: ${num1} celestial observations ${operation === '+' ? 'and' : 'minus'} ${num2} star positions. Compute the result.`,
-        `Water allocation for agriculture: ${num1} units ${operation === '+' ? 'added to' : 'removed from'} ${num2} units for the fields.`,
-        `Temple construction needs: ${num1} clay bricks ${operation === '+' ? 'plus' : 'minus'} ${num2} stone blocks. Calculate the total.`
-    ];
+    const context = tPick(
+        `challenge.babylonian.contexts.${operation === '+' ? 'plus' : 'minus'}`,
+        { num1, num2 }
+    );
 
     return {
         num1, num2, operation, answer,
         babylonian1, babylonian2,
         babylonianAnswer: numberToBabylonian(answer),
-        context: contexts[rand(0, contexts.length - 1)],
-        hint: `Base-60 system! Each position is 60× the previous. ${babylonian1} = ${num1}, ${babylonian2} = ${num2}. Calculate: ${num1} ${operation} ${num2} = ${answer}. 𒐕=1, 𒌋=10`
+        context,
+        hint: t('challenge.babylonian.hint', { sym1: babylonian1, sym2: babylonian2, num1, num2, operation, answer })
     };
 }
 
@@ -89,24 +86,21 @@ function generateBabylonianProblem(difficulty) {
 function displayBabylonianChallenge() {
     const problem = gameState.currentProblem;
 
-    document.getElementById('scene-description').innerHTML = `
-        <strong>Challenge ${gameState.currentChallenge} of ${gameState.totalChallenges}</strong>
-        <p>${problem.context}</p>
-    `;
+    renderSceneDescription(problem.context);
 
     document.getElementById('number-system-info').innerHTML = `
-        <h4>Babylonian Sexagesimal (Base-60) System</h4>
+        <h4>${t('guide.babylonian.title')}</h4>
         <div class="guide-panel" style="margin-top: 10px;">
-            <p><strong>Symbols:</strong></p>
+            <p><strong>${t('guide.babylonian.symbols')}</strong></p>
             <div style="margin: 12px 0; display: flex; flex-direction: column; gap: 8px;">
-                <div class="symbol-ref"><span class="numeral-svg ref-svg">${NUMERAL_SVGS.babylonian[1]}</span> = 1 (vertical wedge)</div>
-                <div class="symbol-ref"><span class="numeral-svg ref-svg">${NUMERAL_SVGS.babylonian[10]}</span> = 10 (horizontal wedge)</div>
-                <div class="symbol-ref"><span class="numeral-svg ref-svg">${NUMERAL_SVGS.babylonian[0]}</span> = 0 or empty position</div>
+                <div class="symbol-ref"><span class="numeral-svg ref-svg">${NUMERAL_SVGS.babylonian[1]}</span> = ${t('guide.babylonian.wedgeOne')}</div>
+                <div class="symbol-ref"><span class="numeral-svg ref-svg">${NUMERAL_SVGS.babylonian[10]}</span> = ${t('guide.babylonian.wedgeTen')}</div>
+                <div class="symbol-ref"><span class="numeral-svg ref-svg">${NUMERAL_SVGS.babylonian[0]}</span> = ${t('guide.babylonian.wedgeZero')}</div>
             </div>
-            <p style="margin-top: 10px;"><strong>How it works:</strong> Numbers are written in positions. Each position to the left is worth 60× more (like our base-10, but base-60!).</p>
-            <p style="font-size: 0.9rem; margin-top: 8px;">Example: <span class="numeral-svg ref-svg-inline">${NUMERAL_SVGS.babylonian[1]}</span> <span class="numeral-svg ref-svg-inline">${NUMERAL_SVGS.babylonian[10]}</span><span class="numeral-svg ref-svg-inline">${NUMERAL_SVGS.babylonian[10]}</span> = (1 × 60) + 20 = 80</p>
+            <p style="margin-top: 10px;"><strong>${t('guide.babylonian.howItWorks')}</strong> ${t('guide.babylonian.howItWorksText')}</p>
+            <p style="font-size: 0.9rem; margin-top: 8px;">${t('guide.babylonian.example')} <span class="numeral-svg ref-svg-inline">${NUMERAL_SVGS.babylonian[1]}</span> <span class="numeral-svg ref-svg-inline">${NUMERAL_SVGS.babylonian[10]}</span><span class="numeral-svg ref-svg-inline">${NUMERAL_SVGS.babylonian[10]}</span> = (1 × 60) + 20 = 80</p>
         </div>
-        <p style="font-size: 0.9rem; margin-top: 8px;">${icon('lamp')} Tip: Count the wedges in each position, then multiply by powers of 60!</p>
+        <p style="font-size: 0.9rem; margin-top: 8px;">${icon('lamp')} ${t('guide.babylonian.tip')}</p>
     `;
 
     document.getElementById('problem').innerHTML = `
