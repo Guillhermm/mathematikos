@@ -93,6 +93,7 @@ require('./mayan.test.js');
 require('./hindu-arabic.test.js');
 require('./scenes.test.js');
 require('./briefing.test.js');
+require('./og-image.test.js');
 require('./styles.test.js');
 require('./settings.test.js');
 require('./equation.test.js');

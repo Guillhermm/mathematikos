@@ -1,0 +1,38 @@
+<!-- Link-preview card. Source for og-image.png (1200x630): LinkedIn and most
+     crawlers ignore SVG, so the PNG is what index.html points at. Colors are the
+     dark theme in styles.css; the monogram is icons/icon.svg, scaled. Rasterize
+     with any SVG renderer that has Georgia and Helvetica Neue installed. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="bg1" cx="40%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#4a2c0a"/>
+      <stop offset="100%" stop-color="#1a0d02"/>
+    </radialGradient>
+    <radialGradient id="gold1" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#f5d080"/>
+      <stop offset="100%" stop-color="#b8860b"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="#1c110b"/>
+  <rect x="0" y="0" width="1200" height="8" fill="#f6be3b"/>
+
+  <!-- monogram, as in icons/icon.svg -->
+  <g transform="translate(80 150) scale(0.5)">
+    <circle cx="256" cy="256" r="256" fill="url(#bg1)"/>
+    <circle cx="256" cy="256" r="220" fill="none" stroke="#c8a040" stroke-width="3" opacity="0.4"/>
+    <path d="M 98 370 L 98 142 L 256 290 L 414 142 L 414 370
+             L 368 370 L 368 222 L 256 342 L 144 222 L 144 370 Z" fill="url(#gold1)"/>
+    <circle cx="98" cy="130" r="8" fill="#c8a040" opacity="0.6"/>
+    <circle cx="414" cy="130" r="8" fill="#c8a040" opacity="0.6"/>
+  </g>
+
+  <text x="400" y="262" font-family="Georgia, 'Times New Roman', serif" font-size="92" font-weight="700" fill="#ffb68c">Mathematikos</text>
+  <text x="404" y="322" font-family="Georgia, 'Times New Roman', serif" font-size="34" font-style="italic" fill="#d7c2b8">Journey Through Ancient Number Systems</text>
+
+  <line x1="80" y1="448" x2="1120" y2="448" stroke="#342720" stroke-width="2"/>
+  <text x="80" y="498" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="25" fill="#f6be3b" letter-spacing="1">Roman · Egyptian · Greek · Babylonian · Chinese · Mayan · Hindu-Arabic</text>
+
+  <text x="80" y="566" font-family="Menlo, monospace" font-size="22" fill="#9f8d84">guillhermm.github.io/mathematikos</text>
+  <text x="1120" y="566" text-anchor="end" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="22" fill="#9f8d84">Free · Playable offline</text>
+</svg>

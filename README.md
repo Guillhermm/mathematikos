@@ -178,7 +178,7 @@ Ambient audio per civilization. Each historical setting has its own soundscape.
 
 - Pure HTML, CSS, and ES6 JavaScript, with no build step and no dependencies.
 - Progressive Web App (PWA): installable, offline-capable via service worker.
-- 719 automated tests covering the conversion functions, the scene system, the briefing slider, and a style contract that guards the artwork's CSS.
+- 767 automated tests covering the conversion functions, the scene system, the briefing slider, a style contract that guards the artwork's CSS, and the link-preview tags.
 - CI/CD via GitHub Actions: tests run on every push, deploy to GitHub Pages on version tags.
 
 ## Project Structure
@@ -205,7 +205,7 @@ mathematikos/
 │   └── ui/                # Screens, briefing, scenes, icons, settings, timer, symbol-pad, feedback
 ├── tests/                 # Test suite
 ├── screenshots/           # Provenance screenshots
-└── icons/                 # PWA icons (SVG, PNG, favicon)
+└── icons/                 # PWA icons (SVG, PNG, favicon) and og-image.png, the link-preview card rendered from og-image.svg
 ```
 
 ## Development
